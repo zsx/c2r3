@@ -753,30 +753,6 @@ write-output: func [
 			]
 		]
 	]
-
-	foreach s global-structs/structs [
-		unless zero? length? s/fields [ ;ex: typedef struct a *pa;
-			either function? get 'struct-filter [
-				if struct-filter s/name [
-					write/append dest rejoin [write-a-rebol-struct s 1 "^/"]
-					export-struct s
-				]
-			][
-				write/append dest rejoin [write-a-rebol-struct s 1 "^/"]
-				export-struct s
-			]
-		]
-	]
-
-	either function? :function-filter [
-		foreach f global-functions [
-			if function-filter f/name [
-				append func-to-expose f
-			]
-		]
-	][
-		func-to-expose: global-functions	
-	]
 	
 	write-a-complete-struct: func [
 		s [object!]
@@ -797,6 +773,30 @@ write-output: func [
 		]
 		write/append dest rejoin [write-a-rebol-struct s 1 "^/"]
 		export-struct s
+	]
+
+	foreach s global-structs/structs [
+		unless zero? length? s/fields [ ;ex: typedef struct a *pa;
+			either function? get 'struct-filter [
+				if struct-filter s/name [
+					write-a-complete-struct s ;its dependency might not pass the filter
+				]
+			][
+				;its dependency must have been written, guranteed by C
+				write/append dest rejoin [write-a-rebol-struct s 1 "^/"]
+				export-struct s
+			]
+		]
+	]
+
+	either function? :function-filter [
+		foreach f global-functions [
+			if function-filter f/name [
+				append func-to-expose f
+			]
+		]
+	][
+		func-to-expose: global-functions	
 	]
 
 	; write all structs required by func
