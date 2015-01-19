@@ -49,18 +49,21 @@ c-field: make object! [
 	type: 0
 	dimension: 1
 	typedef: none
+	is-struct?: false
 ]
 
 c-arg-class: make object! [
 	name:
 	type: none
+	is-struct?: false ;is c struct
 ]
 
 c-func-class: make object! [
 	name: none
 	args: copy []
 	variadic?: false
-	return-type:
+	return-type: none
+	return-struct?: false
 	abi: none
 ]
 
@@ -69,9 +72,9 @@ global-functions: make block! 16
 c-2-reb-type: func [
 	type [struct!]
 	orig-type [struct! none!]
-	/local type-name type-name-reb
+	/local ret type-name type-name-reb struct?
 ][
-	switch/default type/kind compose [
+	ret: switch/default type/kind compose [
 		(clang/enum clang/CXTypeKinds 'CXType_Void) [
 			"void"
 		]
@@ -136,6 +139,7 @@ c-2-reb-type: func [
 			"pointer"
 		]
 		(clang/enum clang/CXTypeKinds 'CXType_Record) [
+			struct?: true
 			either none? orig-type [
 				type-name: clang/getTypeSpelling type
 			][
@@ -147,9 +151,9 @@ c-2-reb-type: func [
 			]
 			clang/disposeString type-name
 			either empty? type-name-reb [
-				rejoin [("FIXME: empty type-name")]
+				rejoin ["(FIXME: empty type-name)"]
 			][
-				rejoin ["(" type-name-reb ")"]
+				type-name-reb
 			]
 		]
 		;CXType_UInt128  12
@@ -165,6 +169,7 @@ c-2-reb-type: func [
 			rejoin ["FIXME:" type/kind ", " type-name-reb]
 		]
 	]
+	reduce [ret to logic! struct?]
 ]
 
 mk-cb: func [
@@ -213,7 +218,7 @@ print-diagnostics: function [
 	]
 ]
 
-write-a-rebol-arg-type: func [
+c-2-rebol-arg-type: func [
 	type [struct!]
 	/local orig-type type-name type-name-reb
 ][
@@ -237,13 +242,21 @@ write-a-rebol-arg: func [
 	rejoin [
 		ind
 		either empty? c-arg/name [join "arg" 1 + idx][c-arg/name]
-		" [" c-arg/type "]^/"
+		" ["
+		either c-arg/is-struct? [
+			rejoin ["(" c-arg/type ")"]
+		][
+			c-arg/type
+		]
+		"]^/"
 	]
 ]
 
 write-a-rebol-func-calling-conv: func [
 	abi [integer!]
 ][
+	;CXCallingConv_Default = 0,
+	;CXCallingConv_C = 1,
 	;CXCallingConv_X86StdCall = 2,
 	;CXCallingConv_X86FastCall = 3,
 	;CXCallingConv_X86ThisCall = 4,
@@ -254,20 +267,21 @@ write-a-rebol-func-calling-conv: func [
 	;CXCallingConv_IntelOclBicc = 9,
 	;CXCallingConv_X86_64Win64 = 10,
 	;CXCallingConv_X86_64SysV = 11,
-	any [
+	any compose [
 		pick [
+			"default"	;0
 			"default"	;1
 			"stdcall"	;2
 			"fastcall"	;3
 			"thiscall"	;4
-			"FIXME"	; AAPCS 5
-			"FIXME"	; AAPCS_VFP 6
+			"stdcall"	;Pascal 5
+			"FIXME"	;AAPCS 6
 			"FIXME" ;"aapcs-vfp"	;7
 			"FIXME" ;"pnaclcall"	;8
 			"FIXME" ;"inteloclbicc"	;9
 			"win64"	;10
 			"sysv"	;11
-		] abi
+		] (abi + 1)
 		"FIXME"
 	]
 ]
@@ -312,7 +326,7 @@ write-a-rebol-func: func [
 	]
 
 	loop 1 + indent [append ret "^-"]
-	append ret rejoin ["return: [" c-func/return-type "]^/"]
+	append ret rejoin ["return: [" write-a-c-type reduce [c-func/return-type c-func/return-struct?] "]^/"]
 
 	loop 1 + indent [append ret "^-"]
 	append ret rejoin [
@@ -321,6 +335,17 @@ write-a-rebol-func: func [
 
 	loop indent [append ret "^-"]
 	append ret rejoin ["] (" to string! lib ") ^"" extern-name "^"]^/"]
+]
+
+write-a-c-type: func [
+	"Add parenthesis to the type name if it's a struct"
+	block [block!] "return value from c-2-reb-type"
+][
+	either second block [
+		rejoin ["(" first block ")"]
+	][
+		first block
+	]
 ]
 
 write-a-rebol-field: func [
@@ -351,10 +376,10 @@ write-a-rebol-field: func [
 			;print ["field" mold c-field]
 			case [
 				string? c-field/type [
-					rejoin [ind c-field/type]
+					rejoin [ind write-a-c-type reduce [c-field/type c-field/is-struct?]]
 				]
 				struct? c-field/type [
-					rejoin [ind c-2-reb-type c-field/type none]
+					rejoin [ind write-a-c-type (c-2-reb-type c-field/type none)]
 				]
 				object? c-field/type [
 					either c-field/type/global [
@@ -460,6 +485,7 @@ struct-visitor-fields: mk-cb compose/deep [
 		; 1. a typedef'ed struct
 		; 2. a nested struct
 		; 3. other atomic type
+		;print ["type/kind:" type/kind]
 		either any [
 			type/kind = clang/enum clang/CXTypeKinds 'CXType_Unexposed
 			type/kind = clang/enum clang/CXTypeKinds 'CXType_Record
@@ -469,6 +495,7 @@ struct-visitor-fields: mk-cb compose/deep [
 			decl-cursor-name: clang/getCursorSpelling decl-cursor
 			;print ["decl-cursor-name:" stringfy clang/getCString decl-cursor-name]
 			clang/disposeString decl-cursor-name
+			;print ["decl-cursor-kind:" decl-cursor-kind]
 
 			switch/default decl-cursor-kind compose [
 				(clang/enum clang/CXCursorKinds 'CXCursor_EnumDecl) [
@@ -494,6 +521,7 @@ struct-visitor-fields: mk-cb compose/deep [
 					]
 					clang/visitChildren decl-cursor addr-of struct-visitor-fields addr-of nested-struct
 					field/type: nested-struct/v
+					field/is-struct?: true
 					unless any [
 						none? orig-type
 						orig-type/kind != clang/enum clang/CXTypeKinds 'CXType_Typedef
@@ -505,13 +533,20 @@ struct-visitor-fields: mk-cb compose/deep [
 						]
 						clang/disposeString orig-type-name
 					]
-				][
-					field/type: c-2-reb-type type orig-type
+				]
+				'else [
+					t: c-2-reb-type type orig-type
+					field/type: first t
+					field/is-struct?: second t
 				]
 			][
 				print ["Unexpected cursor-kind" decl-cursor-kind ", expecting structdecl"]
 				return clang/enum clang/CXChildVisitResults 'CXChildVisit_Continue
 			]
+		][
+			t: c-2-reb-type type orig-type
+			field/type: first t
+			field/is-struct?: second t
 		]
 		field/dimension: dim
 		;write/append OUTPUT rejoin [c-2-reb-type elem-type " [" clang/getNumElements type "] " field-name-reb "^/"]
@@ -550,12 +585,14 @@ cursor-visitor: mk-cb compose/deep [
 			rtype-name: clang/getTypeSpelling rtype
 			rtype-name-reb: stringfy clang/getCString rtype-name
 			clang/disposeString rtype-name
+			rtype: c-2-rebol-arg-type rtype
 			;print ["rtype:" rtype-name-reb]
 			;print ["rtype:" mold rtype]
 
 			c-func: make c-func-class reduce/no-set [
 				name: func-name-reb
-				return-type: write-a-rebol-arg-type rtype
+				return-type: first rtype
+				return-struct?: second rtype
 				variadic?: not zero? clang/isFunctionTypeVariadic func-type
 				abi: clang/getFunctionTypeCallingConv func-type
 			]
@@ -566,9 +603,11 @@ cursor-visitor: mk-cb compose/deep [
 				arg: clang/Cursor_getArgument cursor i
 				arg-name: clang/getCursorSpelling arg
 				;print ["type" mold type]
+				arg-type: c-2-rebol-arg-type clang/getCursorType arg
 				c-arg: make c-arg-class [
 					name: stringfy clang/getCString arg-name
-					type: write-a-rebol-arg-type clang/getCursorType arg
+					type: first arg-type
+					is-struct?: second arg-type
 				]
 				append c-func/args c-arg
 				;type-name: clang/getTypeSpelling c-arg/type
@@ -644,48 +683,6 @@ cursor-visitor: mk-cb compose/deep [
 				]
 			]
 			return clang/enum clang/CXChildVisitResults 'CXChildVisit_Continue
-			;print ["num of fields:" n/i]
-			max-name-len: make struct! compose/deep [
-				int32 i: 0
-			]
-			clang/visitChildren cursor addr-of struct-visitor-max-name-len addr-of max-name-len
-
-			print ["max length of field names:" max-name-len/i]
-			
-			name-struct: make struct! compose/deep [
-				struct! [
-					uint32 offset: 0
-					uint32 size: 0
-					uint32 align: 0
-					uint32 type: 0
-					uint8 [(1 + max-name-len/i)] name
-				] [(n/i)] fields
-			]
-			return clang/enum clang/CXChildVisitResults 'CXChildVisit_Continue
-
-			clang/visitChildren cursor addr-of struct-visitor-fields addr-of addr-of name-struct
-
-			parent-kind: clang/getCursorKind parent
-			print ["parent-kind:" parent-kind]
-			if parent-kind = target-kind: clang/enum clang/CXCursorKinds 'CXCursor_TypedefDecl [
-				typedef-name: clang/getCursorSpelling parent
-				typedef-name-reb: stringfy clang/getCString typedef-name
-				print ["typedef-name-reb:" typedef-name-reb]
-				clang/disposeString typedef-name
-			]
-			if all [empty? struct-name-reb empty? typedef-name-reb] [;anonymous struct without typedef, ignoring
-				return clang/enum clang/CXChildVisitResults 'CXChildVisit_Continue
-			]
-			unless empty? struct-name-reb [
-				write/append OUTPUT join struct-name-reb ": "
-			]
-			unless empty? typedef-name-reb [
-				write/append OUTPUT join typedef-name-reb ": "
-			]
-			write/append OUTPUT rejoin["make struct! compose/deep [^/"]
-			clang/visitChildren cursor addr-of struct-visitor 0
-			write/append OUTPUT ["]^/"]
-			return clang/enum clang/CXChildVisitResults 'CXChildVisit_Continue
 		]
 		'else [
 			;name: clang/getCursorSpelling cursor
@@ -697,7 +694,7 @@ cursor-visitor: mk-cb compose/deep [
 	]
 ]
 
-main: function [
+compile: function [
 	argc [integer!]
 	argv [integer!]
 ][
@@ -718,20 +715,30 @@ main: function [
 
 	print-diagnostics translationUnit
 
-	write OUTPUT ""
 	root-cursor: clang/getTranslationUnitCursor translationUnit
 
 	clang/visitChildren root-cursor addr-of cursor-visitor 0
 	clang/disposeTranslationUnit translationUnit
 	clang/disposeIndex index
-	comment [
-		print ["Structs:"]
-		foreach s global-structs/structs [
-			probe s
-		]
-		print ["structs hash!"]
-		foreach [key val] global-structs/hash [
-			print ["key:" key "val:" val]
+]
+
+write-output: func [
+	dest [file!]
+	/local written-structs s a func-to-expose f write-a-complete-struct
+][
+	write dest ""
+
+	written-structs: make map! 32
+	func-to-expose: make block! 16
+
+	export-struct: func [
+		s [object!]
+	][
+	  	unless found? select written-structs s/name [
+			append written-structs reduce [s/name true]
+			foreach a s/aliases [
+				append written-structs reduce [a true]
+			]
 		]
 	]
 
@@ -739,26 +746,75 @@ main: function [
 		unless zero? length? s/fields [ ;ex: typedef struct a *pa;
 			either function? get 'struct-filter [
 				if struct-filter s/name [
-					write/append OUTPUT rejoin [write-a-rebol-struct s 1 "^/"]
+					write/append dest rejoin [write-a-rebol-struct s 1 "^/"]
+					export-struct s
 				]
 			][
-				write/append OUTPUT rejoin [write-a-rebol-struct s 1 "^/"]
+				write/append dest rejoin [write-a-rebol-struct s 1 "^/"]
+				export-struct s
 			]
 		]
 	]
 
-	write/append OUTPUT rejoin ["clang: make library! %libclang.so^/"]
-
-	foreach f global-functions [
-		;print ["functions:" mold f]
-		;write/append OUTPUT join mold f "^/"
-		either function? :function-filter [
+	either function? :function-filter [
+		foreach f global-functions [
 			if function-filter f/name [
-				write/append OUTPUT rejoin [write-a-rebol-func f "clang" (get 'function-ns) 1 "^/"]
+				append func-to-expose f
 			]
-		][
-			write/append OUTPUT rejoin [write-a-rebol-func f "clang" (get 'function-ns) 1 "^/"]
 		]
+	][
+		func-to-expose: global-functions	
+	]
+	
+	write-a-complete-struct: func [
+		s [object!]
+		/local f ns
+	][
+		;print ["writing a complete struct:" mold s]
+		foreach f s/fields [
+			if all [
+				f/is-struct?
+				object? f/type
+				f/type/global
+				not found? select written-structs any [f/type/name f/typedef]
+			][
+				;print ["trying to find struct for:" mold f]
+				ns: pick global-structs/structs (select global-structs/hash any [f/type/name f/typedef])
+				write-a-complete-struct ns
+			]
+		]
+		write/append dest rejoin [write-a-rebol-struct s 1 "^/"]
+		export-struct s
+	]
+
+	; write all structs required by func
+	foreach f func-to-expose [
+		foreach a f/args [
+			if all [
+				a/is-struct?
+				not found? select written-structs a/type
+			][
+				;write the struct and its dependency
+				s: pick global-structs/structs (select global-structs/hash a/type)
+				write-a-complete-struct s
+			]
+		]
+		if all [
+			f/return-struct?
+			not found? select written-structs f/return-type
+		][
+			s: pick global-structs/structs (select global-structs/hash f/return-type)
+			write-a-complete-struct s
+		]
+	]
+
+	;print ["exported structs:" mold written-structs]
+
+	write/append dest rejoin ["^-clang: make library! %libclang.so^/"]
+
+	foreach f func-to-expose [
+		;print ["f:" mold f]
+		write/append dest rejoin [write-a-rebol-func f "clang" (get 'function-ns) 1 "^/"]
 	]
 ]
 
