@@ -17,11 +17,7 @@ make object! [
 	CXVisitor: 'pointer
 
 	;enums
-	CXChildVisitResult: 
-	CXCursorKind:
-	CXTypeKind: 'int32
-
-	CXCursorKinds: [
+	CXCursorKind: [
 		CXCursor_UnexposedDecl                  1
 		CXCursor_StructDecl                     2
 		CXCursor_UnionDecl                      3
@@ -229,13 +225,13 @@ make object! [
 		CXCursor_LastExtraDecl                  CXCursor_ModuleImportDecl
 	]
 
-	CXChildVisitResults: [
+	CXChildVisitResult: [
 		CXChildVisit_Break 0
 		CXChildVisit_Continue 1
 		CXChildVisit_Recurse 2
 	]
 
-	CXTypeKinds: [
+	CXTypeKind: [
 		CXType_Invalid  0
 		CXType_Unexposed  1
 
@@ -318,19 +314,19 @@ make object! [
 	]
 
 	CXCursor: make struct! compose [
-		(CXCursorKind) kind
+		int32 kind
 		int32 xdata
 		pointer [3] data
 	]
 
 	CXType: make struct! either x64? [
 		compose [
-			(CXTypeKind) kind;
+			int32 kind;
 			int32 padding 
 			pointer [2] data
 		]
 	][
-			(CXTypeKind) kind;
+			int32 kind;
 			pointer [2] data
 	]
 
@@ -382,12 +378,12 @@ make object! [
 		parent 		[(CXCursor)]
 		visitor 	[(CXVisitor)]
 		client_data [(CXClientData)]
-		return: 	[(CXChildVisitResult)]
+		return: 	[int32]
 	] (lib) "clang_visitChildren"]
 
 	getCursorKind: make routine! compose/deep [[
 		cursor [(CXCursor)]
-		return: [(CXCursorKind)]
+		return: [int32]
 	] (lib) "clang_getCursorKind"]
 
 	getCursorType: make routine! compose/deep [[

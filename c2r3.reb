@@ -86,73 +86,73 @@ c-2-reb-type: func [
 	/local ret type-name type-name-reb struct?
 ][
 	ret: switch/default type/kind compose [
-		(clang/enum clang/CXTypeKinds 'CXType_Void) [
+		(clang/enum clang/CXTypeKind 'CXType_Void) [
 			"void"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_Char_U) [ ; FIXME unicode char?
+		(clang/enum clang/CXTypeKind 'CXType_Char_U) [ ; FIXME unicode char?
 			"uint32"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_UChar) [
+		(clang/enum clang/CXTypeKind 'CXType_UChar) [
 			"uint8"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_Char16) [
+		(clang/enum clang/CXTypeKind 'CXType_Char16) [
 			"int16"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_Char32) [
+		(clang/enum clang/CXTypeKind 'CXType_Char32) [
 			"int32"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_UShort) [
+		(clang/enum clang/CXTypeKind 'CXType_UShort) [
 			"uint16"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_Uint) [
+		(clang/enum clang/CXTypeKind 'CXType_Uint) [
 			"uint32"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_ULong) [
+		(clang/enum clang/CXTypeKind 'CXType_ULong) [
 			either LP64? ["uint64"]["uint32"]
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_ULongLong) [
+		(clang/enum clang/CXTypeKind 'CXType_ULongLong) [
 			"uint64"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_Char_S) [
+		(clang/enum clang/CXTypeKind 'CXType_Char_S) [
 			"int8"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_SChar) [
+		(clang/enum clang/CXTypeKind 'CXType_SChar) [
 			"int8"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_WChar) [
+		(clang/enum clang/CXTypeKind 'CXType_WChar) [
 			"int16"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_Short) [
+		(clang/enum clang/CXTypeKind 'CXType_Short) [
 			"int16"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_Int) [
+		(clang/enum clang/CXTypeKind 'CXType_Int) [
 			"int32"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_Long) [
+		(clang/enum clang/CXTypeKind 'CXType_Long) [
 			either LP64? ["int64"]["int32"]
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_LongLong) [
+		(clang/enum clang/CXTypeKind 'CXType_LongLong) [
 			"int64"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_Float) [
+		(clang/enum clang/CXTypeKind 'CXType_Float) [
 			"float"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_Double) [
+		(clang/enum clang/CXTypeKind 'CXType_Double) [
 			"double"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_Pointer) [
+		(clang/enum clang/CXTypeKind 'CXType_Pointer) [
 			"pointer"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_Enum) [
+		(clang/enum clang/CXTypeKind 'CXType_Enum) [
 			"int32"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_ConstantArray) [
+		(clang/enum clang/CXTypeKind 'CXType_ConstantArray) [
 			"pointer"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_IncompleteArray) [
+		(clang/enum clang/CXTypeKind 'CXType_IncompleteArray) [
 			"pointer"
 		]
-		(clang/enum clang/CXTypeKinds 'CXType_Record) [
+		(clang/enum clang/CXTypeKind 'CXType_Record) [
 			struct?: true
 			either none? orig-type [
 				type-name: clang/getTypeSpelling type
@@ -237,7 +237,7 @@ c-2-rebol-arg-type: func [
 	/local orig-type type-name type-name-reb
 ][
 	; typedef
-	while [type/kind = clang/enum clang/CXTypeKinds 'CXType_Typedef][
+	while [type/kind = clang/enum clang/CXTypeKind 'CXType_Typedef][
 		orig-type: type
 		type: clang/getCanonicalType type
 	]
@@ -484,7 +484,7 @@ enum-visitor-fields: mk-cb compose/deep [
 	cursor [(clang/CXCursor)]
 	parent [(clang/CXCursor)]
 	client-data [pointer]
-	return: [(clang/CXChildVisitResult)]
+	return: [int32]
 ][
 	debug ["client-data:" to-hex client-data]
 	n: make struct! compose/deep [
@@ -501,16 +501,16 @@ enum-visitor-fields: mk-cb compose/deep [
 			field-name-reb 
 			clang/getEnumConstantDeclValue cursor
 		]
-		return clang/enum clang/CXChildVisitResults 'CXChildVisit_Continue
+		return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
 	]
-	return clang/enum clang/CXChildVisitResults 'CXChildVisit_Recurse
+	return clang/enum clang/CXChildVisitResult 'CXChildVisit_Recurse
 ]
 
 struct-visitor-fields: mk-cb compose/deep [
 	cursor [(clang/CXCursor)]
 	parent [(clang/CXCursor)]
 	client-data [pointer]
-	return: [(clang/CXChildVisitResult)]
+	return: [int32]
 ][
 	debug ["client-data:" to-hex client-data]
 	n: make struct! compose/deep [
@@ -522,9 +522,9 @@ struct-visitor-fields: mk-cb compose/deep [
 	field-name-reb: stringfy clang/getCString field-name
 	debug ["field-name:" field-name-reb]
     kind: clang/getCursorKind cursor
-    if kind = target-kind: clang/enum clang/CXCursorKinds 'CXCursor_FieldDecl [
+    if kind = target-kind: clang/enum clang/CXCursorKind 'CXCursor_FieldDecl [
 		type: clang/getCursorType cursor
-		if type/kind = clang/enum clang/CXTypeKinds 'CXType_Typedef [
+		if type/kind = clang/enum clang/CXTypeKind 'CXType_Typedef [
 			orig-type: type
 			type: clang/getCanonicalType type
 		]
@@ -537,10 +537,10 @@ struct-visitor-fields: mk-cb compose/deep [
 			bits: clang/getFieldDeclBitWidth cursor
 		]
 		dim: 1
-		while [type/kind = clang/enum clang/CXTypeKinds 'CXType_ConstantArray][
+		while [type/kind = clang/enum clang/CXTypeKind 'CXType_ConstantArray][
 			dim: dim * clang/getArraySize type
 			type: clang/getArrayElementType type
-			if type/kind = clang/enum clang/CXTypeKinds 'CXType_Typedef [
+			if type/kind = clang/enum clang/CXTypeKind 'CXType_Typedef [
 				orig-type: type
 				type: clang/getCanonicalType type
 			]
@@ -552,8 +552,8 @@ struct-visitor-fields: mk-cb compose/deep [
 		; 3. other atomic type
 		debug ["type/kind:" type/kind]
 		either any [
-			type/kind = clang/enum clang/CXTypeKinds 'CXType_Unexposed
-			type/kind = clang/enum clang/CXTypeKinds 'CXType_Record
+			type/kind = clang/enum clang/CXTypeKind 'CXType_Unexposed
+			type/kind = clang/enum clang/CXTypeKind 'CXType_Record
 		][
 			decl-cursor: clang/getTypeDeclaration type
 			decl-cursor-kind: clang/getCursorKind decl-cursor
@@ -564,10 +564,10 @@ struct-visitor-fields: mk-cb compose/deep [
 			debug ["decl-cursor-kind:" decl-cursor-kind]
 
 			switch/default decl-cursor-kind compose [
-				(clang/enum clang/CXCursorKinds 'CXCursor_EnumDecl) [
+				(clang/enum clang/CXCursorKind 'CXCursor_EnumDecl) [
 					field/type: "int32"
 				]
-				(clang/enum clang/CXCursorKinds 'CXCursor_StructDecl) [
+				(clang/enum clang/CXCursorKind 'CXCursor_StructDecl) [
 					semantic-parent: clang/getCursorSemanticParent decl-cursor
 					semantic-parent-kind: clang/getCursorKind semantic-parent
 					semantic-parent-name: clang/getCursorSpelling semantic-parent
@@ -583,7 +583,7 @@ struct-visitor-fields: mk-cb compose/deep [
 					nested-struct: make struct! compose [
 						rebval v: (
 							make c-struct [
-								global: lexical-parent-kind = clang/enum clang/CXCursorKinds 'CXCursor_TranslationUnit
+								global: lexical-parent-kind = clang/enum clang/CXCursorKind 'CXCursor_TranslationUnit
 								name: decl-cursor-name-reb
 							]
 						)
@@ -593,7 +593,7 @@ struct-visitor-fields: mk-cb compose/deep [
 					field/is-struct?: true
 					unless any [
 						none? orig-type
-						orig-type/kind != clang/enum clang/CXTypeKinds 'CXType_Typedef
+						orig-type/kind != clang/enum clang/CXTypeKind 'CXType_Typedef
 					][
 						orig-type-name: clang/getTypeSpelling orig-type
 						orig-type-name-reb: stringfy clang/getCString orig-type-name
@@ -610,7 +610,7 @@ struct-visitor-fields: mk-cb compose/deep [
 				]
 			][
 				debug ["Unexpected cursor-kind" decl-cursor-kind ", expecting structdecl"]
-				return clang/enum clang/CXChildVisitResults 'CXChildVisit_Continue
+				return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
 			]
 		][
 			t: c-2-reb-type type orig-type
@@ -625,22 +625,22 @@ struct-visitor-fields: mk-cb compose/deep [
 			append v/fields field
 		]
 		clang/disposeString field-name
-		return clang/enum clang/CXChildVisitResults 'CXChildVisit_Continue
+		return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
 	]
-	clang/enum clang/CXChildVisitResults 'CXChildVisit_Continue
+	clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
 ]
 
 cursor-visitor: mk-cb compose/deep [
 	cursor [(clang/CXCursor)]
 	parent [(clang/CXCursor)]
 	client-data [pointer]
-	return: [(clang/CXChildVisitResult)]
+	return: [int32]
 ][
 	debug ["cursor-visitor"]
 	debug ["cursor:" mold cursor]
 	kind: clang/getCursorKind cursor
 	case compose [
-		(kind = clang/enum clang/CXCursorKinds 'CXCursor_EnumDecl) [
+		(kind = clang/enum clang/CXCursorKind 'CXCursor_EnumDecl) [
 			name: clang/getCursorSpelling cursor
 			enum-name-reb: stringfy clang/getCString name
 			clang/disposeString name
@@ -650,7 +650,7 @@ cursor-visitor: mk-cb compose/deep [
 			clang/visitChildren cursor addr-of enum-visitor-fields addr-of n
 			append global-enums n/v
 			debug ["found an enum:" mold n/v]
-			return clang/enum clang/CXChildVisitResults 'CXChildVisit_Continue
+			return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
 		]
 		(kind = clang/enum clang/CXCursorKind 'CXCursor_FunctionDecl) [
 			; ignore non-exported functions
@@ -663,7 +663,7 @@ cursor-visitor: mk-cb compose/deep [
 			unless any [
 				link = clang/enum clang/CXLinkageKind 'CXLinkage_External
 				link = clang/enum clang/CXLinkageKind 'CXLinkage_UniqueExternal][
-				return clang/enum clang/CXChildVisitResults 'CXChildVisit_Continue
+				return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
 			]
 			func-type: clang/getCursorType cursor
 			rtype: clang/getResultType func-type
@@ -706,16 +706,16 @@ cursor-visitor: mk-cb compose/deep [
 			]
 			debug ["checking for variadic arguments"]
 			append global-functions c-func
-			return clang/enum clang/CXChildVisitResults 'CXChildVisit_Continue
+			return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
 		]
-		(kind = clang/enum clang/CXCursorKinds 'CXCursor_StructDecl) [
+		(kind = clang/enum clang/CXCursorKind 'CXCursor_StructDecl) [
 			struct-name: clang/getCursorSpelling cursor
 			struct-name-reb: stringfy clang/getCString struct-name
 			debug ["struct-name:" struct-name-reb]
 
 			parent-kind: clang/getCursorKind parent
 			debug ["parent-kind:" parent-kind]
-			if parent-kind = target-kind: clang/enum clang/CXCursorKinds 'CXCursor_TypedefDecl [
+			if parent-kind = target-kind: clang/enum clang/CXCursorKind 'CXCursor_TypedefDecl [
 				typedef-name: clang/getCursorSpelling parent
 				typedef-name-reb: stringfy clang/getCString typedef-name
 				debug ["typedef-name-reb:" typedef-name-reb]
@@ -769,7 +769,7 @@ cursor-visitor: mk-cb compose/deep [
 					]
 				]
 			]
-			return clang/enum clang/CXChildVisitResults 'CXChildVisit_Continue
+			return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
 		]
 		'else [
 			;name: clang/getCursorSpelling cursor
@@ -777,7 +777,7 @@ cursor-visitor: mk-cb compose/deep [
 			name-reb: stringfy clang/getCString name
 			clang/disposeString name
 			debug ["cursor name: " name-reb "kind: " kind]
-			return clang/enum clang/CXChildVisitResults 'CXChildVisit_Recurse
+			return clang/enum clang/CXChildVisitResult 'CXChildVisit_Recurse
 		]
 		debug ["check for next cursor"]
 		;clang/visitChildren cursor addr-of function-visitor 0
