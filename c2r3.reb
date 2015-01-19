@@ -425,7 +425,7 @@ write-a-rebol-struct: func [
 	ret: copy ""
 	insert/dup ret "^-" indent
 
-	either none? c-struct/name [
+	either any [none? c-struct/name empty? c-struct/name not c-struct/global][
 		anonymous?: true
 	][
 		anonymous?: false
@@ -759,7 +759,7 @@ write-output: func [
 	
 	write-a-complete-struct: func [
 		s [object!]
-		/local f ns
+		/local f ns n
 	][
 		debug ["writing a complete struct:" mold s]
 		foreach f s/fields [
@@ -767,11 +767,16 @@ write-output: func [
 				f/is-struct?
 				object? f/type
 				f/type/global
-				not found? select written-structs any [f/type/name f/typedef]
 			][
-				debug ["trying to find struct for:" mold f]
-				ns: pick global-structs/structs (select global-structs/hash any [f/type/name f/typedef])
-				write-a-complete-struct ns
+				n: f/type/name
+				if any [none? n empty? n][
+					n: f/typedef
+				]
+				unless found? select global-structs/hash n [
+					debug ["trying to find struct for:" mold f]
+					ns: pick global-structs/structs (select global-structs/hash n)
+					write-a-complete-struct ns
+				]
 			]
 		]
 		write/append dest rejoin [write-a-rebol-struct s 1 "^/"]
