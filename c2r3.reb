@@ -386,7 +386,7 @@ write-a-rebol-field: func [
 				]
 				object? c-field/type [
 					either c-field/type/global [
-						rejoin ["(" c-field/type/name ")"]
+						rejoin [ind "(" c-field/type/name ")"]
 					][
 						write-a-rebol-struct c-field/type indent
 					]
@@ -519,8 +519,11 @@ struct-visitor-fields: mk-cb compose/deep [
 					clang/disposeString lexical-parent-name
 
 					nested-struct: make struct! compose [
-						rebval v: (make c-struct [
-							global: lexical-parent-kind = clang/enum clang/CXCursorKinds 'CXCursor_TranslationUnit]
+						rebval v: (
+							make c-struct [
+								global: lexical-parent-kind = clang/enum clang/CXCursorKinds 'CXCursor_TranslationUnit
+								name: decl-cursor-name-reb
+							]
 						)
 					]
 					clang/visitChildren decl-cursor addr-of struct-visitor-fields addr-of nested-struct
