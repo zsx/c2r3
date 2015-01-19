@@ -582,11 +582,16 @@ cursor-visitor: mk-cb compose/deep [
 	kind: clang/getCursorKind cursor
 	case compose [
 		(kind = clang/enum clang/CXCursorKinds 'CXCursor_FunctionDecl) [
+			; ignore non-exported functions
 			name: clang/getCursorSpelling cursor
 			func-name-reb: stringfy clang/getCString name
 			clang/disposeString name
 
-			unless function-filter func-name-reb [
+			link: clang/getCursorLinkage cursor
+			debug [func-name-reb "link:" link]
+			unless any [
+				link = clang/enum clang/CXLinkageKind 'CXLinkage_External
+				link = clang/enum clang/CXLinkageKind 'CXLinkage_UniqueExternal][
 				return clang/enum clang/CXChildVisitResults 'CXChildVisit_Continue
 			]
 			func-type: clang/getCursorType cursor

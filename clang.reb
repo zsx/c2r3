@@ -290,6 +290,14 @@ make object! [
 		CXType_MemberPointer  117
 	]
 
+	CXLinkageKind: [
+		CXLinkage_Invalid	0
+		CXLinkage_NoLinkage	1
+		CXLinkage_Internal	2
+		CXLinkage_UniqueExternal 3
+		CXLinkage_External 4
+	]
+
 	enum: func [
 		ser
 		item
@@ -511,6 +519,12 @@ make object! [
 		cursor [(CXCursor)]
 		return: [(CXCursor)]
 	] (lib) "clang_getCursorLexicalParent"]
+
+	getCursorLinkage: make routine! compose/deep [[
+		cursor [(CXCursor)]
+		return: [int32]
+		abi: default
+	] (lib) "clang_getCursorLinkage"]
 
 	getFieldDeclBitWidth: make routine! compose/deep [[
 		C [(CXCursor)]
