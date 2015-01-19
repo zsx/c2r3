@@ -8,6 +8,9 @@ libc: make library! %libc.so.6
 
 LP64?: true
 
+debug: :comment
+debug: :print
+
 strlen: make routine! compose [
 	[
 		s [pointer]
@@ -194,11 +197,11 @@ mk-cb: func [
 		some [ arg | attr ]
 	]
 
-	;print ["args:" mold args]
+	debug ["args:" mold args]
 
 	tmp-func: function r-args body
 
-	;print ["tmp-func:" mold :tmp-func]
+	debug ["tmp-func:" mold :tmp-func]
 	make callback! compose/deep [[(args)] :tmp-func]
 ]
 
@@ -361,7 +364,7 @@ write-a-rebol-field: func [
 	case [
 		(get offset) < c-field/offset [
 			;padding
-			;print ["padding is needed for field: " c-field/name "offset:" mold get offset "c-field/offset:" mold c-field/offset]
+			debug ["padding is needed for field: " c-field/name "offset:" mold get offset "c-field/offset:" mold c-field/offset]
 			append ret rejoin [ind "uint8 [" (c-field/offset - (get offset)) / 8 "] padding" idx "^/"]
 			set offset c-field/offset
 		]
@@ -373,7 +376,7 @@ write-a-rebol-field: func [
 
 	append ret rejoin [
 		either none? c-field/typedef [
-			;print ["field" mold c-field]
+			debug ["field" mold c-field]
 			case [
 				string? c-field/type [
 					rejoin [ind write-a-c-type reduce [c-field/type c-field/is-struct?]]
@@ -390,7 +393,7 @@ write-a-rebol-field: func [
 				]
 				'else [
 					rejoin [ind "WRONG " c-field/type]
-					print ["WRONG" c-field/type]
+					debug ["WRONG" c-field/type]
 				]
 			]
 		][
@@ -406,7 +409,7 @@ write-a-rebol-field: func [
 		"^/"
 	]
 	set offset (get offset) + (c-field/size * 8)
-	;print ["offset:" get offset]
+	debug ["offset:" get offset]
 
 	ret
 ]
@@ -447,7 +450,7 @@ struct-visitor-fields: mk-cb compose/deep [
 	client-data [pointer]
 	return: [(clang/CXChildVisitResult)]
 ][
-	;print ["client-data:" to-hex client-data]
+	debug ["client-data:" to-hex client-data]
 	n: make struct! compose/deep [
 		[raw-memory: (client-data)]
 		rebval v
@@ -455,7 +458,7 @@ struct-visitor-fields: mk-cb compose/deep [
 	v: n/v ;c-struct
 	field-name: clang/getCursorSpelling cursor
 	field-name-reb: stringfy clang/getCString field-name
-	;print ["field-name:" field-name-reb]
+	debug ["field-name:" field-name-reb]
     kind: clang/getCursorKind cursor
     if kind = target-kind: clang/enum clang/CXCursorKinds 'CXCursor_FieldDecl [
 		type: clang/getCursorType cursor
@@ -485,7 +488,7 @@ struct-visitor-fields: mk-cb compose/deep [
 		; 1. a typedef'ed struct
 		; 2. a nested struct
 		; 3. other atomic type
-		;print ["type/kind:" type/kind]
+		debug ["type/kind:" type/kind]
 		either any [
 			type/kind = clang/enum clang/CXTypeKinds 'CXType_Unexposed
 			type/kind = clang/enum clang/CXTypeKinds 'CXType_Record
@@ -493,9 +496,10 @@ struct-visitor-fields: mk-cb compose/deep [
 			decl-cursor: clang/getTypeDeclaration type
 			decl-cursor-kind: clang/getCursorKind decl-cursor
 			decl-cursor-name: clang/getCursorSpelling decl-cursor
-			;print ["decl-cursor-name:" stringfy clang/getCString decl-cursor-name]
+			decl-cursor-name-reb: stringfy clang/getCString clang/getCursorSpelling decl-cursor
+			debug ["decl-cursor-name:" decl-cursor-name-reb]
 			clang/disposeString decl-cursor-name
-			;print ["decl-cursor-kind:" decl-cursor-kind]
+			debug ["decl-cursor-kind:" decl-cursor-kind]
 
 			switch/default decl-cursor-kind compose [
 				(clang/enum clang/CXCursorKinds 'CXCursor_EnumDecl) [
@@ -505,13 +509,13 @@ struct-visitor-fields: mk-cb compose/deep [
 					semantic-parent: clang/getCursorSemanticParent decl-cursor
 					semantic-parent-kind: clang/getCursorKind semantic-parent
 					semantic-parent-name: clang/getCursorSpelling semantic-parent
-					;print ["parent-name:" stringfy clang/getCString semantic-parent-name]
+					debug ["parent-name:" stringfy clang/getCString semantic-parent-name]
 					clang/disposeString semantic-parent-name
 
 					lexical-parent: clang/getCursorLexicalParent decl-cursor
 					lexical-parent-kind: clang/getCursorKind lexical-parent
 					lexical-parent-name: clang/getCursorSpelling lexical-parent
-					;print ["lexical parent-name:" stringfy clang/getCString lexical-parent-name]
+					debug ["lexical parent-name:" stringfy clang/getCString lexical-parent-name]
 					clang/disposeString lexical-parent-name
 
 					nested-struct: make struct! compose [
@@ -540,7 +544,7 @@ struct-visitor-fields: mk-cb compose/deep [
 					field/is-struct?: second t
 				]
 			][
-				print ["Unexpected cursor-kind" decl-cursor-kind ", expecting structdecl"]
+				debug ["Unexpected cursor-kind" decl-cursor-kind ", expecting structdecl"]
 				return clang/enum clang/CXChildVisitResults 'CXChildVisit_Continue
 			]
 		][
@@ -567,8 +571,8 @@ cursor-visitor: mk-cb compose/deep [
 	client-data [pointer]
 	return: [(clang/CXChildVisitResult)]
 ][
-	;print ["cursor-visitor"]
-	;print ["cursor:" mold cursor]
+	debug ["cursor-visitor"]
+	debug ["cursor:" mold cursor]
 	kind: clang/getCursorKind cursor
 	case compose [
 		(kind = clang/enum clang/CXCursorKinds 'CXCursor_FunctionDecl) [
@@ -586,8 +590,8 @@ cursor-visitor: mk-cb compose/deep [
 			rtype-name-reb: stringfy clang/getCString rtype-name
 			clang/disposeString rtype-name
 			rtype: c-2-rebol-arg-type rtype
-			;print ["rtype:" rtype-name-reb]
-			;print ["rtype:" mold rtype]
+			debug ["rtype:" rtype-name-reb]
+			debug ["rtype:" mold rtype]
 
 			c-func: make c-func-class reduce/no-set [
 				name: func-name-reb
@@ -597,12 +601,12 @@ cursor-visitor: mk-cb compose/deep [
 				abi: clang/getFunctionTypeCallingConv func-type
 			]
 			n: clang/Cursor_getNumArguments cursor
-			;print ["n:" n]
+			debug ["n:" n]
 			i: 0
 			while [i < n] [
 				arg: clang/Cursor_getArgument cursor i
 				arg-name: clang/getCursorSpelling arg
-				;print ["type" mold type]
+				debug ["type" mold type]
 				arg-type: c-2-rebol-arg-type clang/getCursorType arg
 				c-arg: make c-arg-class [
 					name: stringfy clang/getCString arg-name
@@ -611,27 +615,27 @@ cursor-visitor: mk-cb compose/deep [
 				]
 				append c-func/args c-arg
 				;type-name: clang/getTypeSpelling c-arg/type
-				;print rejoin ["parameter:" stringfy clang/getCString arg-name ", type:" stringfy clang/getCString type-name "^/" mold c-arg/type "^/"]
+				debug rejoin ["parameter:" stringfy clang/getCString arg-name ", type:" mold c-arg/type "^/"]
 				;clang/disposeString type-name
 				clang/disposeString arg-name
 
 				++ i
 			]
-			;print ["checking for variadic arguments"]
+			debug ["checking for variadic arguments"]
 			append global-functions c-func
 			return clang/enum clang/CXChildVisitResults 'CXChildVisit_Continue
 		]
 		(kind = clang/enum clang/CXCursorKinds 'CXCursor_StructDecl) [
 			struct-name: clang/getCursorSpelling cursor
 			struct-name-reb: stringfy clang/getCString struct-name
-			;print ["struct-name:" struct-name-reb]
+			debug ["struct-name:" struct-name-reb]
 
 			parent-kind: clang/getCursorKind parent
-			;print ["parent-kind:" parent-kind]
+			debug ["parent-kind:" parent-kind]
 			if parent-kind = target-kind: clang/enum clang/CXCursorKinds 'CXCursor_TypedefDecl [
 				typedef-name: clang/getCursorSpelling parent
 				typedef-name-reb: stringfy clang/getCString typedef-name
-				;print ["typedef-name-reb:" typedef-name-reb]
+				debug ["typedef-name-reb:" typedef-name-reb]
 				clang/disposeString typedef-name
 				either empty? struct-name-reb [
 					struct-name-reb: typedef-name-reb
@@ -653,10 +657,10 @@ cursor-visitor: mk-cb compose/deep [
 				append n/v/aliases struct-alias
 			]
 			clang/visitChildren cursor addr-of struct-visitor-fields addr-of n
-			;print ["found a struct:" mold n/v]
+			debug ["found a struct:" mold n/v]
 			unless any [none? n/v/name empty? n/v/name][
 				aliases: join reduce [n/v/name] n/v/aliases
-				;print ["aliases" mold aliases]
+				debug ["aliases" mold aliases]
 				idx: none
 				foreach a aliases [
 					unless none? idx: global-structs/hash/(a) [break]
@@ -686,10 +690,13 @@ cursor-visitor: mk-cb compose/deep [
 		]
 		'else [
 			;name: clang/getCursorSpelling cursor
-			;print ["cursor name: " stringfy clang/getCString name "kind: " kind]
+			name: clang/getCursorSpelling cursor
+			name-reb: stringfy clang/getCString name
+			clang/disposeString name
+			debug ["cursor name: " name-reb "kind: " kind]
 			return clang/enum clang/CXChildVisitResults 'CXChildVisit_Recurse
 		]
-		;print ["check for next cursor"]
+		debug ["check for next cursor"]
 		;clang/visitChildren cursor addr-of function-visitor 0
 	]
 ]
@@ -700,7 +707,7 @@ compile: function [
 ][
 	index: clang/createIndex 0 0
 	if zero? index [
-		print ["error creating index"]
+		debug ["error creating index"]
 		quit
 	]
 
@@ -709,7 +716,7 @@ compile: function [
 			0 0 0
 
 	if zero? translationUnit [
-		print ["error creating translationUnit"]
+		debug ["error creating translationUnit"]
 		quit
 	]
 
@@ -770,7 +777,7 @@ write-output: func [
 		s [object!]
 		/local f ns
 	][
-		;print ["writing a complete struct:" mold s]
+		debug ["writing a complete struct:" mold s]
 		foreach f s/fields [
 			if all [
 				f/is-struct?
@@ -778,7 +785,7 @@ write-output: func [
 				f/type/global
 				not found? select written-structs any [f/type/name f/typedef]
 			][
-				;print ["trying to find struct for:" mold f]
+				debug ["trying to find struct for:" mold f]
 				ns: pick global-structs/structs (select global-structs/hash any [f/type/name f/typedef])
 				write-a-complete-struct ns
 			]
@@ -808,7 +815,7 @@ write-output: func [
 		]
 	]
 
-	;print ["exported structs:" mold written-structs]
+	debug ["exported structs:" mold written-structs]
 
 	write/append dest rejoin ["^-clang: make library! %libclang.so^/"]
 
