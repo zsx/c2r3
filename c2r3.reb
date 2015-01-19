@@ -55,6 +55,13 @@ c-field: make object! [
 	is-struct?: false
 ]
 
+c-enum-class: make object! [
+	name: none
+	key-value: copy []
+]
+
+global-enums: make block! 16
+
 c-arg-class: make object! [
 	name:
 	type: none
@@ -448,6 +455,57 @@ write-a-rebol-struct: func [
 	ret
 ]
 
+write-a-rebol-enum: func [
+	c-enum 	[object!]
+	idx		[integer!]
+	indent 	[integer!]
+	/local ret
+][
+	ret: copy ""
+	insert/dup ret "^-" indent
+	either empty? c-enum/name [
+		append ret rejoin ["enum" idx]
+	][
+		append ret c-enum/name
+	]
+	append ret ": [^/"
+	foreach [k v] c-enum/key-value [
+		loop indent + 1 [append ret "^-"]
+		append ret rejoin [k " " v "^/"]
+	]
+
+	loop indent [append ret "^-"]
+	append ret "]^/"
+
+	ret
+]
+
+enum-visitor-fields: mk-cb compose/deep [
+	cursor [(clang/CXCursor)]
+	parent [(clang/CXCursor)]
+	client-data [pointer]
+	return: [(clang/CXChildVisitResult)]
+][
+	debug ["client-data:" to-hex client-data]
+	n: make struct! compose/deep [
+		[raw-memory: (client-data)]
+		rebval v
+	]
+	v: n/v ;c-enum-class
+	field-name: clang/getCursorSpelling cursor
+	field-name-reb: stringfy clang/getCString field-name
+	debug ["field-name:" field-name-reb]
+    kind: clang/getCursorKind cursor
+    if kind = target-kind: clang/enum clang/CXCursorKind 'CXCursor_EnumConstantDecl [
+		append v/key-value reduce [
+			field-name-reb 
+			clang/getEnumConstantDeclValue cursor
+		]
+		return clang/enum clang/CXChildVisitResults 'CXChildVisit_Continue
+	]
+	return clang/enum clang/CXChildVisitResults 'CXChildVisit_Recurse
+]
+
 struct-visitor-fields: mk-cb compose/deep [
 	cursor [(clang/CXCursor)]
 	parent [(clang/CXCursor)]
@@ -582,7 +640,19 @@ cursor-visitor: mk-cb compose/deep [
 	debug ["cursor:" mold cursor]
 	kind: clang/getCursorKind cursor
 	case compose [
-		(kind = clang/enum clang/CXCursorKinds 'CXCursor_FunctionDecl) [
+		(kind = clang/enum clang/CXCursorKinds 'CXCursor_EnumDecl) [
+			name: clang/getCursorSpelling cursor
+			enum-name-reb: stringfy clang/getCString name
+			clang/disposeString name
+			n: make struct! compose [
+				rebval v: (make c-enum-class [name: enum-name-reb])
+			]
+			clang/visitChildren cursor addr-of enum-visitor-fields addr-of n
+			append global-enums n/v
+			debug ["found an enum:" mold n/v]
+			return clang/enum clang/CXChildVisitResults 'CXChildVisit_Continue
+		]
+		(kind = clang/enum clang/CXCursorKind 'CXCursor_FunctionDecl) [
 			; ignore non-exported functions
 			name: clang/getCursorSpelling cursor
 			func-name-reb: stringfy clang/getCString name
@@ -720,7 +790,7 @@ compile: function [
 ][
 	index: clang/createIndex 0 0
 	if zero? index [
-		debug ["error creating index"]
+		print ["error creating index"]
 		quit
 	]
 
@@ -729,7 +799,7 @@ compile: function [
 			0 0 0
 
 	if zero? translationUnit [
-		debug ["error creating translationUnit"]
+		print ["error creating translationUnit"]
 		quit
 	]
 
@@ -746,7 +816,7 @@ write-output: func [
 	dest [file!]
 	libname [any-string!]
 	libpath	[file!]
-	/local written-structs s a func-to-expose f write-a-complete-struct
+	/local e written-structs s a func-to-expose f write-a-complete-struct idx
 ][
 	;write dest ""
 
@@ -788,6 +858,19 @@ write-output: func [
 		]
 		write/append dest rejoin [write-a-rebol-struct s 1 "^/"]
 		export-struct s
+	]
+
+	idx: 0
+	foreach e global-enums [
+		either function? :enum-filter [
+			debug ["enum-filter" :enum-filter]
+			if enum-filter e [
+				write/append dest rejoin [write-a-rebol-enum e idx 1 "^/"]
+			]
+		][
+			write/append dest rejoin [write-a-rebol-enum e idx 1 "^/"]
+		]
+		++ idx
 	]
 
 	foreach s global-structs/structs [
