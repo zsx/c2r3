@@ -543,4 +543,17 @@ make object! [
 		C [(CXCursor)]
 		return: [int32]
 	] (lib) "clang_getFieldDeclBitWidth"]
+
+	getEnumDeclIntegerType: make routine! compose/deep [[
+		C [(CXCursor)]
+		return: [(CXType)]
+		abi: default
+	] (lib) "clang_getEnumDeclIntegerType"]
+
+	getEnumConstantDeclValue: make routine! compose/deep [[
+		C [(CXCursor)]
+		return: [int64]
+		abi: default
+	] (lib) "clang_getEnumConstantDeclValue"]
+
 ]
