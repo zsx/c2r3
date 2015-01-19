@@ -748,7 +748,7 @@ write-output: func [
 	libpath	[file!]
 	/local written-structs s a func-to-expose f write-a-complete-struct
 ][
-	write dest ""
+	;write dest ""
 
 	written-structs: make map! 32
 	func-to-expose: make block! 16
