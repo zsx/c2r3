@@ -640,10 +640,22 @@ cursor-visitor: mk-cb compose/deep [
 	debug ["cursor:" mold cursor]
 	kind: clang/getCursorKind cursor
 	case compose [
+		;(kind = clang/enum clang/CXCursorKind 'CXCursor_TypedefDecl) [
+			;avoid duplicate visits to enum, struct, etc
+			;return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
+		;]
 		(kind = clang/enum clang/CXCursorKind 'CXCursor_EnumDecl) [
 			name: clang/getCursorSpelling cursor
 			enum-name-reb: stringfy clang/getCString name
 			clang/disposeString name
+			if empty? enum-name-reb [
+				parent-type: clang/getCursorType parent
+				if parent-type/kind = clang/enum clang/CXTypeKind 'CXType_Typedef [
+					name: clang/getCursorSpelling parent
+					enum-name-reb: stringfy clang/getCString name
+					clang/disposeString name
+				]
+			]
 			n: make struct! compose [
 				rebval v: (make c-enum-class [name: enum-name-reb])
 			]
@@ -863,7 +875,7 @@ write-output: func [
 	idx: 0
 	foreach e global-enums [
 		either function? :enum-filter [
-			debug ["enum-filter" :enum-filter]
+			;debug ["enum-filter" :enum-filter]
 			if enum-filter e [
 				write/append dest rejoin [write-a-rebol-enum e idx 1 "^/"]
 			]
