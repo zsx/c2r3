@@ -298,6 +298,13 @@ make object! [
 		CXLinkage_External 4
 	]
 
+	CXAvailabilityKind: [
+		CXAvailability_Available		0
+		CXAvailability_Deprecated		1
+		CXAvailability_NotAvailable		2
+		CXAvailability_NotAccessible	3
+	]
+
 	enum: func [
 		ser
 		item
@@ -525,6 +532,12 @@ make object! [
 		return: [int32]
 		abi: default
 	] (lib) "clang_getCursorLinkage"]
+
+	getCursorAvailability: make routine! compose/deep [[
+		cursor [(CXCursor)]
+		return: [int32]
+		abi: default
+	] (lib) "clang_getCursorAvailability"]
 
 	getFieldDeclBitWidth: make routine! compose/deep [[
 		C [(CXCursor)]

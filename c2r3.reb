@@ -68,6 +68,7 @@ c-func-class: make object! [
 	return-type: none
 	return-struct?: false
 	abi: none
+	availability: none
 ]
 
 global-functions: make block! 16
@@ -315,7 +316,7 @@ write-a-rebol-func: func [
 		either none? :ns [
 			c-func/name
 		][
-			skip c-func/name (length? ns c-func/name)
+			skip c-func/name (length? ns c-func)
 		]
 		": make routine! compose/deep [[^/"
 	]
@@ -610,6 +611,7 @@ cursor-visitor: mk-cb compose/deep [
 				return-struct?: second rtype
 				variadic?: not zero? clang/isFunctionTypeVariadic func-type
 				abi: clang/getFunctionTypeCallingConv func-type
+				availability: clang/getCursorAvailability cursor
 			]
 			n: clang/Cursor_getNumArguments cursor
 			debug ["n:" n]
@@ -791,7 +793,7 @@ write-output: func [
 	foreach s global-structs/structs [
 		unless zero? length? s/fields [ ;ex: typedef struct a *pa;
 			either function? get 'struct-filter [
-				if struct-filter s/name [
+				if struct-filter s [
 					write-a-complete-struct s ;its dependency might not pass the filter
 				]
 			][
@@ -804,7 +806,7 @@ write-output: func [
 
 	either function? :function-filter [
 		foreach f global-functions [
-			if function-filter f/name [
+			if function-filter f [
 				append func-to-expose f
 			]
 		]
