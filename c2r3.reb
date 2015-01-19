@@ -734,6 +734,8 @@ compile: function [
 
 write-output: func [
 	dest [file!]
+	libname [any-string!]
+	libpath	[file!]
 	/local written-structs s a func-to-expose f write-a-complete-struct
 ][
 	write dest ""
@@ -820,11 +822,11 @@ write-output: func [
 
 	debug ["exported structs:" mold written-structs]
 
-	write/append dest rejoin ["^-clang: make library! %libclang.so^/"]
+	write/append dest rejoin ["^-" libname ": make library! " mold libpath "^/"]
 
 	foreach f func-to-expose [
-		;print ["f:" mold f]
-		write/append dest rejoin [write-a-rebol-func f "clang" (get 'function-ns) 1 "^/"]
+		debug ["f:" mold f]
+		write/append dest rejoin [write-a-rebol-func f libname (get 'function-ns) 1 "^/"]
 	]
 ]
 
