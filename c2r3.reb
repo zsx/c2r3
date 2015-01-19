@@ -141,6 +141,9 @@ c-2-reb-type: func [
 		(clang/enum clang/CXTypeKinds 'CXType_ConstantArray) [
 			"pointer"
 		]
+		(clang/enum clang/CXTypeKinds 'CXType_IncompleteArray) [
+			"pointer"
+		]
 		(clang/enum clang/CXTypeKinds 'CXType_Record) [
 			struct?: true
 			either none? orig-type [
