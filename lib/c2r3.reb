@@ -1,15 +1,34 @@
 REBOL []
 
-clang: do %clang.reb
-;do %config.reb
-;do %config-all.reb
+ARCH: 'LP32
+switch first system/platform [
+	Linux [
+		switch/default second system/platform [
+			libc-x64 [
+				clang: do %clang-posix-lp64.reb
+				ARCH: 'LP64
+			]
+		][
+			clang: do %clang-posix-lp32.reb
+		]
+	]
+	Windows [
+		switch second system/platform [
+			win32-x64 [
+				clang: do %clang-win32-x64.reb
+				ARCH: 'LLP64
+			]
+			win32-x86 [
+				clang: do %clang-win32-x64.reb
+			]
+		]
+	]
+]
 
 libc: make library! %libc.so.6
 
-LP64?: true
-
 debug: :comment
-debug: :print
+;debug: :print
 
 strlen: make routine! compose [
 	[
@@ -108,7 +127,9 @@ c-2-reb-type: func [
 			"uint32"
 		]
 		(clang/enum clang/CXTypeKind 'CXType_ULong) [
-			either LP64? ["uint64"]["uint32"]
+			switch/default ARCH [
+				LP64 ["uint64"]
+			]["uint32"]
 		]
 		(clang/enum clang/CXTypeKind 'CXType_ULongLong) [
 			"uint64"
@@ -129,7 +150,10 @@ c-2-reb-type: func [
 			"int32"
 		]
 		(clang/enum clang/CXTypeKind 'CXType_Long) [
-			either LP64? ["int64"]["int32"]
+			switch/default ARCH [
+				LP64 ["int64"]
+				LLP64 ["int64"]
+			]["uint32"]
 		]
 		(clang/enum clang/CXTypeKind 'CXType_LongLong) [
 			"int64"
