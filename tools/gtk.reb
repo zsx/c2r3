@@ -65,14 +65,14 @@ argv-data: compose [
 	(r2utf8-string "-I/usr/include/glib-2.0")
 	(r2utf8-string "-I/usr/lib/glib-2.0/include")
 	(r2utf8-string "/usr/include/gtk-3.0/gtk/gtk.h")
-	;(r2utf8-string "t1.c")
 ]
 
 argc: length? argv-data
 
-print ["argc:" argc]
+argv-ptr: copy []
+foreach v argv-data [append argv-ptr addr-of v]
 argv: addr-of make struct! compose/deep/only [
-	pointer [(argc)] data: (argv-data)
+	pointer [(argc)] data: (argv-ptr)
 ]
 
 compile argc argv

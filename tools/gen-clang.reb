@@ -45,8 +45,11 @@ argv-data: compose [
 ]
 
 argc: length? argv-data
+
+argv-ptr: copy []
+foreach v argv-data [append argv-ptr addr-of v]
 argv: addr-of make struct! compose/deep/only [
-	pointer [(argc)] data: argv-data
+	pointer [(argc)] data: (argv-ptr)
 ]
 
 compile argc argv

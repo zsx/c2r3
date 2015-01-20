@@ -1,5 +1,6 @@
 REBOL []
 
+;recycle/torture
 ARCH: 'LP32
 switch first system/platform [
 	Linux [
@@ -972,5 +973,5 @@ r2utf8-string: function [
 		uint8 [(1 + length? bin-arg)] data
 	]
 	change arg join bin-arg #{00}
-	addr-of arg
+	arg
 ]
