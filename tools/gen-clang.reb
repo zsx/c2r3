@@ -40,6 +40,7 @@ argv-data: compose [
 	(r2utf8-string "c2r3.reb")
 	(r2utf8-string "-I/usr/lib/clang/3.5.0/include")
 	(r2utf8-string "-fsyntax-only")
+	(r2utf8-string "-m32")
 	(r2utf8-string "/usr/include/clang-c/Index.h")
 ]
 
