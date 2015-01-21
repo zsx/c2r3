@@ -12,6 +12,7 @@ switch first system/platform [
 		][
 			clang: do %clang-posix-lp32.reb
 		]
+		libc: make library! %libc.so.6
 	]
 	Windows [
 		switch second system/platform [
@@ -20,13 +21,12 @@ switch first system/platform [
 				ARCH: 'LLP64
 			]
 			win32-x86 [
-				clang: do %clang-win32-x64.reb
+				clang: do %clang-win32-x32.reb
 			]
 		]
+		libc: make library! %msvcrt.dll
 	]
 ]
-
-libc: make library! %libc.so.6
 
 debug: :comment
 ;debug: :print
