@@ -103,61 +103,40 @@ global-functions: make block! 16
 c-2-reb-type: func [
 	type [struct!]
 	orig-type [struct! none!]
-	/local ret type-name type-name-reb struct?
+	/local size ret type-name type-name-reb struct?
 ][
+	case [
+		found? find reduce [
+			clang/CXTypeKind/CXType_Char_S
+			clang/CXTypeKind/CXType_SChar
+			clang/CXTypeKind/CXType_WChar
+			clang/CXTypeKind/CXType_Short
+			clang/CXTypeKind/CXType_Int
+			clang/CXTypeKind/CXType_Long
+			clang/CXTypeKind/CXType_LongLong
+			clang/CXTypeKind/CXType_Enum
+		] type/kind [
+			size: clang/Type_getSizeOf type
+			return reduce [join "int" (size * 8) false]
+		]
+		found? find reduce [
+			clang/CXTypeKind/CXType_Char_U
+			clang/CXTypeKind/CXType_UChar
+			clang/CXTypeKind/CXType_Char16
+			clang/CXTypeKind/CXType_Char32
+			clang/CXTypeKind/CXType_UShort
+			clang/CXTypeKind/CXType_UInt
+			clang/CXTypeKind/CXType_ULong
+			clang/CXTypeKind/CXType_ULongLong
+		] type/kind [
+			size: clang/Type_getSizeOf type
+			return reduce [join "uint" (size * 8) false]
+		]
+	]
+
 	ret: switch/default type/kind compose [
 		(clang/enum clang/CXTypeKind 'CXType_Void) [
 			"void"
-		]
-		(clang/enum clang/CXTypeKind 'CXType_Char_U) [ ; FIXME unicode char?
-			"uint32"
-		]
-		(clang/enum clang/CXTypeKind 'CXType_UChar) [
-			"uint8"
-		]
-		(clang/enum clang/CXTypeKind 'CXType_Char16) [
-			"int16"
-		]
-		(clang/enum clang/CXTypeKind 'CXType_Char32) [
-			"int32"
-		]
-		(clang/enum clang/CXTypeKind 'CXType_UShort) [
-			"uint16"
-		]
-		(clang/enum clang/CXTypeKind 'CXType_Uint) [
-			"uint32"
-		]
-		(clang/enum clang/CXTypeKind 'CXType_ULong) [
-			switch/default ARCH [
-				LP64 ["uint64"]
-			]["uint32"]
-		]
-		(clang/enum clang/CXTypeKind 'CXType_ULongLong) [
-			"uint64"
-		]
-		(clang/enum clang/CXTypeKind 'CXType_Char_S) [
-			"int8"
-		]
-		(clang/enum clang/CXTypeKind 'CXType_SChar) [
-			"int8"
-		]
-		(clang/enum clang/CXTypeKind 'CXType_WChar) [
-			"int16"
-		]
-		(clang/enum clang/CXTypeKind 'CXType_Short) [
-			"int16"
-		]
-		(clang/enum clang/CXTypeKind 'CXType_Int) [
-			"int32"
-		]
-		(clang/enum clang/CXTypeKind 'CXType_Long) [
-			switch/default ARCH [
-				LP64 ["int64"]
-				LLP64 ["int64"]
-			]["uint32"]
-		]
-		(clang/enum clang/CXTypeKind 'CXType_LongLong) [
-			"int64"
 		]
 		(clang/enum clang/CXTypeKind 'CXType_Float) [
 			"float"
@@ -167,9 +146,6 @@ c-2-reb-type: func [
 		]
 		(clang/enum clang/CXTypeKind 'CXType_Pointer) [
 			"pointer"
-		]
-		(clang/enum clang/CXTypeKind 'CXType_Enum) [
-			"int32"
 		]
 		(clang/enum clang/CXTypeKind 'CXType_ConstantArray) [
 			"pointer"
@@ -203,7 +179,8 @@ c-2-reb-type: func [
 		type-name-reb: stringfy clang/getCString type-name
 		clang/disposeString type-name
 		either "enum " = copy/part type-name-reb 5 [
-			"int32"
+			size: clang/Type_getSizeOf type
+			join "int" (size * 8)
 		][
 			rejoin ["FIXME:" type/kind ", " type-name-reb]
 		]
