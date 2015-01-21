@@ -830,15 +830,21 @@ compile: function [
 		print ["error creating index"]
 		quit
 	]
+	tu: make struct! [
+		pointer u
+	]
 
-	translationUnit: clang/parseTranslationUnit index 0
+	translationUnit: clang/parseTranslationUnit2 index 0
 			argv argc ;argv, argc
 			0 0 0
+			addr-of tu
 
-	if zero? translationUnit [
-		print ["error creating translationUnit"]
+	unless zero? translationUnit [
+		print ["error creating translationUnit: " translationUnit]
 		quit
 	]
+
+	translationUnit: tu/u
 
 	print-diagnostics translationUnit
 
