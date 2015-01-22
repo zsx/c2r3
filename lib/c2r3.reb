@@ -632,6 +632,160 @@ struct-visitor-fields: mk-cb compose/deep [
 	clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
 ]
 
+handle-enum: function [
+	cursor [struct!]
+	parent [struct!]
+	client-data [integer!]
+][
+	name: clang/getCursorSpelling cursor
+	enum-name-reb: stringfy clang/getCString name
+	clang/disposeString name
+	if empty? enum-name-reb [
+		parent-type: clang/getCursorType parent
+		if parent-type/kind = clang/enum clang/CXTypeKind 'CXType_Typedef [
+			name: clang/getCursorSpelling parent
+			enum-name-reb: stringfy clang/getCString name
+			clang/disposeString name
+		]
+	]
+	n: make struct! compose [
+		rebval v: (make c-enum-class [name: enum-name-reb])
+	]
+	clang/visitChildren cursor addr-of enum-visitor-fields addr-of n
+	append global-enums n/v
+	debug ["found an enum:" mold n/v]
+	return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
+]
+
+handle-function: function [
+	cursor [struct!]
+	parent [struct!]
+	client-data [integer!]
+][
+	; ignore non-exported functions
+	name: clang/getCursorSpelling cursor
+	func-name-reb: stringfy clang/getCString name
+	clang/disposeString name
+
+	link: clang/getCursorLinkage cursor
+	debug [func-name-reb "link:" link]
+	unless any [
+		link = clang/enum clang/CXLinkageKind 'CXLinkage_External
+		link = clang/enum clang/CXLinkageKind 'CXLinkage_UniqueExternal][
+		return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
+	]
+	func-type: clang/getCursorType cursor
+	rtype: clang/getResultType func-type
+
+	rtype-name: clang/getTypeSpelling rtype
+	rtype-name-reb: stringfy clang/getCString rtype-name
+	clang/disposeString rtype-name
+	rtype: c-2-rebol-arg-type rtype
+	debug ["rtype:" rtype-name-reb]
+	debug ["rtype:" mold rtype]
+
+	c-func: make c-func-class reduce/no-set [
+		name: func-name-reb
+		return-type: first rtype
+		return-struct?: second rtype
+		variadic?: not zero? clang/isFunctionTypeVariadic func-type
+		abi: clang/getFunctionTypeCallingConv func-type
+		availability: clang/getCursorAvailability cursor
+	]
+	n: clang/Cursor_getNumArguments cursor
+	debug ["n:" n]
+	i: 0
+	while [i < n] [
+		arg: clang/Cursor_getArgument cursor i
+		arg-name: clang/getCursorSpelling arg
+		debug ["type" mold type]
+		arg-type: c-2-rebol-arg-type clang/getCursorType arg
+		c-arg: make c-arg-class [
+			name: stringfy clang/getCString arg-name
+			type: first arg-type
+			is-struct?: second arg-type
+		]
+		append c-func/args c-arg
+		;type-name: clang/getTypeSpelling c-arg/type
+		debug rejoin ["parameter:" stringfy clang/getCString arg-name ", type:" mold c-arg/type "^/"]
+		;clang/disposeString type-name
+		clang/disposeString arg-name
+
+		++ i
+	]
+	debug ["checking for variadic arguments"]
+	append global-functions c-func
+	return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
+]
+
+handle-struct: function [
+	cursor [struct!]
+	parent [struct!]
+	client-data [integer!]
+][
+	struct-name: clang/getCursorSpelling cursor
+	struct-name-reb: stringfy clang/getCString struct-name
+	debug ["struct-name:" struct-name-reb]
+
+	parent-kind: clang/getCursorKind parent
+	debug ["parent-kind:" parent-kind]
+	if parent-kind = target-kind: clang/enum clang/CXCursorKind 'CXCursor_TypedefDecl [
+		typedef-name: clang/getCursorSpelling parent
+		typedef-name-reb: stringfy clang/getCString typedef-name
+		debug ["typedef-name-reb:" typedef-name-reb]
+		clang/disposeString typedef-name
+		either empty? struct-name-reb [
+			struct-name-reb: typedef-name-reb
+			struct-alias: none
+		][
+			struct-alias: typedef-name-reb
+		]
+	]
+	if empty? struct-name-reb [
+		struct-name-reb: none
+	]
+	clang/disposeString struct-name
+	type: clang/getCursorType cursor
+
+	n: make struct! compose [
+		rebval v: (make c-struct [name: struct-name-reb])
+	]
+	unless empty? struct-alias [
+		append n/v/aliases struct-alias
+	]
+	clang/visitChildren cursor addr-of struct-visitor-fields addr-of n
+	debug ["found a struct:" mold n/v]
+	unless any [none? n/v/name empty? n/v/name][
+		aliases: join reduce [n/v/name] n/v/aliases
+		debug ["aliases" mold aliases]
+		idx: none
+		foreach a aliases [
+			unless none? idx: global-structs/hash/(a) [break]
+		]
+		either none? idx [; new struct
+			global-structs/n-structs: global-structs/n-structs + 1
+			append global-structs/structs n/v
+			foreach a aliases [
+				append global-structs/hash reduce [a global-structs/n-structs]
+			]
+		][
+			foreach a aliases [
+				if none? global-structs/hash/(a) [
+					append global-structs/hash reduce [a idx]
+				]
+				s: global-structs/structs/(idx)
+				unless any [
+					a = s/name
+					found? find s/aliases a
+				][
+					append s/aliases a
+				]
+			]
+		]
+	]
+	return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
+]
+
 cursor-visitor: mk-cb compose/deep [
 	cursor [(clang/CXCursor)]
 	parent [(clang/CXCursor)]
@@ -647,143 +801,13 @@ cursor-visitor: mk-cb compose/deep [
 			;return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
 		;]
 		(kind = clang/enum clang/CXCursorKind 'CXCursor_EnumDecl) [
-			name: clang/getCursorSpelling cursor
-			enum-name-reb: stringfy clang/getCString name
-			clang/disposeString name
-			if empty? enum-name-reb [
-				parent-type: clang/getCursorType parent
-				if parent-type/kind = clang/enum clang/CXTypeKind 'CXType_Typedef [
-					name: clang/getCursorSpelling parent
-					enum-name-reb: stringfy clang/getCString name
-					clang/disposeString name
-				]
-			]
-			n: make struct! compose [
-				rebval v: (make c-enum-class [name: enum-name-reb])
-			]
-			clang/visitChildren cursor addr-of enum-visitor-fields addr-of n
-			append global-enums n/v
-			debug ["found an enum:" mold n/v]
-			return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
+			return handle-enum cursor parent client-data
 		]
 		(kind = clang/enum clang/CXCursorKind 'CXCursor_FunctionDecl) [
-			; ignore non-exported functions
-			name: clang/getCursorSpelling cursor
-			func-name-reb: stringfy clang/getCString name
-			clang/disposeString name
-
-			link: clang/getCursorLinkage cursor
-			debug [func-name-reb "link:" link]
-			unless any [
-				link = clang/enum clang/CXLinkageKind 'CXLinkage_External
-				link = clang/enum clang/CXLinkageKind 'CXLinkage_UniqueExternal][
-				return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
-			]
-			func-type: clang/getCursorType cursor
-			rtype: clang/getResultType func-type
-
-			rtype-name: clang/getTypeSpelling rtype
-			rtype-name-reb: stringfy clang/getCString rtype-name
-			clang/disposeString rtype-name
-			rtype: c-2-rebol-arg-type rtype
-			debug ["rtype:" rtype-name-reb]
-			debug ["rtype:" mold rtype]
-
-			c-func: make c-func-class reduce/no-set [
-				name: func-name-reb
-				return-type: first rtype
-				return-struct?: second rtype
-				variadic?: not zero? clang/isFunctionTypeVariadic func-type
-				abi: clang/getFunctionTypeCallingConv func-type
-				availability: clang/getCursorAvailability cursor
-			]
-			n: clang/Cursor_getNumArguments cursor
-			debug ["n:" n]
-			i: 0
-			while [i < n] [
-				arg: clang/Cursor_getArgument cursor i
-				arg-name: clang/getCursorSpelling arg
-				debug ["type" mold type]
-				arg-type: c-2-rebol-arg-type clang/getCursorType arg
-				c-arg: make c-arg-class [
-					name: stringfy clang/getCString arg-name
-					type: first arg-type
-					is-struct?: second arg-type
-				]
-				append c-func/args c-arg
-				;type-name: clang/getTypeSpelling c-arg/type
-				debug rejoin ["parameter:" stringfy clang/getCString arg-name ", type:" mold c-arg/type "^/"]
-				;clang/disposeString type-name
-				clang/disposeString arg-name
-
-				++ i
-			]
-			debug ["checking for variadic arguments"]
-			append global-functions c-func
-			return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
+			return handle-function cursor parent client-data
 		]
 		(kind = clang/enum clang/CXCursorKind 'CXCursor_StructDecl) [
-			struct-name: clang/getCursorSpelling cursor
-			struct-name-reb: stringfy clang/getCString struct-name
-			debug ["struct-name:" struct-name-reb]
-
-			parent-kind: clang/getCursorKind parent
-			debug ["parent-kind:" parent-kind]
-			if parent-kind = target-kind: clang/enum clang/CXCursorKind 'CXCursor_TypedefDecl [
-				typedef-name: clang/getCursorSpelling parent
-				typedef-name-reb: stringfy clang/getCString typedef-name
-				debug ["typedef-name-reb:" typedef-name-reb]
-				clang/disposeString typedef-name
-				either empty? struct-name-reb [
-					struct-name-reb: typedef-name-reb
-					struct-alias: none
-				][
-					struct-alias: typedef-name-reb
-				]
-			]
-			if empty? struct-name-reb [
-				struct-name-reb: none
-			]
-			clang/disposeString struct-name
-			type: clang/getCursorType cursor
-
-			n: make struct! compose [
-				rebval v: (make c-struct [name: struct-name-reb])
-			]
-			unless empty? struct-alias [
-				append n/v/aliases struct-alias
-			]
-			clang/visitChildren cursor addr-of struct-visitor-fields addr-of n
-			debug ["found a struct:" mold n/v]
-			unless any [none? n/v/name empty? n/v/name][
-				aliases: join reduce [n/v/name] n/v/aliases
-				debug ["aliases" mold aliases]
-				idx: none
-				foreach a aliases [
-					unless none? idx: global-structs/hash/(a) [break]
-				]
-				either none? idx [; new struct
-					global-structs/n-structs: global-structs/n-structs + 1
-					append global-structs/structs n/v
-					foreach a aliases [
-						append global-structs/hash reduce [a global-structs/n-structs]
-					]
-				][
-					foreach a aliases [
-						if none? global-structs/hash/(a) [
-							append global-structs/hash reduce [a idx]
-						]
-						s: global-structs/structs/(idx)
-						unless any [
-							a = s/name
-							found? find s/aliases a
-						][
-							append s/aliases a
-						]
-					]
-				]
-			]
-			return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
+			return handle-struct cursor parent client-data
 		]
 		'else [
 			;name: clang/getCursorSpelling cursor
