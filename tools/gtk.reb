@@ -1,5 +1,6 @@
 REBOL []
 
+;recycle/torture
 function-filter: func [
 	f [object!]
 ][
@@ -31,6 +32,7 @@ enum-filter: func [
 	all [
 		not empty? e/name
 		not empty? e/key-value
+		#"G" = first e/name
 	]
 ]
 
