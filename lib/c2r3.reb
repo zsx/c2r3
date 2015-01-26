@@ -78,6 +78,7 @@ c-field: make object! [
 c-enum-class: make object! [
 	name: none
 	key-value: copy []
+	aliases: copy []
 ]
 
 global-enums: make block! 16
@@ -470,6 +471,9 @@ write-a-rebol-enum: func [
 	][
 		append ret c-enum/name
 	]
+	foreach a c-enum/aliases [
+		append ret rejoin [": " a]
+	]
 	append ret ": [^/"
 	foreach [k v] c-enum/key-value [
 		loop indent + 1 [append ret "^-"]
@@ -640,13 +644,16 @@ handle-enum: function [
 	name: clang/getCursorSpelling cursor
 	enum-name-reb: stringfy clang/getCString name
 	clang/disposeString name
+	debug ["enum name:" mold enum-name-reb]
 	if empty? enum-name-reb [
+		debug ["anonymous enum"]
 		parent-type: clang/getCursorType parent
 		if parent-type/kind = clang/enum clang/CXTypeKind 'CXType_Typedef [
 			name: clang/getCursorSpelling parent
 			enum-name-reb: stringfy clang/getCString name
 			clang/disposeString name
 		]
+		debug ["parent type:" parent-type/kind "name:" enum-name-reb]
 	]
 	n: make struct! compose [
 		rebval v: (make c-enum-class [name: enum-name-reb])
@@ -725,6 +732,7 @@ handle-struct: function [
 ][
 	struct-name: clang/getCursorSpelling cursor
 	struct-name-reb: stringfy clang/getCString struct-name
+	clang/disposeString struct-name
 	debug ["struct-name:" struct-name-reb]
 
 	parent-kind: clang/getCursorKind parent
@@ -744,7 +752,6 @@ handle-struct: function [
 	if empty? struct-name-reb [
 		struct-name-reb: none
 	]
-	clang/disposeString struct-name
 	type: clang/getCursorType cursor
 
 	n: make struct! compose [
@@ -786,6 +793,52 @@ handle-struct: function [
 	return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
 ]
 
+handle-typedef: function [
+	cursor [struct!]
+	parent [struct!]
+	client-data [integer!]
+][
+	type: clang/getCursorType cursor
+	name: clang/getTypeSpelling type
+	name-reb: stringfy clang/getCString name
+	clang/disposeString name
+	debug ["typedef-name:" name-reb]
+
+	canonical-type: clang/getCanonicalType type
+	debug ["canonical type:" canonical-type/kind]
+	canonical-name: clang/getTypeSpelling canonical-type
+	canonical-name-reb: stringfy clang/getCString canonical-name
+	clang/disposeString canonical-name
+	debug ["typedef-name:" name-reb "canonical-type:" canonical-name-reb]
+
+	switch canonical-type/kind compose [
+		(clang/CXTypeKind/CXType_Record) [
+			foreach s global-structs/structs [
+				if s/name = canonical-name-reb [
+					debug ["adding an alias " name-reb "to" canonical-name-reb]
+					append s/aliases name-reb
+					return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
+				]
+			]
+		]
+		(clang/CXTypeKind/CXType_Enum) [
+			debug ["canonical-name-reb0:" mold canonical-name-reb]
+			if find/match canonical-name-reb "enum " [
+				remove/part canonical-name-reb length? "enum "
+				debug ["canonical-name-reb1:" mold canonical-name-reb]
+			]
+			foreach e global-enums [
+				if e/name = canonical-name-reb [
+					debug ["adding an alias " name-reb "to" canonical-name-reb]
+					append e/aliases name-reb
+					return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
+				]
+			]
+		]
+	]
+	return clang/enum clang/CXChildVisitResult 'CXChildVisit_Recurse
+]
+
 cursor-visitor: mk-cb compose/deep [
 	cursor [(clang/CXCursor)]
 	parent [(clang/CXCursor)]
@@ -796,10 +849,11 @@ cursor-visitor: mk-cb compose/deep [
 	debug ["cursor:" mold cursor]
 	kind: clang/getCursorKind cursor
 	case compose [
-		;(kind = clang/enum clang/CXCursorKind 'CXCursor_TypedefDecl) [
+		(kind = clang/enum clang/CXCursorKind 'CXCursor_TypedefDecl) [
 			;avoid duplicate visits to enum, struct, etc
+			return handle-typedef cursor parent client-data
 			;return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
-		;]
+		]
 		(kind = clang/enum clang/CXCursorKind 'CXCursor_EnumDecl) [
 			return handle-enum cursor parent client-data
 		]
