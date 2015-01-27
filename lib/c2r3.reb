@@ -162,8 +162,11 @@ c-2-reb-type: func [
 				type-name: clang/getTypeSpelling orig-type
 			]
 			type-name-reb: stringfy clang/getCString clang/getTypeSpelling type
-			if "struct " = copy/part type-name-reb length? "struct " [
-				type-name-reb: skip type-name-reb length? "struct "
+			records: ["struct " "union "]
+			foreach r records [
+				if r = copy/part type-name-reb length? r [
+					type-name-reb: skip type-name-reb length? r
+				]
 			]
 			clang/disposeString type-name
 			either empty? type-name-reb [
@@ -725,6 +728,39 @@ handle-function: function [
 	return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
 ]
 
+add-struct: function [
+	s [object!]
+][
+	unless any [none? s/name empty? s/name][
+		aliases: join reduce [s/name] s/aliases
+		debug ["aliases" mold aliases]
+		idx: none
+		foreach a aliases [
+			unless none? idx: global-structs/hash/(a) [break]
+		]
+		either none? idx [; new struct
+			global-structs/n-structs: global-structs/n-structs + 1
+			append global-structs/structs s
+			foreach a aliases [
+				append global-structs/hash reduce [a global-structs/n-structs]
+			]
+		][
+			foreach a aliases [
+				if none? global-structs/hash/(a) [
+					append global-structs/hash reduce [a idx]
+				]
+				s: global-structs/structs/(idx)
+				unless any [
+					a = s/name
+					found? find s/aliases a
+				][
+					append s/aliases a
+				]
+			]
+		]
+	]
+]
+
 handle-struct: function [
 	cursor [struct!]
 	parent [struct!]
@@ -762,34 +798,7 @@ handle-struct: function [
 	]
 	clang/visitChildren cursor addr-of struct-visitor-fields addr-of n
 	debug ["found a struct:" mold n/v]
-	unless any [none? n/v/name empty? n/v/name][
-		aliases: join reduce [n/v/name] n/v/aliases
-		debug ["aliases" mold aliases]
-		idx: none
-		foreach a aliases [
-			unless none? idx: global-structs/hash/(a) [break]
-		]
-		either none? idx [; new struct
-			global-structs/n-structs: global-structs/n-structs + 1
-			append global-structs/structs n/v
-			foreach a aliases [
-				append global-structs/hash reduce [a global-structs/n-structs]
-			]
-		][
-			foreach a aliases [
-				if none? global-structs/hash/(a) [
-					append global-structs/hash reduce [a idx]
-				]
-				s: global-structs/structs/(idx)
-				unless any [
-					a = s/name
-					found? find s/aliases a
-				][
-					append s/aliases a
-				]
-			]
-		]
-	]
+	add-struct n/v
 	return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
 ]
 
@@ -839,6 +848,42 @@ handle-typedef: function [
 	return clang/enum clang/CXChildVisitResult 'CXChildVisit_Recurse
 ]
 
+handle-union: function [
+	cursor [struct!]
+	parent [struct!]
+	client-data [integer!]
+][
+	name: clang/getCursorSpelling cursor
+	union-name-reb: stringfy clang/getCString name
+	clang/disposeString name
+	debug ["union name:" mold union-name-reb]
+	if empty? union-name-reb [
+		debug ["anonymous union"]
+		parent-type: clang/getCursorType parent
+		if parent-type/kind = clang/enum clang/CXTypeKind 'CXType_Typedef [
+			name: clang/getCursorSpelling parent
+			union-name-reb: stringfy clang/getCString name
+			clang/disposeString name
+		]
+		debug ["parent type:" parent-type/kind "name:" union-name-reb]
+	]
+	type: clang/getCursorType cursor
+	size: clang/Type_getSizeOf type
+	debug ["sizeof" union-name-reb ":" size]
+	field: make c-field reduce/no-set [
+		name: "fake"
+		type: "uint8"
+		dimension: size
+	]
+	s: make c-struct [
+		name: union-name-reb
+		fields: reduce [field]
+	]
+	debug ["faked union struct:" mold s]
+	add-struct s
+	return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
+]
+
 cursor-visitor: mk-cb compose/deep [
 	cursor [(clang/CXCursor)]
 	parent [(clang/CXCursor)]
@@ -852,7 +897,6 @@ cursor-visitor: mk-cb compose/deep [
 		(kind = clang/enum clang/CXCursorKind 'CXCursor_TypedefDecl) [
 			;avoid duplicate visits to enum, struct, etc
 			return handle-typedef cursor parent client-data
-			;return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
 		]
 		(kind = clang/enum clang/CXCursorKind 'CXCursor_EnumDecl) [
 			return handle-enum cursor parent client-data
@@ -862,6 +906,9 @@ cursor-visitor: mk-cb compose/deep [
 		]
 		(kind = clang/enum clang/CXCursorKind 'CXCursor_StructDecl) [
 			return handle-struct cursor parent client-data
+		]
+		(kind = clang/enum clang/CXCursorKind 'CXCursor_UnionDecl) [
+			return handle-union cursor parent client-data
 		]
 		'else [
 			;name: clang/getCursorSpelling cursor
@@ -1003,6 +1050,7 @@ write-output: func [
 				not found? select written-structs a/type
 			][
 				;write the struct and its dependency
+				debug ["trying to find struct for:" mold a/type]
 				s: pick global-structs/structs (select global-structs/hash a/type)
 				write-a-complete-struct s
 			]
@@ -1011,6 +1059,7 @@ write-output: func [
 			f/return-struct?
 			not found? select written-structs f/return-type
 		][
+			debug ["trying to find struct for:" mold f/return-type]
 			s: pick global-structs/structs (select global-structs/hash f/return-type)
 			write-a-complete-struct s
 		]
