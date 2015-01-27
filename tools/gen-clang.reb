@@ -86,7 +86,7 @@ make object! [
 
 }
 ]
-write-output OUTPUT "clang" %libclang.so
+write-output OUTPUT ["clang" %libclang.so]
 
 write/append OUTPUT "]^/"
 
