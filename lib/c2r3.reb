@@ -97,6 +97,7 @@ c-func-class: make object! [
 	return-struct?: false
 	abi: none
 	availability: none
+	lib: none
 ]
 
 global-functions: make block! 16
@@ -354,7 +355,7 @@ write-a-rebol-func: func [
 	]
 
 	loop indent [append ret "^-"]
-	append ret rejoin ["] (" to string! lib ") ^"" extern-name "^"]^/"]
+	append ret rejoin ["] (" either none? c-func/lib [to string! lib][c-func/lib] ") ^"" extern-name "^"]^/"]
 ]
 
 write-a-c-type: func [
@@ -959,8 +960,7 @@ compile: function [
 
 write-output: func [
 	dest [file!]
-	libname [any-string!]
-	libpath	[file!]
+	lib [block!] "block of [libname libpath]"
 	/local e written-structs s a func-to-expose f write-a-complete-struct idx
 ][
 	;write dest ""
@@ -1067,11 +1067,15 @@ write-output: func [
 
 	debug ["exported structs:" mold written-structs]
 
-	write/append dest rejoin ["^-" libname ": make library! " mold libpath "^/"]
+	default-lib: none
+	foreach [libname libpath] lib [
+		default-lib: libname
+		write/append dest rejoin ["^-" libname ": make library! " mold libpath "^/"]
+	]
 
 	foreach f func-to-expose [
 		debug ["f:" mold f]
-		write/append dest rejoin [write-a-rebol-func f libname (get 'function-ns) 1 "^/"]
+		write/append dest rejoin [write-a-rebol-func f default-lib (get 'function-ns) 1 "^/"]
 	]
 ]
 
