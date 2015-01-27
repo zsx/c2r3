@@ -1012,6 +1012,7 @@ write-output: func [
 		s [object!]
 		/local f ns n
 	][
+	  	if found? select written-structs s/name [exit]
 		debug ["writing a complete struct:" mold s]
 		foreach f s/fields [
 			if all [
@@ -1023,7 +1024,7 @@ write-output: func [
 				if any [none? n empty? n][
 					n: f/typedef
 				]
-				unless found? select global-structs/hash n [
+				if found? select global-structs/hash n [
 					debug ["trying to find struct for:" mold f]
 					ns: pick global-structs/structs (select global-structs/hash n)
 					write-a-complete-struct ns
