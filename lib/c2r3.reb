@@ -100,7 +100,10 @@ c-func-class: make object! [
 	lib: none
 ]
 
-global-functions: make block! 16
+global-functions: make object! [
+	hash: make map! 16
+	funcs: make block! 16
+]
 
 c-2-reb-type: func [
 	type [struct!]
@@ -668,6 +671,16 @@ handle-enum: function [
 	return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
 ]
 
+add-func: func [
+	f [object!]
+][
+	idx: global-functions/hash/(f/name)
+	if none? idx [
+		append global-functions/funcs f
+		append global-functions/hash reduce [f/name length? global-functions/funcs]
+	]
+]
+
 handle-function: function [
 	cursor [struct!]
 	parent [struct!]
@@ -725,7 +738,7 @@ handle-function: function [
 		++ i
 	]
 	debug ["checking for variadic arguments"]
-	append global-functions c-func
+	add-func c-func
 	return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
 ]
 
@@ -1043,13 +1056,13 @@ write-output: func [
 	]
 
 	either function? :function-filter [
-		foreach f global-functions [
+		foreach f global-functions/funcs [
 			if function-filter f [
 				append func-to-expose f
 			]
 		]
 	][
-		func-to-expose: global-functions	
+		func-to-expose: global-functions/funcs
 	]
 
 	; write all structs required by func
