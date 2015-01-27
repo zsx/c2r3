@@ -86,6 +86,7 @@ c-enum-class: make c-datatype [
 ]
 
 global-enums: make block! 16
+global-typedefs: make map! 16
 
 c-arg-class: make object! [
 	name:
@@ -879,6 +880,26 @@ handle-typedef: function [
 			]
 		]
 	]
+
+	;typedef might be declared before the canonical datatype
+	debug ["saving typedefs"]
+	parsed-name-reb: parse canonical-name-reb ""
+	if all [2 <= length? parsed-name-reb
+			found? find ["struct" "enum" "union"] first parsed-name-reb][
+		canonical-name-reb: second parsed-name-reb
+	]
+
+	if name-reb != canonical-name-reb [
+		either none? aliases: select global-typedefs canonical-name-reb [
+			aliases: reduce [name-reb]
+		][
+			unless found? find aliases name-reb [
+				append aliases name-reb
+			]
+		]
+		append global-typedefs reduce [canonical-name-reb aliases]
+	]
+
 	return clang/enum clang/CXChildVisitResult 'CXChildVisit_Recurse
 ]
 
@@ -1039,6 +1060,19 @@ write-output: func [
 		export-struct s
 	]
 
+	debug ["global-typedefs:" mold global-typedefs]
+
+	foreach e global-enums [
+		as: select global-typedefs e/name
+		unless none? as [
+			foreach a as [
+				unless found? find e/aliases a [
+					append e/aliases a
+				]
+			]
+		]
+	]
+
 	idx: 0
 	foreach e global-enums [
 		either function? :enum-filter [
@@ -1051,6 +1085,19 @@ write-output: func [
 		]
 		++ idx
 	]
+
+	foreach s global-structs/structs [
+		as: select global-typedefs s/name
+		unless none? as [
+			foreach a as [
+				unless found? find s/aliases a [
+					append s/aliases a
+				]
+			]
+		]
+	]
+
+	debug ["all structs with aliases:" mold global-structs/structs]
 
 	foreach s global-structs/structs [
 		unless zero? length? s/fields [ ;ex: typedef struct a *pa;
