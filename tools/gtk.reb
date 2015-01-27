@@ -84,5 +84,5 @@ write OUTPUT {REBOL [
 ]
 make object! [
 }
-write-output OUTPUT "gtk" %libgtk-3.so
+write-output OUTPUT ["gtk" %libgtk-3.so]
 write/append OUTPUT "]^/"
