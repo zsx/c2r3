@@ -50,7 +50,11 @@ stringfy: func [
 	to string! values-of s
 ]
 
-c-struct: make object! [
+c-datatype: make object! [
+	file: none
+	col: row: 0
+]
+c-struct: make c-datatype [
 	name: none
 	global: true
 	fields: copy []
@@ -75,7 +79,7 @@ c-field: make object! [
 	is-struct?: false
 ]
 
-c-enum-class: make object! [
+c-enum-class: make c-datatype [
 	name: none
 	key-value: copy []
 	aliases: copy []
@@ -89,7 +93,7 @@ c-arg-class: make object! [
 	is-struct?: false ;is c struct
 ]
 
-c-func-class: make object! [
+c-func-class: make c-datatype [
 	name: none
 	args: copy []
 	variadic?: false
