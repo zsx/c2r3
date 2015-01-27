@@ -759,17 +759,23 @@ add-struct: function [
 				append global-structs/hash reduce [a global-structs/n-structs]
 			]
 		][
+			os: global-structs/structs/(idx)
 			foreach a aliases [
 				if none? global-structs/hash/(a) [
 					append global-structs/hash reduce [a idx]
 				]
-				s: global-structs/structs/(idx)
 				unless any [
-					a = s/name
-					found? find s/aliases a
+					a = os/name
+					found? find os/aliases a
 				][
-					append s/aliases a
+					append os/aliases a
 				]
+			]
+			
+			if all [
+				empty? os/fields
+				not empty? s/fields] [; it was just a declaration: typedef struct a a_t;
+				os/fields: s/fields
 			]
 		]
 	]
