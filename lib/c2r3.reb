@@ -825,8 +825,13 @@ handle-typedef: function [
 		(clang/CXTypeKind/CXType_Record) [
 			foreach s global-structs/structs [
 				if s/name = canonical-name-reb [
-					debug ["adding an alias " name-reb "to" canonical-name-reb]
-					append s/aliases name-reb
+					unless any [
+						s/name = name-reb
+						found? find s/aliases name-reb
+					][
+						debug ["adding a struct alias " name-reb "to" canonical-name-reb]
+						append s/aliases name-reb
+					]
 					return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
 				]
 			]
@@ -839,8 +844,13 @@ handle-typedef: function [
 			]
 			foreach e global-enums [
 				if e/name = canonical-name-reb [
-					debug ["adding an alias " name-reb "to" canonical-name-reb]
-					append e/aliases name-reb
+					unless any [
+						e/name = name-reb
+						found? find e/aliases name-reb
+					][
+						debug ["adding an enum alias " name-reb "to" canonical-name-reb]
+						append e/aliases name-reb
+					]
 					return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
 				]
 			]
