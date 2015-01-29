@@ -29111,4 +29111,12 @@ make object! [
 		abi: default
 	] (gio) "g_notification_set_default_action_and_target_value"]
 
+	signal_connect: func [
+		instance 		[integer!]
+		detailed-signal [integer!]
+		handler 		[integer!]
+		data 			[integer!]
+	][
+    	signal_connect_data instance detailed-signal handler data 0 0
+	]
 ]

@@ -4040,4 +4040,14 @@ write-output OUTPUT [
 	"gmodule" %libgmodule-2.0.so
 	"gio" %libgio-2.0.so
 ]
-write/append OUTPUT "]^/"
+write/append OUTPUT {
+	signal_connect: func [
+		instance 		[integer!]
+		detailed-signal [integer!]
+		handler 		[integer!]
+		data 			[integer!]
+	][
+    	signal_connect_data instance detailed-signal handler data 0 0
+	]
+]^/}
+	
