@@ -23,6 +23,10 @@ function-ns: func [
 struct-filter: func [
 	s [object!]
 ][
+	if found? find/match s/name "Gtk" [return true]
+	foreach a s/aliases [
+		if found? find/match a "Gtk" [return true]
+	]
 	false
 ]
 

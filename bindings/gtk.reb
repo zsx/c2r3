@@ -2919,6 +2919,2990 @@ make object! [
 		GTK_UI_MANAGER_POPUP_WITH_ACCELS 512
 	]
 
+	_cairo_rectangle_int: cairo_rectangle_int_t: GdkRectangle: GtkAllocation: make struct! compose/deep [
+		int32 x
+		int32 y
+		int32 width
+		int32 height
+	]
+	_GTypeInstance: GTypeInstance: make struct! compose/deep [
+		pointer g_class
+	]
+	_GObject: GObject: GInitiallyUnowned: make struct! compose/deep [
+		(GTypeInstance) g_type_instance
+		uint32 ref_count
+		uint8 [4] padding2
+		pointer qdata
+	]
+	_GtkAccelGroup: GtkAccelGroup: make struct! compose/deep [
+		(GObject) parent
+		pointer priv
+	]
+	_GTypeClass: GTypeClass: make struct! compose/deep [
+		uint64 g_type
+	]
+	_GObjectClass: GObjectClass: GInitiallyUnownedClass: make struct! compose/deep [
+		(GTypeClass) g_type_class
+		pointer construct_properties
+		pointer constructor
+		pointer set_property
+		pointer get_property
+		pointer dispose
+		pointer finalize
+		pointer dispatch_properties_changed
+		pointer notify
+		pointer constructed
+		uint64 flags
+		pointer [6] pdummy
+	]
+	_GtkAccelGroupClass: GtkAccelGroupClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer accel_changed
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkAccelKey: GtkAccelKey: make struct! compose/deep [
+		uint32 accel_key
+		int32 accel_mods
+		uint32 accel_flags
+	]
+	_GtkAccelGroupEntry: GtkAccelGroupEntry: make struct! compose/deep [
+		(GtkAccelKey) key
+		uint8 [4] padding1
+		pointer closure
+		uint32 accel_path_quark
+	]
+	_GtkBorder: GtkBorder: make struct! compose/deep [
+		int16 left
+		int16 right
+		int16 top
+		int16 bottom
+	]
+	_GtkAdjustment: GtkAdjustment: make struct! compose/deep [
+		(GInitiallyUnowned) parent_instance
+		pointer priv
+	]
+	_GtkBuilder: GtkBuilder: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer priv
+	]
+	_GdkColor: GdkColor: make struct! compose/deep [
+		uint32 pixel
+		uint16 red
+		uint16 green
+		uint16 blue
+	]
+	_GtkRcStyle: GtkRcStyle: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer name
+		pointer [5] bg_pixmap_name
+		pointer font_desc
+		int32 [5] color_flags
+		(GdkColor) [5] fg
+		(GdkColor) [5] bg
+		(GdkColor) [5] text
+		(GdkColor) [5] base
+		int32 xthickness
+		int32 ythickness
+		uint8 [4] padding11
+		pointer rc_properties
+		pointer rc_style_lists
+		pointer icon_factories
+		uint32 engine_specified
+	]
+	_GtkRequisition: GtkRequisition: make struct! compose/deep [
+		int32 width
+		int32 height
+	]
+	_GtkSettings: GtkSettings: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer priv
+	]
+	_GtkStyle: GtkStyle: make struct! compose/deep [
+		(GObject) parent_instance
+		(GdkColor) [5] fg
+		(GdkColor) [5] bg
+		(GdkColor) [5] light
+		(GdkColor) [5] dark
+		(GdkColor) [5] mid
+		(GdkColor) [5] text
+		(GdkColor) [5] base
+		(GdkColor) [5] text_aa
+		(GdkColor) black
+		(GdkColor) white
+		pointer font_desc
+		int32 xthickness
+		int32 ythickness
+		pointer [5] background
+		int32 attach_count
+		uint8 [4] padding16
+		pointer visual
+		pointer private_font_desc
+		pointer rc_style
+		pointer styles
+		pointer property_cache
+		pointer icon_factories
+	]
+	_GtkStyleContext: GtkStyleContext: make struct! compose/deep [
+		(GObject) parent_object
+		pointer priv
+	]
+	_GtkWidget: GtkWidget: make struct! compose/deep [
+		(GInitiallyUnowned) parent_instance
+		pointer priv
+	]
+	_GtkContainer: GtkContainer: make struct! compose/deep [
+		(GtkWidget) widget
+		pointer priv
+	]
+	_GtkBin: GtkBin: make struct! compose/deep [
+		(GtkContainer) container
+		pointer priv
+	]
+	_GtkWindow: GtkWindow: make struct! compose/deep [
+		(GtkBin) bin
+		pointer priv
+	]
+	_GtkWidgetClass: GtkWidgetClass: make struct! compose/deep [
+		(GInitiallyUnownedClass) parent_class
+		uint32 activate_signal
+		uint8 [4] padding2
+		pointer dispatch_child_properties_changed
+		pointer destroy
+		pointer show
+		pointer show_all
+		pointer hide
+		pointer map
+		pointer unmap
+		pointer realize
+		pointer unrealize
+		pointer size_allocate
+		pointer state_changed
+		pointer state_flags_changed
+		pointer parent_set
+		pointer hierarchy_changed
+		pointer style_set
+		pointer direction_changed
+		pointer grab_notify
+		pointer child_notify
+		pointer draw
+		pointer get_request_mode
+		pointer get_preferred_height
+		pointer get_preferred_width_for_height
+		pointer get_preferred_width
+		pointer get_preferred_height_for_width
+		pointer mnemonic_activate
+		pointer grab_focus
+		pointer focus
+		pointer move_focus
+		pointer keynav_failed
+		pointer event
+		pointer button_press_event
+		pointer button_release_event
+		pointer scroll_event
+		pointer motion_notify_event
+		pointer delete_event
+		pointer destroy_event
+		pointer key_press_event
+		pointer key_release_event
+		pointer enter_notify_event
+		pointer leave_notify_event
+		pointer configure_event
+		pointer focus_in_event
+		pointer focus_out_event
+		pointer map_event
+		pointer unmap_event
+		pointer property_notify_event
+		pointer selection_clear_event
+		pointer selection_request_event
+		pointer selection_notify_event
+		pointer proximity_in_event
+		pointer proximity_out_event
+		pointer visibility_notify_event
+		pointer window_state_event
+		pointer damage_event
+		pointer grab_broken_event
+		pointer selection_get
+		pointer selection_received
+		pointer drag_begin
+		pointer drag_end
+		pointer drag_data_get
+		pointer drag_data_delete
+		pointer drag_leave
+		pointer drag_motion
+		pointer drag_drop
+		pointer drag_data_received
+		pointer drag_failed
+		pointer popup_menu
+		pointer show_help
+		pointer get_accessible
+		pointer screen_changed
+		pointer can_activate_accel
+		pointer composited_changed
+		pointer query_tooltip
+		pointer compute_expand
+		pointer adjust_size_request
+		pointer adjust_size_allocation
+		pointer style_updated
+		pointer touch_event
+		pointer get_preferred_height_and_baseline_for_width
+		pointer adjust_baseline_request
+		pointer adjust_baseline_allocation
+		pointer queue_draw_region
+		pointer priv
+		pointer _gtk_reserved6
+		pointer _gtk_reserved7
+	]
+	_GtkWidgetAuxInfo: GtkWidgetAuxInfo: make struct! compose/deep [
+		int32 width
+		int32 height
+		uint32 halign
+		;valign, merged with the previous field
+		;margin, merged with the previous field
+	]
+	_GApplication: GApplication: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer priv
+	]
+	_GtkApplication: GtkApplication: make struct! compose/deep [
+		(GApplication) parent
+		pointer priv
+	]
+	_GApplicationClass: GApplicationClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer startup
+		pointer activate
+		pointer open
+		pointer command_line
+		pointer local_command_line
+		pointer before_emit
+		pointer after_emit
+		pointer add_platform_data
+		pointer quit_mainloop
+		pointer run_mainloop
+		pointer shutdown
+		pointer dbus_register
+		pointer dbus_unregister
+		pointer handle_local_options
+		pointer [8] padding
+	]
+	_GtkApplicationClass: GtkApplicationClass: make struct! compose/deep [
+		(GApplicationClass) parent_class
+		pointer window_added
+		pointer window_removed
+		pointer [12] padding
+	]
+	_GtkContainerClass: GtkContainerClass: make struct! compose/deep [
+		(GtkWidgetClass) parent_class
+		pointer add
+		pointer remove
+		pointer check_resize
+		pointer forall
+		pointer set_focus_child
+		pointer child_type
+		pointer composite_name
+		pointer set_child_property
+		pointer get_child_property
+		pointer get_path_for_child
+		uint32 _handle_border_width
+		uint8 [4] padding12
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+		pointer _gtk_reserved6
+		pointer _gtk_reserved7
+		pointer _gtk_reserved8
+	]
+	_GtkBinClass: GtkBinClass: make struct! compose/deep [
+		(GtkContainerClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkWindowClass: GtkWindowClass: make struct! compose/deep [
+		(GtkBinClass) parent_class
+		pointer set_focus
+		pointer activate_focus
+		pointer activate_default
+		pointer keys_changed
+		pointer enable_debugging
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+	]
+	_GtkWindowGroup: GtkWindowGroup: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer priv
+	]
+	_GtkWindowGroupClass: GtkWindowGroupClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkDialog: GtkDialog: make struct! compose/deep [
+		(GtkWindow) window
+		pointer priv
+	]
+	_GtkDialogClass: GtkDialogClass: make struct! compose/deep [
+		(GtkWindowClass) parent_class
+		pointer response
+		pointer close
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkAboutDialog: GtkAboutDialog: make struct! compose/deep [
+		(GtkDialog) parent_instance
+		pointer priv
+	]
+	_GtkAboutDialogClass: GtkAboutDialogClass: make struct! compose/deep [
+		(GtkDialogClass) parent_class
+		pointer activate_link
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkMisc: GtkMisc: make struct! compose/deep [
+		(GtkWidget) widget
+		pointer priv
+	]
+	_GtkMiscClass: GtkMiscClass: make struct! compose/deep [
+		(GtkWidgetClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkMenuShell: GtkMenuShell: make struct! compose/deep [
+		(GtkContainer) container
+		pointer priv
+	]
+	_GtkMenuShellClass: GtkMenuShellClass: make struct! compose/deep [
+		(GtkContainerClass) parent_class
+		uint32 submenu_placement
+		uint8 [4] padding2
+		pointer deactivate
+		pointer selection_done
+		pointer move_current
+		pointer activate_current
+		pointer cancel
+		pointer select_item
+		pointer insert
+		pointer get_popup_delay
+		pointer move_selected
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkMenu: GtkMenu: make struct! compose/deep [
+		(GtkMenuShell) menu_shell
+		pointer priv
+	]
+	_GtkMenuClass: GtkMenuClass: make struct! compose/deep [
+		(GtkMenuShellClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkLabel: GtkLabel: make struct! compose/deep [
+		(GtkMisc) misc
+		pointer priv
+	]
+	_GtkLabelClass: GtkLabelClass: make struct! compose/deep [
+		(GtkMiscClass) parent_class
+		pointer move_cursor
+		pointer copy_clipboard
+		pointer populate_popup
+		pointer activate_link
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+		pointer _gtk_reserved6
+		pointer _gtk_reserved7
+		pointer _gtk_reserved8
+	]
+	_GtkAccelLabel: GtkAccelLabel: make struct! compose/deep [
+		(GtkLabel) label
+		pointer priv
+	]
+	_GtkAccelLabelClass: GtkAccelLabelClass: make struct! compose/deep [
+		(GtkLabelClass) parent_class
+		pointer signal_quote1
+		pointer signal_quote2
+		pointer mod_name_shift
+		pointer mod_name_control
+		pointer mod_name_alt
+		pointer mod_separator
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_AtkObject: AtkObject: make struct! compose/deep [
+		(GObject) parent
+		pointer description
+		pointer name
+		pointer accessible_parent
+		int32 role
+		uint8 [4] padding5
+		pointer relation_set
+		int32 layer
+	]
+	_GtkAccessible: GtkAccessible: make struct! compose/deep [
+		(AtkObject) parent
+		pointer priv
+	]
+	_AtkObjectClass: AtkObjectClass: make struct! compose/deep [
+		(GObjectClass) parent
+		pointer get_name
+		pointer get_description
+		pointer get_parent
+		pointer get_n_children
+		pointer ref_child
+		pointer get_index_in_parent
+		pointer ref_relation_set
+		pointer get_role
+		pointer get_layer
+		pointer get_mdi_zorder
+		pointer ref_state_set
+		pointer set_name
+		pointer set_description
+		pointer set_parent
+		pointer set_role
+		pointer connect_property_change_handler
+		pointer remove_property_change_handler
+		pointer initialize
+		pointer children_changed
+		pointer focus_event
+		pointer property_change
+		pointer state_change
+		pointer visible_data_changed
+		pointer active_descendant_changed
+		pointer get_attributes
+		pointer get_object_locale
+		pointer pad1
+	]
+	_GtkAccessibleClass: GtkAccessibleClass: make struct! compose/deep [
+		(AtkObjectClass) parent_class
+		pointer connect_widget_destroyed
+		pointer widget_set
+		pointer widget_unset
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GTypeInterface: GTypeInterface: make struct! compose/deep [
+		uint64 g_type
+		uint64 g_instance_type
+	]
+	_GtkActionableInterface: GtkActionableInterface: make struct! compose/deep [
+		(GTypeInterface) g_iface
+		pointer get_action_name
+		pointer set_action_name
+		pointer get_action_target_value
+		pointer set_action_target_value
+	]
+	_GtkActionBar: GtkActionBar: make struct! compose/deep [
+		(GtkBin) bin
+	]
+	_GtkActionBarClass: GtkActionBarClass: make struct! compose/deep [
+		(GtkBinClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkAdjustmentClass: GtkAdjustmentClass: make struct! compose/deep [
+		(GInitiallyUnownedClass) parent_class
+		pointer changed
+		pointer value_changed
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkAppChooserDialog: GtkAppChooserDialog: make struct! compose/deep [
+		(GtkDialog) parent
+		pointer priv
+	]
+	_GtkAppChooserDialogClass: GtkAppChooserDialogClass: make struct! compose/deep [
+		(GtkDialogClass) parent_class
+		pointer [16] padding
+	]
+	_GtkBox: GtkBox: make struct! compose/deep [
+		(GtkContainer) container
+		pointer priv
+	]
+	_GtkBoxClass: GtkBoxClass: make struct! compose/deep [
+		(GtkContainerClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkAppChooserWidget: GtkAppChooserWidget: make struct! compose/deep [
+		(GtkBox) parent
+		pointer priv
+	]
+	_GtkAppChooserWidgetClass: GtkAppChooserWidgetClass: make struct! compose/deep [
+		(GtkBoxClass) parent_class
+		pointer application_selected
+		pointer application_activated
+		pointer populate_popup
+		pointer [16] padding
+	]
+	_GtkTreeIter: GtkTreeIter: make struct! compose/deep [
+		int32 stamp
+		uint8 [4] padding1
+		pointer user_data
+		pointer user_data2
+		pointer user_data3
+	]
+	_GtkTreeModelIface: GtkTreeModelIface: make struct! compose/deep [
+		(GTypeInterface) g_iface
+		pointer row_changed
+		pointer row_inserted
+		pointer row_has_child_toggled
+		pointer row_deleted
+		pointer rows_reordered
+		pointer get_flags
+		pointer get_n_columns
+		pointer get_column_type
+		pointer get_iter
+		pointer get_path
+		pointer get_value
+		pointer iter_next
+		pointer iter_previous
+		pointer iter_children
+		pointer iter_has_child
+		pointer iter_n_children
+		pointer iter_nth_child
+		pointer iter_parent
+		pointer ref_node
+		pointer unref_node
+	]
+	_GtkCellEditableIface: GtkCellEditableIface: make struct! compose/deep [
+		(GTypeInterface) g_iface
+		pointer editing_done
+		pointer remove_widget
+		pointer start_editing
+	]
+	_GtkCellRenderer: GtkCellRenderer: make struct! compose/deep [
+		(GInitiallyUnowned) parent_instance
+		pointer priv
+	]
+	_GtkCellRendererClass: GtkCellRendererClass: make struct! compose/deep [
+		(GInitiallyUnownedClass) parent_class
+		pointer get_request_mode
+		pointer get_preferred_width
+		pointer get_preferred_height_for_width
+		pointer get_preferred_height
+		pointer get_preferred_width_for_height
+		pointer get_aligned_area
+		pointer get_size
+		pointer render
+		pointer activate
+		pointer start_editing
+		pointer editing_canceled
+		pointer editing_started
+		pointer priv
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkTreeSortableIface: GtkTreeSortableIface: make struct! compose/deep [
+		(GTypeInterface) g_iface
+		pointer sort_column_changed
+		pointer get_sort_column_id
+		pointer set_sort_column_id
+		pointer set_sort_func
+		pointer set_default_sort_func
+		pointer has_default_sort_func
+	]
+	_GtkCellArea: GtkCellArea: make struct! compose/deep [
+		(GInitiallyUnowned) parent_instance
+		pointer priv
+	]
+	_GtkCellAreaClass: GtkCellAreaClass: make struct! compose/deep [
+		(GInitiallyUnownedClass) parent_class
+		pointer add
+		pointer remove
+		pointer foreach
+		pointer foreach_alloc
+		pointer event
+		pointer render
+		pointer apply_attributes
+		pointer create_context
+		pointer copy_context
+		pointer get_request_mode
+		pointer get_preferred_width
+		pointer get_preferred_height_for_width
+		pointer get_preferred_height
+		pointer get_preferred_width_for_height
+		pointer set_cell_property
+		pointer get_cell_property
+		pointer focus
+		pointer is_activatable
+		pointer activate
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+		pointer _gtk_reserved6
+		pointer _gtk_reserved7
+		pointer _gtk_reserved8
+	]
+	_GtkCellAreaContext: GtkCellAreaContext: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer priv
+	]
+	_GtkTreeViewColumn: GtkTreeViewColumn: make struct! compose/deep [
+		(GInitiallyUnowned) parent_instance
+		pointer priv
+	]
+	_GtkTreeViewColumnClass: GtkTreeViewColumnClass: make struct! compose/deep [
+		(GInitiallyUnownedClass) parent_class
+		pointer clicked
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkTextAppearance: GtkTextAppearance: make struct! compose/deep [
+		(GdkColor) bg_color
+		(GdkColor) fg_color
+		int32 rise
+		uint32 underline
+		;strikethrough, merged with the previous field
+		;draw_bg, merged with the previous field
+		;inside_selection, merged with the previous field
+		;is_text, merged with the previous field
+		pointer [2] rgba
+	]
+	_GtkTextAttributes: GtkTextAttributes: make struct! compose/deep [
+		uint32 refcount
+		uint8 [4] padding1
+		(GtkTextAppearance) appearance
+		int32 justification
+		int32 direction
+		pointer font
+		double font_scale
+		int32 left_margin
+		int32 right_margin
+		int32 indent
+		int32 pixels_above_lines
+		int32 pixels_below_lines
+		int32 pixels_inside_wrap
+		pointer tabs
+		int32 wrap_mode
+		uint8 [4] padding14
+		pointer language
+		pointer pg_bg_color
+		uint32 invisible
+		;bg_full_height, merged with the previous field
+		;editable, merged with the previous field
+		uint8 [4] padding19
+		pointer pg_bg_rgba
+		uint32 [3] padding
+	]
+	_GtkTextChildAnchor: GtkTextChildAnchor: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer segment
+	]
+	_GtkTextChildAnchorClass: GtkTextChildAnchorClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkTextIter: GtkTextIter: make struct! compose/deep [
+		pointer dummy1
+		pointer dummy2
+		int32 dummy3
+		int32 dummy4
+		int32 dummy5
+		int32 dummy6
+		int32 dummy7
+		int32 dummy8
+		pointer dummy9
+		pointer dummy10
+		int32 dummy11
+		int32 dummy12
+		int32 dummy13
+		uint8 [4] padding13
+		pointer dummy14
+	]
+	_GtkTextTagTable: GtkTextTagTable: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer priv
+	]
+	_GtkTextTag: GtkTextTag: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer priv
+	]
+	_GtkTextTagClass: GtkTextTagClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer event
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkTextBuffer: GtkTextBuffer: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer priv
+	]
+	_GtkTargetPair: GtkTargetPair: make struct! compose/deep [
+		pointer target
+		uint32 flags
+		uint32 info
+	]
+	_GtkTargetEntry: GtkTargetEntry: make struct! compose/deep [
+		pointer target
+		uint32 flags
+		uint32 info
+	]
+	_GtkEditableInterface: GtkEditableInterface: make struct! compose/deep [
+		(GTypeInterface) base_iface
+		pointer insert_text
+		pointer delete_text
+		pointer changed
+		pointer do_insert_text
+		pointer do_delete_text
+		pointer get_chars
+		pointer set_selection_bounds
+		pointer get_selection_bounds
+		pointer set_position
+		pointer get_position
+	]
+	_GtkIMContext: GtkIMContext: make struct! compose/deep [
+		(GObject) parent_instance
+	]
+	_GtkIMContextClass: GtkIMContextClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer preedit_start
+		pointer preedit_end
+		pointer preedit_changed
+		pointer commit
+		pointer retrieve_surrounding
+		pointer delete_surrounding
+		pointer set_client_window
+		pointer get_preedit_string
+		pointer filter_keypress
+		pointer focus_in
+		pointer focus_out
+		pointer reset
+		pointer set_cursor_location
+		pointer set_use_preedit
+		pointer set_surrounding
+		pointer get_surrounding
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+		pointer _gtk_reserved6
+	]
+	_GtkEntryBuffer: GtkEntryBuffer: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer priv
+	]
+	_GtkEntryBufferClass: GtkEntryBufferClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer inserted_text
+		pointer deleted_text
+		pointer get_text
+		pointer get_length
+		pointer insert_text
+		pointer delete_text
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+		pointer _gtk_reserved6
+		pointer _gtk_reserved7
+		pointer _gtk_reserved8
+	]
+	_GtkListStore: GtkListStore: make struct! compose/deep [
+		(GObject) parent
+		pointer priv
+	]
+	_GtkListStoreClass: GtkListStoreClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkTreeModelFilter: GtkTreeModelFilter: make struct! compose/deep [
+		(GObject) parent
+		pointer priv
+	]
+	_GtkTreeModelFilterClass: GtkTreeModelFilterClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer visible
+		pointer modify
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkEntryCompletion: GtkEntryCompletion: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer priv
+	]
+	_GtkEntryCompletionClass: GtkEntryCompletionClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer match_selected
+		pointer action_activated
+		pointer insert_prefix
+		pointer cursor_on_match
+		pointer no_matches
+		pointer _gtk_reserved0
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+	]
+	_GtkImage: GtkImage: make struct! compose/deep [
+		(GtkMisc) misc
+		pointer priv
+	]
+	_GtkImageClass: GtkImageClass: make struct! compose/deep [
+		(GtkMiscClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkEntry: GtkEntry: make struct! compose/deep [
+		(GtkWidget) parent_instance
+		pointer priv
+	]
+	_GtkEntryClass: GtkEntryClass: make struct! compose/deep [
+		(GtkWidgetClass) parent_class
+		pointer populate_popup
+		pointer activate
+		pointer move_cursor
+		pointer insert_at_cursor
+		pointer delete_from_cursor
+		pointer backspace
+		pointer cut_clipboard
+		pointer copy_clipboard
+		pointer paste_clipboard
+		pointer toggle_overwrite
+		pointer get_text_area_size
+		pointer get_frame_size
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+		pointer _gtk_reserved6
+		pointer _gtk_reserved7
+	]
+	_GtkTreeView: GtkTreeView: make struct! compose/deep [
+		(GtkContainer) parent
+		pointer priv
+	]
+	_GtkTreeViewClass: GtkTreeViewClass: make struct! compose/deep [
+		(GtkContainerClass) parent_class
+		pointer row_activated
+		pointer test_expand_row
+		pointer test_collapse_row
+		pointer row_expanded
+		pointer row_collapsed
+		pointer columns_changed
+		pointer cursor_changed
+		pointer move_cursor
+		pointer select_all
+		pointer unselect_all
+		pointer select_cursor_row
+		pointer toggle_cursor_row
+		pointer expand_collapse_cursor_row
+		pointer select_cursor_parent
+		pointer start_interactive_search
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+		pointer _gtk_reserved6
+		pointer _gtk_reserved7
+		pointer _gtk_reserved8
+	]
+	_GtkTreeSelection: GtkTreeSelection: make struct! compose/deep [
+		(GObject) parent
+		pointer priv
+	]
+	_GtkTreeSelectionClass: GtkTreeSelectionClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer changed
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkComboBox: GtkComboBox: make struct! compose/deep [
+		(GtkBin) parent_instance
+		pointer priv
+	]
+	_GtkComboBoxClass: GtkComboBoxClass: make struct! compose/deep [
+		(GtkBinClass) parent_class
+		pointer changed
+		pointer format_entry_text
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+	]
+	_GtkAppChooserButton: GtkAppChooserButton: make struct! compose/deep [
+		(GtkComboBox) parent
+		pointer priv
+	]
+	_GtkAppChooserButtonClass: GtkAppChooserButtonClass: make struct! compose/deep [
+		(GtkComboBoxClass) parent_class
+		pointer custom_item_activated
+		pointer [16] padding
+	]
+	_GtkApplicationWindowClass: GtkApplicationWindowClass: make struct! compose/deep [
+		(GtkWindowClass) parent_class
+		pointer [14] padding
+	]
+	_GtkApplicationWindow: GtkApplicationWindow: make struct! compose/deep [
+		(GtkWindow) parent_instance
+		pointer priv
+	]
+	_GtkFrame: GtkFrame: make struct! compose/deep [
+		(GtkBin) bin
+		pointer priv
+	]
+	_GtkFrameClass: GtkFrameClass: make struct! compose/deep [
+		(GtkBinClass) parent_class
+		pointer compute_child_allocation
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkAspectFrame: GtkAspectFrame: make struct! compose/deep [
+		(GtkFrame) frame
+		pointer priv
+	]
+	_GtkAspectFrameClass: GtkAspectFrameClass: make struct! compose/deep [
+		(GtkFrameClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkAssistant: GtkAssistant: make struct! compose/deep [
+		(GtkWindow) parent
+		pointer priv
+	]
+	_GtkAssistantClass: GtkAssistantClass: make struct! compose/deep [
+		(GtkWindowClass) parent_class
+		pointer prepare
+		pointer apply
+		pointer close
+		pointer cancel
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+	]
+	_GtkButtonBox: GtkButtonBox: make struct! compose/deep [
+		(GtkBox) box
+		pointer priv
+	]
+	_GtkButtonBoxClass: GtkButtonBoxClass: make struct! compose/deep [
+		(GtkBoxClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkBindingSet: GtkBindingSet: make struct! compose/deep [
+		pointer set_name
+		int32 priority
+		uint8 [4] padding2
+		pointer widget_path_pspecs
+		pointer widget_class_pspecs
+		pointer class_branch_pspecs
+		pointer entries
+		pointer current
+		uint32 parsed
+	]
+	_GtkBindingEntry: GtkBindingEntry: make struct! compose/deep [
+		uint32 keyval
+		int32 modifiers
+		pointer binding_set
+		uint32 destroyed
+		;in_emission, merged with the previous field
+		;marks_unbound, merged with the previous field
+		uint8 [4] padding6
+		pointer set_next
+		pointer hash_next
+		pointer signals
+	]
+	_GtkBindingSignal: GtkBindingSignal: make struct! compose/deep [
+		pointer next
+		pointer signal_name
+		uint32 n_args
+		uint8 [4] padding3
+		pointer args
+	]
+	_GtkBindingArg: GtkBindingArg: make struct! compose/deep [
+		uint64 arg_type
+	]
+	_GtkBuilderClass: GtkBuilderClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer get_type_from_name
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+		pointer _gtk_reserved6
+		pointer _gtk_reserved7
+		pointer _gtk_reserved8
+	]
+	_GtkBuildableIface: GtkBuildableIface: make struct! compose/deep [
+		(GTypeInterface) g_iface
+		pointer set_name
+		pointer get_name
+		pointer add_child
+		pointer set_buildable_property
+		pointer construct_child
+		pointer custom_tag_start
+		pointer custom_tag_end
+		pointer custom_finished
+		pointer parser_finished
+		pointer get_internal_child
+	]
+	_GtkButton: GtkButton: make struct! compose/deep [
+		(GtkBin) bin
+		pointer priv
+	]
+	_GtkButtonClass: GtkButtonClass: make struct! compose/deep [
+		(GtkBinClass) parent_class
+		pointer pressed
+		pointer released
+		pointer clicked
+		pointer enter
+		pointer leave
+		pointer activate
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkCalendar: GtkCalendar: make struct! compose/deep [
+		(GtkWidget) widget
+		pointer priv
+	]
+	_GtkCalendarClass: GtkCalendarClass: make struct! compose/deep [
+		(GtkWidgetClass) parent_class
+		pointer month_changed
+		pointer day_selected
+		pointer day_selected_double_click
+		pointer prev_month
+		pointer next_month
+		pointer prev_year
+		pointer next_year
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkCellAreaBox: GtkCellAreaBox: make struct! compose/deep [
+		(GtkCellArea) parent_instance
+		pointer priv
+	]
+	_GtkCellAreaBoxClass: GtkCellAreaBoxClass: make struct! compose/deep [
+		(GtkCellAreaClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkCellAreaContextClass: GtkCellAreaContextClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer allocate
+		pointer reset
+		pointer get_preferred_height_for_width
+		pointer get_preferred_width_for_height
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+		pointer _gtk_reserved6
+	]
+	_GtkCellLayoutIface: GtkCellLayoutIface: make struct! compose/deep [
+		(GTypeInterface) g_iface
+		pointer pack_start
+		pointer pack_end
+		pointer clear
+		pointer add_attribute
+		pointer set_cell_data_func
+		pointer clear_attributes
+		pointer reorder
+		pointer get_cells
+		pointer get_area
+	]
+	_GtkCellRendererText: GtkCellRendererText: make struct! compose/deep [
+		(GtkCellRenderer) parent
+		pointer priv
+	]
+	_GtkCellRendererTextClass: GtkCellRendererTextClass: make struct! compose/deep [
+		(GtkCellRendererClass) parent_class
+		pointer edited
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkCellRendererAccel: GtkCellRendererAccel: make struct! compose/deep [
+		(GtkCellRendererText) parent
+		pointer priv
+	]
+	_GtkCellRendererAccelClass: GtkCellRendererAccelClass: make struct! compose/deep [
+		(GtkCellRendererTextClass) parent_class
+		pointer accel_edited
+		pointer accel_cleared
+		pointer _gtk_reserved0
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkCellRendererCombo: GtkCellRendererCombo: make struct! compose/deep [
+		(GtkCellRendererText) parent
+		pointer priv
+	]
+	_GtkCellRendererComboClass: GtkCellRendererComboClass: make struct! compose/deep [
+		(GtkCellRendererTextClass) parent
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkCellRendererPixbuf: GtkCellRendererPixbuf: make struct! compose/deep [
+		(GtkCellRenderer) parent
+		pointer priv
+	]
+	_GtkCellRendererPixbufClass: GtkCellRendererPixbufClass: make struct! compose/deep [
+		(GtkCellRendererClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkCellRendererProgress: GtkCellRendererProgress: make struct! compose/deep [
+		(GtkCellRenderer) parent_instance
+		pointer priv
+	]
+	_GtkCellRendererProgressClass: GtkCellRendererProgressClass: make struct! compose/deep [
+		(GtkCellRendererClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkCellRendererSpin: GtkCellRendererSpin: make struct! compose/deep [
+		(GtkCellRendererText) parent
+		pointer priv
+	]
+	_GtkCellRendererSpinClass: GtkCellRendererSpinClass: make struct! compose/deep [
+		(GtkCellRendererTextClass) parent
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkCellRendererSpinner: GtkCellRendererSpinner: make struct! compose/deep [
+		(GtkCellRenderer) parent
+		pointer priv
+	]
+	_GtkCellRendererSpinnerClass: GtkCellRendererSpinnerClass: make struct! compose/deep [
+		(GtkCellRendererClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkCellRendererToggle: GtkCellRendererToggle: make struct! compose/deep [
+		(GtkCellRenderer) parent
+		pointer priv
+	]
+	_GtkCellRendererToggleClass: GtkCellRendererToggleClass: make struct! compose/deep [
+		(GtkCellRendererClass) parent_class
+		pointer toggled
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkCellView: GtkCellView: make struct! compose/deep [
+		(GtkWidget) parent_instance
+		pointer priv
+	]
+	_GtkCellViewClass: GtkCellViewClass: make struct! compose/deep [
+		(GtkWidgetClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkToggleButton: GtkToggleButton: make struct! compose/deep [
+		(GtkButton) button
+		pointer priv
+	]
+	_GtkToggleButtonClass: GtkToggleButtonClass: make struct! compose/deep [
+		(GtkButtonClass) parent_class
+		pointer toggled
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkCheckButton: GtkCheckButton: make struct! compose/deep [
+		(GtkToggleButton) toggle_button
+	]
+	_GtkCheckButtonClass: GtkCheckButtonClass: make struct! compose/deep [
+		(GtkToggleButtonClass) parent_class
+		pointer draw_indicator
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkMenuItem: GtkMenuItem: make struct! compose/deep [
+		(GtkBin) bin
+		pointer priv
+	]
+	_GtkMenuItemClass: GtkMenuItemClass: make struct! compose/deep [
+		(GtkBinClass) parent_class
+		uint32 hide_on_activate
+		uint8 [4] padding2
+		pointer activate
+		pointer activate_item
+		pointer toggle_size_request
+		pointer toggle_size_allocate
+		pointer set_label
+		pointer get_label
+		pointer select
+		pointer deselect
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkCheckMenuItem: GtkCheckMenuItem: make struct! compose/deep [
+		(GtkMenuItem) menu_item
+		pointer priv
+	]
+	_GtkCheckMenuItemClass: GtkCheckMenuItemClass: make struct! compose/deep [
+		(GtkMenuItemClass) parent_class
+		pointer toggled
+		pointer draw_indicator
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkColorButton: GtkColorButton: make struct! compose/deep [
+		(GtkButton) button
+		pointer priv
+	]
+	_GtkColorButtonClass: GtkColorButtonClass: make struct! compose/deep [
+		(GtkButtonClass) parent_class
+		pointer color_set
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkColorChooserInterface: GtkColorChooserInterface: make struct! compose/deep [
+		(GTypeInterface) base_interface
+		pointer get_rgba
+		pointer set_rgba
+		pointer add_palette
+		pointer color_activated
+		pointer [12] padding
+	]
+	_GtkColorChooserDialog: GtkColorChooserDialog: make struct! compose/deep [
+		(GtkDialog) parent_instance
+		pointer priv
+	]
+	_GtkColorChooserDialogClass: GtkColorChooserDialogClass: make struct! compose/deep [
+		(GtkDialogClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkColorChooserWidget: GtkColorChooserWidget: make struct! compose/deep [
+		(GtkBox) parent_instance
+		pointer priv
+	]
+	_GtkColorChooserWidgetClass: GtkColorChooserWidgetClass: make struct! compose/deep [
+		(GtkBoxClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+		pointer _gtk_reserved6
+		pointer _gtk_reserved7
+		pointer _gtk_reserved8
+	]
+	_GtkComboBoxText: GtkComboBoxText: make struct! compose/deep [
+		(GtkComboBox) parent_instance
+		pointer priv
+	]
+	_GtkComboBoxTextClass: GtkComboBoxTextClass: make struct! compose/deep [
+		(GtkComboBoxClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkCssProvider: GtkCssProvider: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer priv
+	]
+	_GtkCssProviderClass: GtkCssProviderClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer parsing_error
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkDrawingArea: GtkDrawingArea: make struct! compose/deep [
+		(GtkWidget) widget
+		pointer dummy
+	]
+	_GtkDrawingAreaClass: GtkDrawingAreaClass: make struct! compose/deep [
+		(GtkWidgetClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkEventBox: GtkEventBox: make struct! compose/deep [
+		(GtkBin) bin
+		pointer priv
+	]
+	_GtkEventBoxClass: GtkEventBoxClass: make struct! compose/deep [
+		(GtkBinClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkExpander: GtkExpander: make struct! compose/deep [
+		(GtkBin) bin
+		pointer priv
+	]
+	_GtkExpanderClass: GtkExpanderClass: make struct! compose/deep [
+		(GtkBinClass) parent_class
+		pointer activate
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkFixed: GtkFixed: make struct! compose/deep [
+		(GtkContainer) container
+		pointer priv
+	]
+	_GtkFixedClass: GtkFixedClass: make struct! compose/deep [
+		(GtkContainerClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkFixedChild: GtkFixedChild: make struct! compose/deep [
+		pointer widget
+		int32 x
+		int32 y
+	]
+	_GtkFileFilterInfo: GtkFileFilterInfo: make struct! compose/deep [
+		int32 contains
+		uint8 [4] padding1
+		pointer filename
+		pointer uri
+		pointer display_name
+		pointer mime_type
+	]
+	_GtkFileChooserButton: GtkFileChooserButton: make struct! compose/deep [
+		(GtkBox) parent
+		pointer priv
+	]
+	_GtkFileChooserButtonClass: GtkFileChooserButtonClass: make struct! compose/deep [
+		(GtkBoxClass) parent_class
+		pointer file_set
+		pointer __gtk_reserved1
+		pointer __gtk_reserved2
+		pointer __gtk_reserved3
+		pointer __gtk_reserved4
+	]
+	_GtkFileChooserDialog: GtkFileChooserDialog: make struct! compose/deep [
+		(GtkDialog) parent_instance
+		pointer priv
+	]
+	_GtkFileChooserDialogClass: GtkFileChooserDialogClass: make struct! compose/deep [
+		(GtkDialogClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkFileChooserWidget: GtkFileChooserWidget: make struct! compose/deep [
+		(GtkBox) parent_instance
+		pointer priv
+	]
+	_GtkFileChooserWidgetClass: GtkFileChooserWidgetClass: make struct! compose/deep [
+		(GtkBoxClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkFlowBox: GtkFlowBox: make struct! compose/deep [
+		(GtkContainer) container
+	]
+	_GtkFlowBoxClass: GtkFlowBoxClass: make struct! compose/deep [
+		(GtkContainerClass) parent_class
+		pointer child_activated
+		pointer selected_children_changed
+		pointer activate_cursor_child
+		pointer toggle_cursor_child
+		pointer move_cursor
+		pointer select_all
+		pointer unselect_all
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+		pointer _gtk_reserved6
+	]
+	_GtkFlowBoxChild: GtkFlowBoxChild: make struct! compose/deep [
+		(GtkBin) parent_instance
+	]
+	_GtkFlowBoxChildClass: GtkFlowBoxChildClass: make struct! compose/deep [
+		(GtkBinClass) parent_class
+		pointer activate
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+	]
+	_GtkFontButton: GtkFontButton: make struct! compose/deep [
+		(GtkButton) button
+		pointer priv
+	]
+	_GtkFontButtonClass: GtkFontButtonClass: make struct! compose/deep [
+		(GtkButtonClass) parent_class
+		pointer font_set
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkFontChooserIface: GtkFontChooserIface: make struct! compose/deep [
+		(GTypeInterface) base_iface
+		pointer get_font_family
+		pointer get_font_face
+		pointer get_font_size
+		pointer set_filter_func
+		pointer font_activated
+		pointer [12] padding
+	]
+	_GtkFontChooserDialog: GtkFontChooserDialog: make struct! compose/deep [
+		(GtkDialog) parent_instance
+		pointer priv
+	]
+	_GtkFontChooserDialogClass: GtkFontChooserDialogClass: make struct! compose/deep [
+		(GtkDialogClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkFontChooserWidget: GtkFontChooserWidget: make struct! compose/deep [
+		(GtkBox) parent_instance
+		pointer priv
+	]
+	_GtkFontChooserWidgetClass: GtkFontChooserWidgetClass: make struct! compose/deep [
+		(GtkBoxClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+		pointer _gtk_reserved6
+		pointer _gtk_reserved7
+		pointer _gtk_reserved8
+	]
+	_GtkGrid: GtkGrid: make struct! compose/deep [
+		(GtkContainer) container
+		pointer priv
+	]
+	_GtkGridClass: GtkGridClass: make struct! compose/deep [
+		(GtkContainerClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+		pointer _gtk_reserved6
+		pointer _gtk_reserved7
+		pointer _gtk_reserved8
+	]
+	_GtkHeaderBar: GtkHeaderBar: make struct! compose/deep [
+		(GtkContainer) container
+	]
+	_GtkHeaderBarClass: GtkHeaderBarClass: make struct! compose/deep [
+		(GtkContainerClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkIconFactory: GtkIconFactory: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer priv
+	]
+	_GtkIconFactoryClass: GtkIconFactoryClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkStyleProperties: GtkStyleProperties: make struct! compose/deep [
+		(GObject) parent_object
+		pointer priv
+	]
+	_GtkStylePropertiesClass: GtkStylePropertiesClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkStyleProviderIface: GtkStyleProviderIface: make struct! compose/deep [
+		(GTypeInterface) g_iface
+		pointer get_style
+		pointer get_style_property
+		pointer get_icon_factory
+	]
+	_GtkStyleContextClass: GtkStyleContextClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer changed
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkIconTheme: GtkIconTheme: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer priv
+	]
+	_GtkIconThemeClass: GtkIconThemeClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer changed
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkIconView: GtkIconView: make struct! compose/deep [
+		(GtkContainer) parent
+		pointer priv
+	]
+	_GtkIconViewClass: GtkIconViewClass: make struct! compose/deep [
+		(GtkContainerClass) parent_class
+		pointer item_activated
+		pointer selection_changed
+		pointer select_all
+		pointer unselect_all
+		pointer select_cursor_item
+		pointer toggle_cursor_item
+		pointer move_cursor
+		pointer activate_cursor_item
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkIMContextInfo: GtkIMContextInfo: make struct! compose/deep [
+		pointer context_id
+		pointer context_name
+		pointer domain
+		pointer domain_dirname
+		pointer default_locales
+	]
+	_GtkIMContextSimple: GtkIMContextSimple: make struct! compose/deep [
+		(GtkIMContext) object
+		pointer priv
+	]
+	_GtkIMContextSimpleClass: GtkIMContextSimpleClass: make struct! compose/deep [
+		(GtkIMContextClass) parent_class
+	]
+	_GtkIMMulticontext: GtkIMMulticontext: make struct! compose/deep [
+		(GtkIMContext) object
+		pointer priv
+	]
+	_GtkIMMulticontextClass: GtkIMMulticontextClass: make struct! compose/deep [
+		(GtkIMContextClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkInfoBarClass: GtkInfoBarClass: make struct! compose/deep [
+		(GtkBoxClass) parent_class
+		pointer response
+		pointer close
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkInfoBar: GtkInfoBar: make struct! compose/deep [
+		(GtkBox) parent
+		pointer priv
+	]
+	_GtkInvisible: GtkInvisible: make struct! compose/deep [
+		(GtkWidget) widget
+		pointer priv
+	]
+	_GtkInvisibleClass: GtkInvisibleClass: make struct! compose/deep [
+		(GtkWidgetClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkLayout: GtkLayout: make struct! compose/deep [
+		(GtkContainer) container
+		pointer priv
+	]
+	_GtkLayoutClass: GtkLayoutClass: make struct! compose/deep [
+		(GtkContainerClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkLevelBarClass: GtkLevelBarClass: make struct! compose/deep [
+		(GtkWidgetClass) parent_class
+		pointer offset_changed
+		pointer [16] padding
+	]
+	_GtkLevelBar: GtkLevelBar: make struct! compose/deep [
+		(GtkWidget) parent
+		pointer priv
+	]
+	_GtkLinkButton: GtkLinkButton: make struct! compose/deep [
+		(GtkButton) parent_instance
+		pointer priv
+	]
+	_GtkLinkButtonClass: GtkLinkButtonClass: make struct! compose/deep [
+		(GtkButtonClass) parent_class
+		pointer activate_link
+		pointer _gtk_padding1
+		pointer _gtk_padding2
+		pointer _gtk_padding3
+		pointer _gtk_padding4
+	]
+	_GtkListBox: GtkListBox: make struct! compose/deep [
+		(GtkContainer) parent_instance
+	]
+	_GtkListBoxClass: GtkListBoxClass: make struct! compose/deep [
+		(GtkContainerClass) parent_class
+		pointer row_selected
+		pointer row_activated
+		pointer activate_cursor_row
+		pointer toggle_cursor_row
+		pointer move_cursor
+		pointer selected_rows_changed
+		pointer select_all
+		pointer unselect_all
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+	]
+	_GtkListBoxRow: GtkListBoxRow: make struct! compose/deep [
+		(GtkBin) parent_instance
+	]
+	_GtkListBoxRowClass: GtkListBoxRowClass: make struct! compose/deep [
+		(GtkBinClass) parent_class
+		pointer activate
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+	]
+	_GtkLockButton: GtkLockButton: make struct! compose/deep [
+		(GtkButton) parent
+		pointer priv
+	]
+	_GtkLockButtonClass: GtkLockButtonClass: make struct! compose/deep [
+		(GtkButtonClass) parent_class
+		pointer reserved0
+		pointer reserved1
+		pointer reserved2
+		pointer reserved3
+		pointer reserved4
+		pointer reserved5
+		pointer reserved6
+		pointer reserved7
+	]
+	_GtkMenuBar: GtkMenuBar: make struct! compose/deep [
+		(GtkMenuShell) menu_shell
+		pointer priv
+	]
+	_GtkMenuBarClass: GtkMenuBarClass: make struct! compose/deep [
+		(GtkMenuShellClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkPopover: GtkPopover: make struct! compose/deep [
+		(GtkBin) parent_instance
+		pointer priv
+	]
+	_GtkPopoverClass: GtkPopoverClass: make struct! compose/deep [
+		(GtkBinClass) parent_class
+		pointer closed
+		pointer [10] reserved
+	]
+	_GtkMenuButton: GtkMenuButton: make struct! compose/deep [
+		(GtkToggleButton) parent
+		pointer priv
+	]
+	_GtkMenuButtonClass: GtkMenuButtonClass: make struct! compose/deep [
+		(GtkToggleButtonClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkSizeGroup: GtkSizeGroup: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer priv
+	]
+	_GtkSizeGroupClass: GtkSizeGroupClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkToolItem: GtkToolItem: make struct! compose/deep [
+		(GtkBin) parent
+		pointer priv
+	]
+	_GtkToolItemClass: GtkToolItemClass: make struct! compose/deep [
+		(GtkBinClass) parent_class
+		pointer create_menu_proxy
+		pointer toolbar_reconfigured
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkToolButton: GtkToolButton: make struct! compose/deep [
+		(GtkToolItem) parent
+		pointer priv
+	]
+	_GtkToolButtonClass: GtkToolButtonClass: make struct! compose/deep [
+		(GtkToolItemClass) parent_class
+		uint64 button_type
+		pointer clicked
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkMenuToolButtonClass: GtkMenuToolButtonClass: make struct! compose/deep [
+		(GtkToolButtonClass) parent_class
+		pointer show_menu
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkMenuToolButton: GtkMenuToolButton: make struct! compose/deep [
+		(GtkToolButton) parent
+		pointer priv
+	]
+	_GtkMessageDialog: GtkMessageDialog: make struct! compose/deep [
+		(GtkDialog) parent_instance
+		pointer priv
+	]
+	_GtkMessageDialogClass: GtkMessageDialogClass: make struct! compose/deep [
+		(GtkDialogClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GMountOperation: GMountOperation: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer priv
+	]
+	_GtkMountOperation: GtkMountOperation: make struct! compose/deep [
+		(GMountOperation) parent_instance
+		pointer priv
+	]
+	_GMountOperationClass: GMountOperationClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer ask_password
+		pointer ask_question
+		pointer reply
+		pointer aborted
+		pointer show_processes
+		pointer show_unmount_progress
+		pointer _g_reserved1
+		pointer _g_reserved2
+		pointer _g_reserved3
+		pointer _g_reserved4
+		pointer _g_reserved5
+		pointer _g_reserved6
+		pointer _g_reserved7
+		pointer _g_reserved8
+		pointer _g_reserved9
+	]
+	_GtkMountOperationClass: GtkMountOperationClass: make struct! compose/deep [
+		(GMountOperationClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkNotebook: GtkNotebook: make struct! compose/deep [
+		(GtkContainer) container
+		pointer priv
+	]
+	_GtkNotebookClass: GtkNotebookClass: make struct! compose/deep [
+		(GtkContainerClass) parent_class
+		pointer switch_page
+		pointer select_page
+		pointer focus_tab
+		pointer change_current_page
+		pointer move_focus_out
+		pointer reorder_tab
+		pointer insert_page
+		pointer create_window
+		pointer page_reordered
+		pointer page_removed
+		pointer page_added
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+		pointer _gtk_reserved6
+		pointer _gtk_reserved7
+		pointer _gtk_reserved8
+	]
+	_GtkOffscreenWindow: GtkOffscreenWindow: make struct! compose/deep [
+		(GtkWindow) parent_object
+	]
+	_GtkOffscreenWindowClass: GtkOffscreenWindowClass: make struct! compose/deep [
+		(GtkWindowClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkOrientableIface: GtkOrientableIface: make struct! compose/deep [
+		(GTypeInterface) base_iface
+	]
+	_GtkOverlay: GtkOverlay: make struct! compose/deep [
+		(GtkBin) parent
+		pointer priv
+	]
+	_GtkOverlayClass: GtkOverlayClass: make struct! compose/deep [
+		(GtkBinClass) parent_class
+		pointer get_child_position
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+		pointer _gtk_reserved6
+		pointer _gtk_reserved7
+		pointer _gtk_reserved8
+	]
+	_GtkPaned: GtkPaned: make struct! compose/deep [
+		(GtkContainer) container
+		pointer priv
+	]
+	_GtkPanedClass: GtkPanedClass: make struct! compose/deep [
+		(GtkContainerClass) parent_class
+		pointer cycle_child_focus
+		pointer toggle_handle_focus
+		pointer move_handle
+		pointer cycle_handle_focus
+		pointer accept_position
+		pointer cancel_position
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkPageRange: GtkPageRange: make struct! compose/deep [
+		int32 start
+		int32 end
+	]
+	_GtkPrintOperationPreviewIface: GtkPrintOperationPreviewIface: make struct! compose/deep [
+		(GTypeInterface) g_iface
+		pointer ready
+		pointer got_page_size
+		pointer render_page
+		pointer is_selected
+		pointer end_preview
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+		pointer _gtk_reserved6
+		pointer _gtk_reserved7
+		pointer _gtk_reserved8
+	]
+	_GtkPrintOperationClass: GtkPrintOperationClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer done
+		pointer begin_print
+		pointer paginate
+		pointer request_page_setup
+		pointer draw_page
+		pointer end_print
+		pointer status_changed
+		pointer create_custom_widget
+		pointer custom_widget_apply
+		pointer preview
+		pointer update_custom_widget
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+		pointer _gtk_reserved6
+		pointer _gtk_reserved7
+		pointer _gtk_reserved8
+	]
+	_GtkPrintOperation: GtkPrintOperation: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer priv
+	]
+	_GtkProgressBar: GtkProgressBar: make struct! compose/deep [
+		(GtkWidget) parent
+		pointer priv
+	]
+	_GtkProgressBarClass: GtkProgressBarClass: make struct! compose/deep [
+		(GtkWidgetClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkRadioButton: GtkRadioButton: make struct! compose/deep [
+		(GtkCheckButton) check_button
+		pointer priv
+	]
+	_GtkRadioButtonClass: GtkRadioButtonClass: make struct! compose/deep [
+		(GtkCheckButtonClass) parent_class
+		pointer group_changed
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkRadioMenuItem: GtkRadioMenuItem: make struct! compose/deep [
+		(GtkCheckMenuItem) check_menu_item
+		pointer priv
+	]
+	_GtkRadioMenuItemClass: GtkRadioMenuItemClass: make struct! compose/deep [
+		(GtkCheckMenuItemClass) parent_class
+		pointer group_changed
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkToggleToolButton: GtkToggleToolButton: make struct! compose/deep [
+		(GtkToolButton) parent
+		pointer priv
+	]
+	_GtkToggleToolButtonClass: GtkToggleToolButtonClass: make struct! compose/deep [
+		(GtkToolButtonClass) parent_class
+		pointer toggled
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkRadioToolButton: GtkRadioToolButton: make struct! compose/deep [
+		(GtkToggleToolButton) parent
+	]
+	_GtkRadioToolButtonClass: GtkRadioToolButtonClass: make struct! compose/deep [
+		(GtkToggleToolButtonClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkRange: GtkRange: make struct! compose/deep [
+		(GtkWidget) widget
+		pointer priv
+	]
+	_GtkRangeClass: GtkRangeClass: make struct! compose/deep [
+		(GtkWidgetClass) parent_class
+		pointer slider_detail
+		pointer stepper_detail
+		pointer value_changed
+		pointer adjust_bounds
+		pointer move_slider
+		pointer get_range_border
+		pointer change_value
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkRecentData: GtkRecentData: make struct! compose/deep [
+		pointer display_name
+		pointer description
+		pointer mime_type
+		pointer app_name
+		pointer app_exec
+		pointer groups
+		int32 is_private
+	]
+	_GtkRecentManager: GtkRecentManager: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer priv
+	]
+	_GtkRecentManagerClass: GtkRecentManagerClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer changed
+		pointer _gtk_recent1
+		pointer _gtk_recent2
+		pointer _gtk_recent3
+		pointer _gtk_recent4
+	]
+	_GtkRecentFilterInfo: GtkRecentFilterInfo: make struct! compose/deep [
+		int32 contains
+		uint8 [4] padding1
+		pointer uri
+		pointer display_name
+		pointer mime_type
+		pointer applications
+		pointer groups
+		int32 age
+	]
+	_GtkRecentChooserIface: GtkRecentChooserIface: make struct! compose/deep [
+		(GTypeInterface) base_iface
+		pointer set_current_uri
+		pointer get_current_uri
+		pointer select_uri
+		pointer unselect_uri
+		pointer select_all
+		pointer unselect_all
+		pointer get_items
+		pointer get_recent_manager
+		pointer add_filter
+		pointer remove_filter
+		pointer list_filters
+		pointer set_sort_func
+		pointer item_activated
+		pointer selection_changed
+	]
+	_GtkRecentChooserDialog: GtkRecentChooserDialog: make struct! compose/deep [
+		(GtkDialog) parent_instance
+		pointer priv
+	]
+	_GtkRecentChooserDialogClass: GtkRecentChooserDialogClass: make struct! compose/deep [
+		(GtkDialogClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkRecentChooserMenu: GtkRecentChooserMenu: make struct! compose/deep [
+		(GtkMenu) parent_instance
+		pointer priv
+	]
+	_GtkRecentChooserMenuClass: GtkRecentChooserMenuClass: make struct! compose/deep [
+		(GtkMenuClass) parent_class
+		pointer gtk_recent1
+		pointer gtk_recent2
+		pointer gtk_recent3
+		pointer gtk_recent4
+	]
+	_GtkRecentChooserWidget: GtkRecentChooserWidget: make struct! compose/deep [
+		(GtkBox) parent_instance
+		pointer priv
+	]
+	_GtkRecentChooserWidgetClass: GtkRecentChooserWidgetClass: make struct! compose/deep [
+		(GtkBoxClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkRevealer: GtkRevealer: make struct! compose/deep [
+		(GtkBin) parent_instance
+	]
+	_GtkRevealerClass: GtkRevealerClass: make struct! compose/deep [
+		(GtkBinClass) parent_class
+	]
+	_GtkScale: GtkScale: make struct! compose/deep [
+		(GtkRange) range
+		pointer priv
+	]
+	_GtkScaleClass: GtkScaleClass: make struct! compose/deep [
+		(GtkRangeClass) parent_class
+		pointer format_value
+		pointer draw_value
+		pointer get_layout_offsets
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkScaleButton: GtkScaleButton: make struct! compose/deep [
+		(GtkButton) parent
+		pointer priv
+	]
+	_GtkScaleButtonClass: GtkScaleButtonClass: make struct! compose/deep [
+		(GtkButtonClass) parent_class
+		pointer value_changed
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkScrollableInterface: GtkScrollableInterface: make struct! compose/deep [
+		(GTypeInterface) base_iface
+	]
+	_GtkScrollbar: GtkScrollbar: make struct! compose/deep [
+		(GtkRange) range
+	]
+	_GtkScrollbarClass: GtkScrollbarClass: make struct! compose/deep [
+		(GtkRangeClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkScrolledWindow: GtkScrolledWindow: make struct! compose/deep [
+		(GtkBin) container
+		pointer priv
+	]
+	_GtkScrolledWindowClass: GtkScrolledWindowClass: make struct! compose/deep [
+		(GtkBinClass) parent_class
+		int32 scrollbar_spacing
+		uint8 [4] padding2
+		pointer scroll_child
+		pointer move_focus_out
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkSearchBar: GtkSearchBar: make struct! compose/deep [
+		(GtkBin) parent
+	]
+	_GtkSearchBarClass: GtkSearchBarClass: make struct! compose/deep [
+		(GtkBinClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkSearchEntry: GtkSearchEntry: make struct! compose/deep [
+		(GtkEntry) parent
+	]
+	_GtkSearchEntryClass: GtkSearchEntryClass: make struct! compose/deep [
+		(GtkEntryClass) parent_class
+		pointer search_changed
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+	]
+	_GtkSeparator: GtkSeparator: make struct! compose/deep [
+		(GtkWidget) widget
+		pointer priv
+	]
+	_GtkSeparatorClass: GtkSeparatorClass: make struct! compose/deep [
+		(GtkWidgetClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkSeparatorMenuItem: GtkSeparatorMenuItem: make struct! compose/deep [
+		(GtkMenuItem) menu_item
+	]
+	_GtkSeparatorMenuItemClass: GtkSeparatorMenuItemClass: make struct! compose/deep [
+		(GtkMenuItemClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkSeparatorToolItem: GtkSeparatorToolItem: make struct! compose/deep [
+		(GtkToolItem) parent
+		pointer priv
+	]
+	_GtkSeparatorToolItemClass: GtkSeparatorToolItemClass: make struct! compose/deep [
+		(GtkToolItemClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkSettingsClass: GtkSettingsClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GValue: GValue: make struct! compose/deep [
+		uint64 g_type
+	]
+	_GtkSettingsValue: GtkSettingsValue: make struct! compose/deep [
+		pointer origin
+		(GValue) value
+	]
+	_GtkRequestedSize: GtkRequestedSize: make struct! compose/deep [
+		pointer data
+		int32 minimum_size
+		int32 natural_size
+	]
+	_GtkSpinButton: GtkSpinButton: make struct! compose/deep [
+		(GtkEntry) entry
+		pointer priv
+	]
+	_GtkSpinButtonClass: GtkSpinButtonClass: make struct! compose/deep [
+		(GtkEntryClass) parent_class
+		pointer input
+		pointer output
+		pointer value_changed
+		pointer change_value
+		pointer wrapped
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkSpinner: GtkSpinner: make struct! compose/deep [
+		(GtkWidget) parent
+		pointer priv
+	]
+	_GtkSpinnerClass: GtkSpinnerClass: make struct! compose/deep [
+		(GtkWidgetClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkStack: GtkStack: make struct! compose/deep [
+		(GtkContainer) parent_instance
+	]
+	_GtkStackClass: GtkStackClass: make struct! compose/deep [
+		(GtkContainerClass) parent_class
+	]
+	_GtkStackSwitcher: GtkStackSwitcher: make struct! compose/deep [
+		(GtkBox) widget
+	]
+	_GtkStackSwitcherClass: GtkStackSwitcherClass: make struct! compose/deep [
+		(GtkBoxClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkStatusbar: GtkStatusbar: make struct! compose/deep [
+		(GtkBox) parent_widget
+		pointer priv
+	]
+	_GtkStatusbarClass: GtkStatusbarClass: make struct! compose/deep [
+		(GtkBoxClass) parent_class
+		pointer reserved
+		pointer text_pushed
+		pointer text_popped
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkSwitch: GtkSwitch: make struct! compose/deep [
+		(GtkWidget) parent_instance
+		pointer priv
+	]
+	_GtkSwitchClass: GtkSwitchClass: make struct! compose/deep [
+		(GtkWidgetClass) parent_class
+		pointer activate
+		pointer state_set
+		pointer _switch_padding_1
+		pointer _switch_padding_2
+		pointer _switch_padding_3
+		pointer _switch_padding_4
+		pointer _switch_padding_5
+	]
+	_GtkTextTagTableClass: GtkTextTagTableClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer tag_changed
+		pointer tag_added
+		pointer tag_removed
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkTextMark: GtkTextMark: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer segment
+	]
+	_GtkTextMarkClass: GtkTextMarkClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkTextBufferClass: GtkTextBufferClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer insert_text
+		pointer insert_pixbuf
+		pointer insert_child_anchor
+		pointer delete_range
+		pointer changed
+		pointer modified_changed
+		pointer mark_set
+		pointer mark_deleted
+		pointer apply_tag
+		pointer remove_tag
+		pointer begin_user_action
+		pointer end_user_action
+		pointer paste_done
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkTextView: GtkTextView: make struct! compose/deep [
+		(GtkContainer) parent_instance
+		pointer priv
+	]
+	_GtkTextViewClass: GtkTextViewClass: make struct! compose/deep [
+		(GtkContainerClass) parent_class
+		pointer populate_popup
+		pointer move_cursor
+		pointer set_anchor
+		pointer insert_at_cursor
+		pointer delete_from_cursor
+		pointer backspace
+		pointer cut_clipboard
+		pointer copy_clipboard
+		pointer paste_clipboard
+		pointer toggle_overwrite
+		pointer create_buffer
+		pointer draw_layer
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+		pointer _gtk_reserved6
+	]
+	_GtkToolbar: GtkToolbar: make struct! compose/deep [
+		(GtkContainer) container
+		pointer priv
+	]
+	_GtkToolbarClass: GtkToolbarClass: make struct! compose/deep [
+		(GtkContainerClass) parent_class
+		pointer orientation_changed
+		pointer style_changed
+		pointer popup_context_menu
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkToolItemGroup: GtkToolItemGroup: make struct! compose/deep [
+		(GtkContainer) parent_instance
+		pointer priv
+	]
+	_GtkToolItemGroupClass: GtkToolItemGroupClass: make struct! compose/deep [
+		(GtkContainerClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkToolPalette: GtkToolPalette: make struct! compose/deep [
+		(GtkContainer) parent_instance
+		pointer priv
+	]
+	_GtkToolPaletteClass: GtkToolPaletteClass: make struct! compose/deep [
+		(GtkContainerClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkToolShellIface: GtkToolShellIface: make struct! compose/deep [
+		(GTypeInterface) g_iface
+		pointer get_icon_size
+		pointer get_orientation
+		pointer get_style
+		pointer get_relief_style
+		pointer rebuild_menu
+		pointer get_text_orientation
+		pointer get_text_alignment
+		pointer get_ellipsize_mode
+		pointer get_text_size_group
+	]
+	_GtkTreeDragSourceIface: GtkTreeDragSourceIface: make struct! compose/deep [
+		(GTypeInterface) g_iface
+		pointer row_draggable
+		pointer drag_data_get
+		pointer drag_data_delete
+	]
+	_GtkTreeDragDestIface: GtkTreeDragDestIface: make struct! compose/deep [
+		(GTypeInterface) g_iface
+		pointer drag_data_received
+		pointer row_drop_possible
+	]
+	_GtkTreeModelSort: GtkTreeModelSort: make struct! compose/deep [
+		(GObject) parent
+		pointer priv
+	]
+	_GtkTreeModelSortClass: GtkTreeModelSortClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkTreeStore: GtkTreeStore: make struct! compose/deep [
+		(GObject) parent
+		pointer priv
+	]
+	_GtkTreeStoreClass: GtkTreeStoreClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkViewport: GtkViewport: make struct! compose/deep [
+		(GtkBin) bin
+		pointer priv
+	]
+	_GtkViewportClass: GtkViewportClass: make struct! compose/deep [
+		(GtkBinClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkVolumeButton: GtkVolumeButton: make struct! compose/deep [
+		(GtkScaleButton) parent
+	]
+	_GtkVolumeButtonClass: GtkVolumeButtonClass: make struct! compose/deep [
+		(GtkScaleButtonClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkArrow: GtkArrow: make struct! compose/deep [
+		(GtkMisc) misc
+		pointer priv
+	]
+	_GtkArrowClass: GtkArrowClass: make struct! compose/deep [
+		(GtkMiscClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkAction: GtkAction: make struct! compose/deep [
+		(GObject) object
+		pointer private_data
+	]
+	_GtkActionClass: GtkActionClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer activate
+		uint64 menu_item_type
+		uint64 toolbar_item_type
+		pointer create_menu_item
+		pointer create_tool_item
+		pointer connect_proxy
+		pointer disconnect_proxy
+		pointer create_menu
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkActivatableIface: GtkActivatableIface: make struct! compose/deep [
+		(GTypeInterface) g_iface
+		pointer update
+		pointer sync_action_properties
+	]
+	_GtkStockItem: GtkStockItem: make struct! compose/deep [
+		pointer stock_id
+		pointer label
+		int32 modifier
+		uint32 keyval
+		pointer translation_domain
+	]
+	_GtkActionGroup: GtkActionGroup: make struct! compose/deep [
+		(GObject) parent
+		pointer priv
+	]
+	_GtkActionGroupClass: GtkActionGroupClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer get_action
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkActionEntry: GtkActionEntry: make struct! compose/deep [
+		pointer name
+		pointer stock_id
+		pointer label
+		pointer accelerator
+		pointer tooltip
+		pointer callback
+	]
+	_GtkToggleActionEntry: GtkToggleActionEntry: make struct! compose/deep [
+		pointer name
+		pointer stock_id
+		pointer label
+		pointer accelerator
+		pointer tooltip
+		pointer callback
+		int32 is_active
+	]
+	_GtkRadioActionEntry: GtkRadioActionEntry: make struct! compose/deep [
+		pointer name
+		pointer stock_id
+		pointer label
+		pointer accelerator
+		pointer tooltip
+		int32 value
+	]
+	_GtkAlignment: GtkAlignment: make struct! compose/deep [
+		(GtkBin) bin
+		pointer priv
+	]
+	_GtkAlignmentClass: GtkAlignmentClass: make struct! compose/deep [
+		(GtkBinClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkColorSelection: GtkColorSelection: make struct! compose/deep [
+		(GtkBox) parent_instance
+		pointer private_data
+	]
+	_GtkColorSelectionClass: GtkColorSelectionClass: make struct! compose/deep [
+		(GtkBoxClass) parent_class
+		pointer color_changed
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkColorSelectionDialog: GtkColorSelectionDialog: make struct! compose/deep [
+		(GtkDialog) parent_instance
+		pointer priv
+	]
+	_GtkColorSelectionDialogClass: GtkColorSelectionDialogClass: make struct! compose/deep [
+		(GtkDialogClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkFontSelection: GtkFontSelection: make struct! compose/deep [
+		(GtkBox) parent_instance
+		pointer priv
+	]
+	_GtkFontSelectionClass: GtkFontSelectionClass: make struct! compose/deep [
+		(GtkBoxClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkFontSelectionDialog: GtkFontSelectionDialog: make struct! compose/deep [
+		(GtkDialog) parent_instance
+		pointer priv
+	]
+	_GtkFontSelectionDialogClass: GtkFontSelectionDialogClass: make struct! compose/deep [
+		(GtkDialogClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkHandleBox: GtkHandleBox: make struct! compose/deep [
+		(GtkBin) bin
+		pointer priv
+	]
+	_GtkHandleBoxClass: GtkHandleBoxClass: make struct! compose/deep [
+		(GtkBinClass) parent_class
+		pointer child_attached
+		pointer child_detached
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkHButtonBox: GtkHButtonBox: make struct! compose/deep [
+		(GtkButtonBox) button_box
+	]
+	_GtkHButtonBoxClass: GtkHButtonBoxClass: make struct! compose/deep [
+		(GtkButtonBoxClass) parent_class
+	]
+	_GtkHBox: GtkHBox: make struct! compose/deep [
+		(GtkBox) box
+	]
+	_GtkHBoxClass: GtkHBoxClass: make struct! compose/deep [
+		(GtkBoxClass) parent_class
+	]
+	_GtkHPaned: GtkHPaned: make struct! compose/deep [
+		(GtkPaned) paned
+	]
+	_GtkHPanedClass: GtkHPanedClass: make struct! compose/deep [
+		(GtkPanedClass) parent_class
+	]
+	_GtkHSV: GtkHSV: make struct! compose/deep [
+		(GtkWidget) parent_instance
+		pointer priv
+	]
+	_GtkHSVClass: GtkHSVClass: make struct! compose/deep [
+		(GtkWidgetClass) parent_class
+		pointer changed
+		pointer move
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkHScale: GtkHScale: make struct! compose/deep [
+		(GtkScale) scale
+	]
+	_GtkHScaleClass: GtkHScaleClass: make struct! compose/deep [
+		(GtkScaleClass) parent_class
+	]
+	_GtkHScrollbar: GtkHScrollbar: make struct! compose/deep [
+		(GtkScrollbar) scrollbar
+	]
+	_GtkHScrollbarClass: GtkHScrollbarClass: make struct! compose/deep [
+		(GtkScrollbarClass) parent_class
+	]
+	_GtkHSeparator: GtkHSeparator: make struct! compose/deep [
+		(GtkSeparator) separator
+	]
+	_GtkHSeparatorClass: GtkHSeparatorClass: make struct! compose/deep [
+		(GtkSeparatorClass) parent_class
+	]
+	_GtkImageMenuItem: GtkImageMenuItem: make struct! compose/deep [
+		(GtkMenuItem) menu_item
+		pointer priv
+	]
+	_GtkImageMenuItemClass: GtkImageMenuItemClass: make struct! compose/deep [
+		(GtkMenuItemClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GEmblemedIcon: GEmblemedIcon: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer priv
+	]
+	_GtkNumerableIcon: GtkNumerableIcon: make struct! compose/deep [
+		(GEmblemedIcon) parent
+		pointer priv
+	]
+	_GEmblemedIconClass: GEmblemedIconClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+	]
+	_GtkNumerableIconClass: GtkNumerableIconClass: make struct! compose/deep [
+		(GEmblemedIconClass) parent_class
+		pointer [16] padding
+	]
+	_GtkToggleAction: GtkToggleAction: make struct! compose/deep [
+		(GtkAction) parent
+		pointer private_data
+	]
+	_GtkToggleActionClass: GtkToggleActionClass: make struct! compose/deep [
+		(GtkActionClass) parent_class
+		pointer toggled
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkRadioAction: GtkRadioAction: make struct! compose/deep [
+		(GtkToggleAction) parent
+		pointer private_data
+	]
+	_GtkRadioActionClass: GtkRadioActionClass: make struct! compose/deep [
+		(GtkToggleActionClass) parent_class
+		pointer changed
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkRcStyleClass: GtkRcStyleClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer create_rc_style
+		pointer parse
+		pointer merge
+		pointer create_style
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkRcProperty: GtkRcProperty: make struct! compose/deep [
+		uint32 type_name
+		uint32 property_name
+		pointer origin
+		(GValue) value
+	]
+	_GtkRecentAction: GtkRecentAction: make struct! compose/deep [
+		(GtkAction) parent_instance
+		pointer priv
+	]
+	_GtkRecentActionClass: GtkRecentActionClass: make struct! compose/deep [
+		(GtkActionClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkStatusIcon: GtkStatusIcon: make struct! compose/deep [
+		(GObject) parent_instance
+		pointer priv
+	]
+	_GtkStatusIconClass: GtkStatusIconClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer activate
+		pointer popup_menu
+		pointer size_changed
+		pointer button_press_event
+		pointer button_release_event
+		pointer scroll_event
+		pointer query_tooltip
+		pointer __gtk_reserved1
+		pointer __gtk_reserved2
+		pointer __gtk_reserved3
+		pointer __gtk_reserved4
+	]
+	_GtkStyleClass: GtkStyleClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer realize
+		pointer unrealize
+		pointer copy
+		pointer clone
+		pointer init_from_rc
+		pointer set_background
+		pointer render_icon
+		pointer draw_hline
+		pointer draw_vline
+		pointer draw_shadow
+		pointer draw_arrow
+		pointer draw_diamond
+		pointer draw_box
+		pointer draw_flat_box
+		pointer draw_check
+		pointer draw_option
+		pointer draw_tab
+		pointer draw_shadow_gap
+		pointer draw_box_gap
+		pointer draw_extension
+		pointer draw_focus
+		pointer draw_slider
+		pointer draw_handle
+		pointer draw_expander
+		pointer draw_layout
+		pointer draw_resize_grip
+		pointer draw_spinner
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+		pointer _gtk_reserved5
+		pointer _gtk_reserved6
+		pointer _gtk_reserved7
+		pointer _gtk_reserved8
+		pointer _gtk_reserved9
+		pointer _gtk_reserved10
+		pointer _gtk_reserved11
+	]
+	_GtkTable: GtkTable: make struct! compose/deep [
+		(GtkContainer) container
+		pointer priv
+	]
+	_GtkTableClass: GtkTableClass: make struct! compose/deep [
+		(GtkContainerClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkTableChild: GtkTableChild: make struct! compose/deep [
+		pointer widget
+		uint16 left_attach
+		uint16 right_attach
+		uint16 top_attach
+		uint16 bottom_attach
+		uint16 xpadding
+		uint16 ypadding
+		uint32 xexpand
+		;yexpand, merged with the previous field
+		;xshrink, merged with the previous field
+		;yshrink, merged with the previous field
+		;xfill, merged with the previous field
+		;yfill, merged with the previous field
+	]
+	_GtkTableRowCol: GtkTableRowCol: make struct! compose/deep [
+		uint16 requisition
+		uint16 allocation
+		uint16 spacing
+		uint32 need_expand
+		;need_shrink, merged with the previous field
+		;expand, merged with the previous field
+		;shrink, merged with the previous field
+		;empty, merged with the previous field
+	]
+	_GtkTearoffMenuItem: GtkTearoffMenuItem: make struct! compose/deep [
+		(GtkMenuItem) menu_item
+		pointer priv
+	]
+	_GtkTearoffMenuItemClass: GtkTearoffMenuItemClass: make struct! compose/deep [
+		(GtkMenuItemClass) parent_class
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkThemingEngine: GtkThemingEngine: make struct! compose/deep [
+		(GObject) parent_object
+		pointer priv
+	]
+	_GtkThemingEngineClass: GtkThemingEngineClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer render_line
+		pointer render_background
+		pointer render_frame
+		pointer render_frame_gap
+		pointer render_extension
+		pointer render_check
+		pointer render_option
+		pointer render_arrow
+		pointer render_expander
+		pointer render_focus
+		pointer render_layout
+		pointer render_slider
+		pointer render_handle
+		pointer render_activity
+		pointer render_icon_pixbuf
+		pointer render_icon
+		pointer render_icon_surface
+		pointer [14] padding
+	]
+	_GtkUIManager: GtkUIManager: make struct! compose/deep [
+		(GObject) parent
+		pointer private_data
+	]
+	_GtkUIManagerClass: GtkUIManagerClass: make struct! compose/deep [
+		(GObjectClass) parent_class
+		pointer add_widget
+		pointer actions_changed
+		pointer connect_proxy
+		pointer disconnect_proxy
+		pointer pre_activate
+		pointer post_activate
+		pointer get_widget
+		pointer get_action
+		pointer _gtk_reserved1
+		pointer _gtk_reserved2
+		pointer _gtk_reserved3
+		pointer _gtk_reserved4
+	]
+	_GtkVButtonBox: GtkVButtonBox: make struct! compose/deep [
+		(GtkButtonBox) button_box
+	]
+	_GtkVButtonBoxClass: GtkVButtonBoxClass: make struct! compose/deep [
+		(GtkButtonBoxClass) parent_class
+	]
+	_GtkVBox: GtkVBox: make struct! compose/deep [
+		(GtkBox) box
+	]
+	_GtkVBoxClass: GtkVBoxClass: make struct! compose/deep [
+		(GtkBoxClass) parent_class
+	]
+	_GtkVPaned: GtkVPaned: make struct! compose/deep [
+		(GtkPaned) paned
+	]
+	_GtkVPanedClass: GtkVPanedClass: make struct! compose/deep [
+		(GtkPanedClass) parent_class
+	]
+	_GtkVScale: GtkVScale: make struct! compose/deep [
+		(GtkScale) scale
+	]
+	_GtkVScaleClass: GtkVScaleClass: make struct! compose/deep [
+		(GtkScaleClass) parent_class
+	]
+	_GtkVScrollbar: GtkVScrollbar: make struct! compose/deep [
+		(GtkScrollbar) scrollbar
+	]
+	_GtkVScrollbarClass: GtkVScrollbarClass: make struct! compose/deep [
+		(GtkScrollbarClass) parent_class
+	]
+	_GtkVSeparator: GtkVSeparator: make struct! compose/deep [
+		(GtkSeparator) separator
+	]
+	_GtkVSeparatorClass: GtkVSeparatorClass: make struct! compose/deep [
+		(GtkSeparatorClass) parent_class
+	]
 	gtk: make library! %libgtk-3.so
 	accel_group_get_type: make routine! compose/deep [[
 		return: [uint64]
