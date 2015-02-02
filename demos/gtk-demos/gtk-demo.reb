@@ -1,12 +1,20 @@
 REBOL []
 
-glib: do %../bindings/glib.reb
-gtk: do %../bindings/gtk.reb
+;recycle/torture
+glib: do %../../bindings/glib.reb
+pango: do %../../bindings/pango.reb
+gtk: do %../../bindings/gtk.reb
 
 debug: :comment
 debug: :print
 
 global-mem-pool: copy []
+current-file: none
+notebook:
+info-textview:
+source-textview:
+treeview:
+headerbar: none
 
 libc: make library! %libc.so.6
 
@@ -67,6 +75,33 @@ utf82r-string: function [
 	to string! values-of s-s
 ]
 
+do %builder.reb
+
+
+NAME_COLUMN: 0
+TITLE_COLUMN: 1
+FILENAME_COLUMN: 2
+FUNC_COLUMN: 3
+STYLE_COLUMN: 4
+NUM_COLUMNS: 5
+
+callback-data: make struct! [
+	pointer model
+	pointer path
+]
+
+demos: reduce [
+	context [
+		name: "builder"
+		title: "Builder"
+		filename: "builder.reb"
+		demo-func: make struct! [
+			rebval f: :do-builder
+		]
+		children: none
+	]
+]
+
 activate-about: mk-cb [
 	action 		[pointer]
 	parameter 	[pointer]
@@ -83,6 +118,35 @@ activate-quit: mk-cb [
 	return: [void]
 ][
 	debug ["activate-quit"]
+]
+
+window-closed-cb: mk-cb/extern [
+	window 	[pointer]
+	data 	[pointer]
+][
+	cbdata: make callback-data compose/deep [
+		[raw-memory: (data)]
+	]
+
+	;TODO change style
+
+	iter: make gtk/GtkTreeIter []
+	gtk/tree_model_get_iter cbdata/model addr-of iter cbdata/path
+
+	gtk/tree_path_free cbdata/path
+
+	comment [;TODO free memory
+		foreach [i:] global-mem-pool [
+			if struct? first i [
+				if model = get first i 'model [
+					remove i
+				]
+			]
+		]
+	]
+][
+	callback-data
+	global-mem-pool
 ]
 
 startup: mk-cb/extern [
@@ -110,19 +174,334 @@ startup: mk-cb/extern [
 	global-mem-pool
 ]
 
+run-example-for-now: function/extern [
+	window	[integer!]
+	model	[integer!]
+	iter	[integer!]
+][
+	func-addr: make struct! [ pointer ptr ]
+	style: make struct! [int32 i]
+
+	gtk/tree_model_get reduce [
+		model
+		iter
+		FUNC_COLUMN [int32]
+		(addr-of func-addr) [pointer]
+		STYLE_COLUMN [int32]
+		(addr-of style) [int32]
+		-1 [int32]
+	]
+
+	unless zero? func-addr/ptr [
+		f: make struct! compose/deep [
+			[raw-memory: (func-addr/ptr)]
+			rebval f
+		]
+
+		gtk/tree_store_set reduce [
+			model
+			iter
+			STYLE_COLUMN [int32]
+			either style/i == pango/PangoStyle/PANGO_STYLE_ITALIC [
+				pango/PangoStyle/PANGO_STYLE_NORMAL
+			][
+				pango/PangoStyle/PANGO_STYLE_ITALIC
+			] [int32]
+			-1 [int32]
+		]
+
+		demo: f/f window
+
+		unless zero? demo [
+			cbdata: make callback-data reduce/no-set [
+				model: model
+				path: gtk/tree_model_get_path model iter
+			]
+			append global-mem-pool cbdata
+
+			if gtk/widget_is_toplevel demo [
+				gtk/window_set_transient_for demo window
+				gtk/window_set_modal demo 1
+			]
+
+			glib/signal_connect demo (addr-of r2utf8-string "destroy")
+								(addr-of window-closed-cb)
+								addr-of cbdata
+
+		]
+	]
+][
+	global-mem-pool
+]
+
 activate-run: mk-cb [
 ][
 	debug ["activate-run"]
 ]
 
 row-activated-cb: mk-cb [
+	tree-view 	[pointer]
+	path 		[pointer]
+	column		[pointer]
 ][
 	debug ["row-activated-cb"]
+
+	iter: make gtk/GtkTreeIter []
+	window: gtk/widget_get_toplevel tree-view
+	model: gtk/tree_view_get_model tree-view
+	gtk/tree_model_get_iter model addr-of iter path
+
+	run-example-for-now window model addr-of iter
 ]
 
 selection-cb: mk-cb [
 ][
 	debug ["selection-cb"]
+]
+
+create-text: function [
+	is-source [logic!]
+][
+	scrolled-window: gtk/scrolled_window_new 0 0
+	gtk/scrolled_window_set_policy scrolled-window
+		gtk/GtkPolicyType/GTK_POLICY_AUTOMATIC
+		gtk/GtkPolicyType/GTK_POLICY_AUTOMATIC
+
+	gtk/scrolled_window_set_shadow_type scrolled-window
+		gtk/GtkShadowType/GTK_SHADOW_NONE
+	
+	text-view: gtk/text_view_new
+
+	left-margin: r2utf8-string "left-margin"
+	right-margin: r2utf8-string "right-margin"
+	glib/object_set reduce [
+		text-view
+		(addr-of left-margin) 20 [int32]
+		(addr-of right-margin) [pointer] 20 [int32]
+		0 [pointer]
+	]
+	
+	gtk/text_view_set_editable text-view 0
+	gtk/text_view_set_cursor_visible text-view 0
+
+	gtk/container_add scrolled-window text-view
+
+	either is-source [
+		;gtk/text_view_set_monospace text-view true
+		gtk/text_view_set_wrap_mode text-view gtk/GtkWrapMode/GTK_WRAP_NONE
+	][
+		; make it a bit nicer for text
+		gtk/text_view_set_wrap_mode text-view gtk/GtkWrapMode/GTK_WRAP_WORD
+		gtk/text_view_set_pixels_above_lines text-view 2
+		gtk/text_view_set_pixels_below_lines text-view 2
+	]
+
+	reduce [scrolled-window text-view]
+]
+
+populate-model: function/extern [
+	model [integer!]
+][
+	foreach demo demos [
+		name: r2utf8-string demo/name
+		title: r2utf8-string demo/title
+		filename: r2utf8-string demo/filename
+		iter: make gtk/GtkTreeIter []
+		gtk/tree_store_append model (addr-of iter) 0
+		gtk/tree_store_set reduce [
+			model
+			addr-of iter
+			NAME_COLUMN [int32]
+			(addr-of name) [pointer]
+			TITLE_COLUMN [int32]
+			(addr-of title) [pointer]
+			FILENAME_COLUMN [int32]
+			(addr-of filename) [pointer]
+			FUNC_COLUMN [int32]
+			(addr-of :demo/demo-func) [pointer]
+			STYLE_COLUMN [int32]
+			pango/PangoStyle/PANGO_STYLE_NORMAL [int32]
+			-1 [int32]
+		]
+
+		unless none? demo/children [
+			foreach child demo/children [
+				name: r2utf8-string child/name
+				title: r2utf8-string child/title
+				filename: r2utf8-string child/filename
+				child-iter: make gtk/GtkTreeIter []
+				gtk/tree_store_append model (addr-of child-iter) 0
+				gtk/tree_store_set reduce [
+					model
+					addr-of child-iter
+					NAME_COLUMN [int32]
+					(addr-of name) [pointer]
+					TITLE_COLUMN [int32]
+					(addr-of title) [pointer]
+					FILENAME_COLUMN [int32]
+					(addr-of filename) [pointer]
+					FUNC_COLUMN [int32]
+					(addr-of :child/demo-func) [pointer]
+					STYLE_COLUMN [int32]
+					pango/PangoStyle/PANGO_STYLE_NORMAL [int32]
+					-1 [int32]
+				]
+			]
+		]
+	]
+][
+	demos
+	NAME_COLUMN
+	TITLE_COLUMN
+	FILENAME_COLUMN
+	FUNC_COLUMN
+	STYLE_COLUMN
+	NUM_COLUMNS
+]
+
+remove-data-tabs: func [] [
+	debug ["notebook:" notebook]
+	i: (gtk/notebook_get_n_pages notebook) - 1
+	while [i > 1] [
+		gtk/notebook_insert_page notebook i
+		-- i
+	]
+]
+
+add-data-tab: function/extern [
+	demoname [any-string!]
+][
+	resource-dir: join "/" demoname
+	s-resource-dir: r2utf8-string resource-dir
+	resources: glib/resources_enumerate_children (addr-of s-resource-dir) 0 0
+
+	if zero? resources [
+		exit
+	]
+
+	sizeof-pointer: length? make struct! [pointer p]
+
+	i: 0
+	res: make struct! compose/deep [
+		[raw-memory: (resources + (i * sizeof-pointer))]
+		pointer ptr
+	]
+
+	while [not zero? res/ptr] [
+		res-name: utf82r-string res/ptr
+		resource-name: rejoin [resource-dir "/" res-name]
+
+		debug ["resource-name:" resource-name]
+		s-resource-name: r2utf8-string resource-name
+		widget: gtk/image_new_from_resource (addr-of s-resource-name)
+
+		if all [gtk/image_get_pixbuf widget
+				gtk/image_get_animation widget][
+			glib/object_ref_sink widget
+			gtk/widget_destroy widget
+
+			bytes: glib/resources_lookup_data (addr-of s-resource-name) 0 0
+			either glib/utf8_validate (glib/bytes_get_data bytes 0) (glib/bytes_get_size bytes) 0 [
+				; Looks like it parses as text. Dump it into a textview then!
+
+				set [widget textview] create-text false
+				buffer: gtk/text_buffer_new 0
+				gtk/text_buffer_set_text buffer (glib/bytes_get_data bytes 0) (glib/bytes_get_size bytes)
+				gtk/text_view_set_buffer textview buffer
+			][
+				s-format: r2utf8-string "Don't know how to display resources '%s'\n"
+				glib/log reduce [ 0 glib/GLogLevelFlags/G_LOG_LEVEL_WARNING
+					(addr-of s-format)
+					(addr-of s-resource-name) [pointer]]
+				widget: 0
+			]
+
+			glib/bytes_unref bytes
+		]
+
+		gtk/widget_show_all widget
+
+		label: gtk/label_new res/ptr
+
+		gtk/widget_show label
+
+		gtk/notebook_append_page notebook widget label
+		s-tab-expand: r2utf8-string "tab-expand"
+		gtk/container_child_set reduce [
+			notebook widget
+			(addr-of s-tab-expand)
+			1 [int32] 0 [pointer]
+		]
+
+		++ i
+		res: make struct! compose/deep [
+			[raw-memory: (resources + (i * sizeof-pointer))]
+			pointer ptr
+		]
+	]
+][
+	notebook
+]
+
+load-file: function/extern [
+	demoname [any-string!]
+	filename [any-string!]
+][
+	if current-file = filename [exit]
+
+	remove-data-tabs
+	add-data-tab demoname
+
+	info-buffer: gtk/text_buffer_new 0
+	source-buffer: gtk/text_buffer_new 0
+
+	error: make struct! compose [
+		pointer data
+	]
+	resource-file: join "/sources/" filename
+	s-resource-file: r2utf8-string resource-file
+	bytes: glib/resources_lookup_data (addr-of s-resource-file) 0 (addr-of error)
+	if zero? bytes [
+		error-val: make glib/GError compose/deep [
+			[raw-memory: (error/data)]
+		]
+		s-format: r2utf8-string "Cannot open source for %s: %s\n"
+		s-filename: r2utf8-string filename
+		glib/log reduce [ 0 glib/GLogLevelFlags/G_LOG_LEVEL_CRITICAL
+			(addr-of s-format)
+			(addr-of s-filename) [pointer]
+			error-val/message [pointer]
+		]
+		exit
+	]
+
+	data-size: glib/bytes_get_size bytes
+	bytes-reb: make struct! compose/deep [
+		uint8 [(data-size)] data: (glib/bytes_get_data bytes 0)
+	]
+
+	glib/bytes_unref bytes
+
+	bytes-bin: values-of bytes-reb
+
+	source: load/header bytes-bin
+	header: first source
+	;debug ["source:" mold source]
+	
+	gtk/text_buffer_set_text source-buffer bytes-bin data-size
+	;fontify source-buffer
+	gtk/text_view_set_buffer source-textview source-buffer
+	glib/object_unref source-buffer
+
+	s-notes: r2utf8-string header/notes
+	gtk/text_buffer_set_text info-buffer (addr-of s-notes) (length? header/notes)
+	;fontify source-buffer
+	gtk/text_view_set_buffer info-textview info-buffer
+	glib/object_unref info-buffer
+][
+	current-file
+	source-textview
+	info-textview
 ]
 
 activate: mk-cb/extern [
@@ -192,7 +571,11 @@ activate: mk-cb/extern [
 	treeview: gtk/builder_get_object builder addr-of s-treeview
 	model: gtk/tree_view_get_model treeview
 
-	;load-file ;FIXME
+	debug ["original notebook:" notebook]
+
+	load-file demos/1/name demos/1/filename ;FIXME
+
+	populate-model model
 
 	glib/signal_connect treeview addr-of s-row-activated addr-of row-activated-cb model
 
@@ -203,6 +586,11 @@ activate: mk-cb/extern [
 	glib/object_unref builder
 ][
 	global-mem-pool
+	notebook
+	info-textview
+	source-textview
+	treeview
+	headerbar
 ]
 
 init-resource: function [
