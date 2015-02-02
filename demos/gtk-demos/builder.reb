@@ -4,10 +4,35 @@ REBOL [
 ]
 
 builder-window: 0
+builder-builder: 0
 
-quit-active: mk-cb [
+quit-activate: mk-cb/extern [
 		action [pointer]
 ][
+	debug ["quit-active"]
+	s-window1: r2utf8-string "window1"
+	window: gtk/builder_get_object builder-builder addr-of s-window1
+	gtk/widget_destroy window
+	builder-window: 0
+][
+	builder-window
+	builder-builder
+]
+
+about-activate: mk-cb [
+		action [pointer]
+][
+	debug ["about-active"]
+	s-aboutdialog1: r2utf8-string "aboutdialog1"
+	about-dlg: gtk/builder_get_object builder-builder addr-of s-aboutdialog1
+	gtk/dialog_run about-dlg
+	gtk/widget_hide about-dlg
+]
+
+help-activate: mk-cb [
+		action [pointer]
+][
+	print ["Help not available"]
 ]
 
 do-builder: function/extern [
@@ -24,8 +49,8 @@ do-builder: function/extern [
 
 	if zero? builder-window [
 		debug ["building new window"]
-		builder: gtk/builder_new
-		gtk/builder_add_from_resource builder (addr-of s-demo) (addr-of error)
+		builder-builder: gtk/builder_new
+		gtk/builder_add_from_resource builder-builder (addr-of s-demo) (addr-of error)
 
 		unless zero? error/data [
 			error-val: make glib/GError compose/deep [
@@ -39,32 +64,51 @@ do-builder: function/extern [
 			debug ["exiting"]
 			exit
 		]
-		gtk/builder_connect_signals builder 0
-		builder-window: gtk/builder_get_object builder addr-of s-window1
+
+		s-about-activate: r2utf8-string "about_activate"
+		s-help-activate: r2utf8-string "help_activate"
+		s-quit-activate: r2utf8-string "quit_activate"
+		gtk/builder_add_callback_symbols reduce [
+			builder-builder
+			(addr-of s-about-activate)
+			(addr-of about-activate)
+			(addr-of s-help-activate) 	[pointer]
+			(addr-of help-activate)		[pointer]
+			(addr-of s-quit-activate) 	[pointer]
+			(addr-of quit-activate)		[pointer]
+			0	[pointer]
+		]
+
+		gtk/builder_connect_signals builder-builder 0
+
+		builder-window: gtk/builder_get_object builder-builder addr-of s-window1
 		gtk/window_set_screen builder-window gtk/widget_get_screen do_widget
 		window-addr: make struct! compose [
 			pointer win: (builder-window)
 		]
 
 		s-destroy: r2utf8-string "destroy"
+		;glib/signal_connect builder-window (addr-of s-destroy)
+		;	(addr-of :gtk/widget_destroyed) (addr-of window-addr)
 		glib/signal_connect builder-window (addr-of s-destroy)
-			(addr-of :gtk/widget_destroyed) (addr-of window-addr)
+			(addr-of quit-activate) (addr-of window-addr)
 
 		s-toolbar1: r2utf8-string "toolbar1"
-		toolbar: gtk/builder_get_object builder (addr-of s-toolbar1)
+		toolbar: gtk/builder_get_object builder-builder (addr-of s-toolbar1)
 
 		s-primary-toolbar: r2utf8-string "primary-toolbar"
 		gtk/style_context_add_class gtk/widget_get_style_context toolbar (addr-of s-primary-toolbar)
 	]
 
-	either gtk/widget_get_visible builder-window [
+	either zero? gtk/widget_get_visible builder-window [
 		gtk/widget_show_all builder-window
 	][
 		gtk/widget_destroyed builder-window
 		builder-window: 0
 	]
 
-	return builder-window
+	builder-window
 ][
 	builder-window
+	builder-builder
 ]

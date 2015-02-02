@@ -128,10 +128,28 @@ window-closed-cb: mk-cb/extern [
 		[raw-memory: (data)]
 	]
 
-	;TODO change style
+	style: make struct! [int32 i]
 
 	iter: make gtk/GtkTreeIter []
 	gtk/tree_model_get_iter cbdata/model addr-of iter cbdata/path
+
+	gtk/tree_model_get reduce [
+		cbdata/model
+		addr-of iter
+		STYLE_COLUMN [int32]
+		addr-of style [pointer]
+		-1 [int32]
+	]
+
+	if style/i = pango/PangoStyle/PANGO_STYLE_ITALIC [
+		gtk/tree_store_set reduce [
+			cbdata/model
+			addr-of iter
+			STYLE_COLUMN [int32]
+			pango/PangoStyle/PANGO_STYLE_NORMAL [int32]
+			-1 [int32]
+		]
+	]
 
 	gtk/tree_path_free cbdata/path
 
