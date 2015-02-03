@@ -44,8 +44,8 @@ stringfy: func [
 	/local len s
 ] [
 	len: strlen ptr
-	s: make struct! [
-		uint8 [len] s: ptr
+	s: make struct! compose/deep [
+		s: [uint8 [(len)]] ptr
 	]
 	to string! values-of s
 ]
@@ -391,7 +391,7 @@ write-a-rebol-field: func [
 		(get offset) < c-field/offset [
 			;padding
 			debug ["padding is needed for field: " c-field/name "offset:" mold get offset "c-field/offset:" mold c-field/offset]
-			append ret rejoin [ind "uint8 [" (c-field/offset - (get offset)) / 8 "] padding" idx "^/"]
+			append ret rejoin [ind "padding" idx " [uint8 [" (c-field/offset - (get offset)) / 8 "]]^/"]
 			set offset c-field/offset
 		]
 		(get offset) > c-field/offset [
@@ -401,37 +401,39 @@ write-a-rebol-field: func [
 	]
 
 	append ret rejoin [
+		ind
+		c-field/name
+		" ["
 		either none? c-field/typedef [
 			debug ["field" mold c-field]
 			case [
 				string? c-field/type [
-					rejoin [ind write-a-c-type reduce [c-field/type c-field/is-struct?]]
+					rejoin [write-a-c-type reduce [c-field/type c-field/is-struct?]]
 				]
 				struct? c-field/type [
-					rejoin [ind write-a-c-type (c-2-reb-type c-field/type none)]
+					rejoin [write-a-c-type (c-2-reb-type c-field/type none)]
 				]
 				object? c-field/type [
 					either c-field/type/global [
-						rejoin [ind "(" c-field/type/name ")"]
+						rejoin ["(" c-field/type/name ")"]
 					][
 						write-a-rebol-struct c-field/type indent
 					]
 				]
 				'else [
-					rejoin [ind "WRONG " c-field/type]
+					rejoin ["WRONG " c-field/type]
 					debug ["WRONG" c-field/type]
 				]
 			]
 		][
-			rejoin [ind "("	c-field/typedef ")"]
+			rejoin ["("	c-field/typedef ")"]
 		]
-		" "
 		either c-field/dimension > 1 [
-			rejoin ["[" c-field/dimension "] "]
+			rejoin [" [" c-field/dimension "]"]
 		][
 			""
 		]
-		c-field/name
+		"]"
 		"^/"
 	]
 	set offset (get offset) + (c-field/size * 8)
@@ -507,7 +509,7 @@ enum-visitor-fields: mk-cb compose/deep [
 	debug ["client-data:" to-hex client-data]
 	n: make struct! compose/deep [
 		[raw-memory: (client-data)]
-		rebval v
+		v [rebval]
 	]
 	v: n/v ;c-enum-class
 	field-name: clang/getCursorSpelling cursor
@@ -533,7 +535,7 @@ struct-visitor-fields: mk-cb compose/deep [
 	debug ["client-data:" to-hex client-data]
 	n: make struct! compose/deep [
 		[raw-memory: (client-data)]
-		rebval v
+		v [rebval]
 	]
 	v: n/v ;c-struct
 	field-name: clang/getCursorSpelling cursor
@@ -599,7 +601,7 @@ struct-visitor-fields: mk-cb compose/deep [
 					clang/disposeString lexical-parent-name
 
 					nested-struct: make struct! compose [
-						rebval v: (
+						v: [rebval] (
 							make c-struct [
 								global: lexical-parent-kind = clang/enum clang/CXCursorKind 'CXCursor_TranslationUnit
 								name: decl-cursor-name-reb
@@ -668,7 +670,7 @@ handle-enum: function [
 		debug ["parent type:" parent-type/kind "name:" enum-name-reb]
 	]
 	n: make struct! compose [
-		rebval v: (make c-enum-class [name: enum-name-reb])
+		v: [rebval] (make c-enum-class [name: enum-name-reb])
 	]
 	clang/visitChildren cursor addr-of enum-visitor-fields addr-of n
 	append global-enums n/v
@@ -816,7 +818,7 @@ handle-struct: function [
 	type: clang/getCursorType cursor
 
 	n: make struct! compose [
-		rebval v: (make c-struct [name: struct-name-reb])
+		v: [rebval] (make c-struct [name: struct-name-reb])
 	]
 	unless empty? struct-alias [
 		append n/v/aliases struct-alias
@@ -988,7 +990,7 @@ compile: function [
 		quit
 	]
 	tu: make struct! [
-		pointer u
+		u [pointer] 
 	]
 
 	translationUnit: clang/parseTranslationUnit2 index 0
@@ -1165,7 +1167,7 @@ r2utf8-string: function [
 ][
 	bin-arg: to binary! s
 	arg: make struct! compose/deep [
-		uint8 [(1 + length? bin-arg)] data
+		data [uint8 [(1 + length? bin-arg)]]
 	]
 	change arg join bin-arg #{00}
 	arg

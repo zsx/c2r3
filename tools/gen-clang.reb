@@ -61,7 +61,7 @@ argv-ptr: copy []
 foreach v argv-data [append argv-ptr addr-of v]
 
 argv: make struct! compose/deep/only [
-	pointer [(argc)] data: (argv-ptr)
+	data: [pointer [(argc)]] (argv-ptr)
 ]
 
 compile argc addr-of argv
