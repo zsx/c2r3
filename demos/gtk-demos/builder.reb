@@ -14,6 +14,9 @@ quit-activate: mk-cb/extern [
 	window: gtk/builder_get_object builder-builder addr-of s-window1
 	gtk/widget_destroy window
 	builder-window: 0
+	unless zero? builder-builder [
+		glib/object_unref builder-builder
+	]
 ][
 	builder-window
 	builder-builder
