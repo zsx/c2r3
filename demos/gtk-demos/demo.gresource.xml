@@ -84,7 +84,9 @@
     <file>clipboard.c</file>
     <file>colorsel.c</file>
     <file>combobox.c</file>
-    <file>css_accordion.c</file>
+	-->
+    <file>css-accordion.reb</file>
+	<!--
     <file>css_basics.c</file>
     <file>css_multiplebgs.c</file>
     <file>css_pixbufs.c</file>

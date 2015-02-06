@@ -47,7 +47,7 @@ do-builder: function/extern [
 	append global-mem-pool s-demo
 
 	error: make struct! compose [
-		pointer data
+		data [pointer]
 	]
 
 	if zero? builder-window [
@@ -87,7 +87,7 @@ do-builder: function/extern [
 		builder-window: gtk/builder_get_object builder-builder addr-of s-window1
 		gtk/window_set_screen builder-window gtk/widget_get_screen do_widget
 		window-addr: make struct! compose [
-			pointer win: (builder-window)
+			win: [pointer] (builder-window)
 		]
 
 		s-destroy: r2utf8-string "destroy"
