@@ -4043,11 +4043,32 @@ write-output OUTPUT [
 write/append OUTPUT {
 	signal_connect: func [
 		instance 		[integer!]
-		detailed-signal [integer!]
+		detailed-signal [integer! binary!]
 		handler 		[integer!]
 		data 			[integer!]
 	][
     	signal_connect_data instance detailed-signal handler data 0 0
+	]
+
+	type-check-instance-type: function [
+		obj [integer!]
+		type [integer!]
+	][
+		if zero? obj [return false]
+		inst: make GTypeInstance compose/deep [
+			[raw-memory: (obj)]
+		]
+
+		if zero? inst/g_class [
+			return not zero? type_check_instance_is_a obj type
+		]
+
+		class: make GTypeClass compose/deep [
+			[raw-memory: (inst/g_class)]
+		]
+		if class/g_type = type [return true]
+
+		return not zero? type_check_instance_is_a obj type
 	]
 ]^/}
 	
