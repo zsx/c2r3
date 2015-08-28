@@ -40,3 +40,5 @@ square: make routine! compose [
 
 print ["square of 2:" square 2]
 print ["square of 5:" square 5]
+
+tcc/tcc_delete tcc-state
