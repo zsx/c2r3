@@ -2,43 +2,50 @@ REBOL []
 
 tcc: do %../../bindings/libtcc.reb
 
-tcc-state: tcc/tcc_new
-c-source: to binary! {
-int square(int i)
-^{
-	return i * i;
-^}
-^@}
-
-if negative? tcc/tcc_compile_string tcc-state c-source [
-	do make error! "Failed to compile c"
+prog: tcc/compile [ 
+	'sysinclude [%/usr/lib/tcc/include %/usr/include]
+	'define ["INC" 2]
 ]
+{
+	#include <stdio.h>
 
-;find out the needed memory size
-m-size: tcc/tcc_relocate tcc-state 0
+	void hw (void)
+	^{
+		printf("hello, world\n");
+	^}
 
-m-buf: make binary! m-size
+	int square (int i)
+	^{
+		return i * i;
+	^}
 
-if negative? tcc/tcc_relocate tcc-state m-buf [
-	do make error! "Failed to relocate"
-]
+	void inc(int i)
+	^{
+		return i + INC;
+	^}
+}
 
-s-square: to binary! "square^@"
-if zero? ptr-square: tcc/tcc_get_symbol tcc-state s-square [
-	do make error! rejoin ["Failed to find symbol " to string! s-square]
-]
+hw: tcc/load-func prog "hw" 
+	[
+		return: [void]
+	]
 
-square: make routine! compose [
+square: tcc/load-func prog "square"
 	[
 		i [int32]
 		return: [int32]
 	]
-	(ptr-square)
-]
 
-;call square
+inc: tcc/load-func prog "inc" 
+	[
+		i [int32]
+		return: [int32]
+	]
+
+hw ;prints hellow, world
 
 print ["square of 2:" square 2]
-print ["square of 5:" square 5]
 
-tcc/tcc_delete tcc-state
+print ["inc on 2:" inc 2]
+
+tcc/destroy prog
