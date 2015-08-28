@@ -169,50 +169,50 @@ write/append OUTPUT {
 
 		;print ["spec-obj:" mold spec-obj]
 
-		program/state: tcc/tcc_new
+		program/state: tcc_new
 
 		foreach def spec-obj/defines [
 			either def/define [
 				n: join to binary! def/name #{00}
 				v: join to binary! mold def/value #{00}
-				tcc/tcc_define_symbol program/state n v
+				tcc_define_symbol program/state n v
 			][;undef
 				n: join to binary! def/name #{00}
-				tcc/tcc_undefine_symbol program/state n
+				tcc_undefine_symbol program/state n
 			]
 		]
 
 		foreach inc spec-obj/sysincludes [
 			path: join to binary! to string! inc #{00};hold a reference to the string
-			tcc/tcc_add_sysinclude_path program/state path
+			tcc_add_sysinclude_path program/state path
 		]
 
 		foreach inc spec-obj/includes [
 			path: join to binary! to string! inc #{00};hold a reference to the string
-			tcc/tcc_add_include_path program/state path
+			tcc_add_include_path program/state path
 		]
 
 		foreach lib spec-obj/libraries [
 			path: join to binary! to string! lib #{00};hold a reference to the string
-			tcc/tcc_add_library program/state path
+			tcc_add_library program/state path
 		]
 
 		foreach lib spec-obj/library-paths [
 			path: join to binary! to string! lib #{00};hold a reference to the string
-			tcc/tcc_add_library_path program/state path
+			tcc_add_library_path program/state path
 		]
 
 		s: join to binary! source #{00}
-		if negative? tcc/tcc_compile_string program/state s [
+		if negative? tcc_compile_string program/state s [
 			do make error! "Failed to compile"
 		]
 
 		;find out the needed memory size
-		m-size: tcc/tcc_relocate program/state 0
+		m-size: tcc_relocate program/state 0
 		;print ["m-size: " m-size]
 
 		program/m-buf: make binary! m-size
-		if negative? tcc/tcc_relocate program/state program/m-buf [
+		if negative? tcc_relocate program/state program/m-buf [
 			do make error! "Failed to relocate"
 		]
 
@@ -224,7 +224,7 @@ write/append OUTPUT {
 		program [object!]
 	][
 		program/m-buf: none ;release program memory
-		tcc/tcc_delete program/state
+		tcc_delete program/state
 	]
 
 	load-func: function [
@@ -233,7 +233,7 @@ write/append OUTPUT {
 		spec [block!] "routine parameter spec"
 	][
 		name: join to binary! name #{00}
-		if zero? ptr: tcc/tcc_get_symbol prog/state name [
+		if zero? ptr: tcc_get_symbol prog/state name [
 			do make error! rejoin ["Failed to find symbol " to string! name]
 		]
 
