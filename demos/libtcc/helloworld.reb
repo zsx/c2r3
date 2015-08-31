@@ -10,19 +10,19 @@ prog: tcc/compile [
 	#include <stdio.h>
 
 	void hw (void)
-	^{
+	{
 		printf("hello, world\n");
-	^}
+	}
 
 	int square (int i)
-	^{
+	{
 		return i * i;
-	^}
+	}
 
 	void inc(int i)
-	^{
+	{
 		return i + INC;
-	^}
+	}
 }
 
 hw: tcc/load-func prog "hw" 
