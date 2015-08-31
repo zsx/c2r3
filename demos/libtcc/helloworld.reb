@@ -19,7 +19,7 @@ prog: tcc/compile [
 		return i * i;
 	}
 
-	void inc(int i)
+	int inc(int i)
 	{
 		return i + INC;
 	}
