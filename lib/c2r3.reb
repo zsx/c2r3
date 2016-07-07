@@ -885,7 +885,7 @@ handle-typedef: function [
 
 	;typedef might be declared before the canonical datatype
 	debug ["saving typedefs"]
-	parsed-name-reb: parse canonical-name-reb ""
+	parsed-name-reb: split canonical-name-reb " "
 	if all [2 <= length? parsed-name-reb
 			found? find ["struct" "enum" "union"] first parsed-name-reb][
 		canonical-name-reb: second parsed-name-reb
