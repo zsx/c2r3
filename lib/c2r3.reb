@@ -115,6 +115,7 @@ c-2-reb-type: func [
 	orig-type [struct! none!]
 	/local size ret type-name type-name-reb struct?
 ][
+	struct?: false
 	case [
 		found? find reduce [
 			clang/CXTypeKind/CXType_Char_S
@@ -252,6 +253,7 @@ c-2-rebol-arg-type: func [
 	/local orig-type type-name type-name-reb
 ][
 	; typedef
+	orig-type: none
 	while [type/kind = clang/enum clang/CXTypeKind 'CXType_Typedef][
 		orig-type: type
 		type: clang/getCanonicalType type
@@ -533,6 +535,7 @@ struct-visitor-fields: mk-cb compose/deep [
 	return: [int32]
 ][
 	debug ["client-data:" to-hex client-data]
+	orig-type: none
 	n: make struct! compose/deep [
 		[raw-memory: (client-data)]
 		v [rebval]
@@ -608,7 +611,7 @@ struct-visitor-fields: mk-cb compose/deep [
 							]
 						)
 					]
-					clang/visitChildren decl-cursor addr-of struct-visitor-fields addr-of nested-struct
+					clang/visitChildren decl-cursor addr-of :struct-visitor-fields addr-of nested-struct
 					field/type: nested-struct/v
 					field/is-struct?: true
 					unless any [
@@ -672,7 +675,7 @@ handle-enum: function [
 	n: make struct! compose [
 		v: [rebval] (make c-enum-class [name: enum-name-reb])
 	]
-	clang/visitChildren cursor addr-of enum-visitor-fields addr-of n
+	clang/visitChildren cursor addr-of :enum-visitor-fields addr-of n
 	append global-enums n/v
 	debug ["found an enum:" mold n/v]
 	return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
@@ -726,6 +729,7 @@ handle-function: function [
 	n: clang/Cursor_getNumArguments cursor
 	debug ["n:" n]
 	i: 0
+	type: none
 	while [i < n] [
 		arg: clang/Cursor_getArgument cursor i
 		arg-name: clang/getCursorSpelling arg
@@ -800,6 +804,7 @@ handle-struct: function [
 
 	parent-kind: clang/getCursorKind parent
 	debug ["parent-kind:" parent-kind]
+	struct-alias: ""
 	if parent-kind = target-kind: clang/enum clang/CXCursorKind 'CXCursor_TypedefDecl [
 		typedef-name: clang/getCursorSpelling parent
 		typedef-name-reb: stringfy clang/getCString typedef-name
@@ -823,7 +828,7 @@ handle-struct: function [
 	unless empty? struct-alias [
 		append n/v/aliases struct-alias
 	]
-	clang/visitChildren cursor addr-of struct-visitor-fields addr-of n
+	clang/visitChildren cursor addr-of :struct-visitor-fields addr-of n
 	debug ["found a struct:" mold n/v]
 	add-struct n/v
 	return clang/enum clang/CXChildVisitResult 'CXChildVisit_Continue
@@ -1009,7 +1014,7 @@ compile: function [
 
 	root-cursor: clang/getTranslationUnitCursor translationUnit
 
-	clang/visitChildren root-cursor addr-of cursor-visitor 0
+	clang/visitChildren root-cursor addr-of :cursor-visitor 0
 	clang/disposeTranslationUnit translationUnit
 	clang/disposeIndex index
 ]
