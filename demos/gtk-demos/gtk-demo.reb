@@ -736,7 +736,7 @@ init-resource: function [
 
 main: function/extern [
 	argc [integer!]
-	argv [integer!]
+	argv [struct!]
 ][
 	init-resource
 
@@ -786,7 +786,7 @@ main: function/extern [
 	app-val: make glib/GApplication compose/deep [
 		[raw-memory: (app)]
 	]
-	glib/application_run app argc argv
+	glib/application_run app argc addr-of argv
 ][
 	activate
 ]
