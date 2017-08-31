@@ -9,60 +9,27 @@ debug: :comment
 debug: :print
 
 global-mem-pool: copy []
-current-file: none
+current-file: _
 notebook:
 info-textview:
 source-textview:
 treeview:
-headerbar: none
+headerbar: _
 
 libc: make library! %libc.so.6
 
-strlen: make routine! compose [[
+strlen: make-routine libc "strlen" [
 	ptr [pointer]
 	return: [uint64]
-] (libc) "strlen"]
-
-mk-cb: func [
-	args [block!]
-	body [block!]
-	/extern words [block!]
-	/local r-args arg a tmp-func
-][
-	r-args: copy []
-
-	arg:[
-		copy a word! (append r-args a)
-		block!
-		opt string!
-	]
-	attr: [
-		set-word!
-		block! | word!
-	]
-
-	parse args [
-		opt string!
-		some [ arg | attr ]
-	]
-
-	;debug ["args:" mold args]
-
-	either extern [
-		tmp-func: function/extern r-args body words
-	][
-		tmp-func: function r-args body
-	]
-
-	;debug ["tmp-func:" mold :tmp-func]
-	make callback! compose/deep [[(args)] :tmp-func]
 ]
+
+mk-cb: :make-callback
 
 r2utf8-string: function [
 	s [string!]
 ][
 	s-s: make struct! compose/deep [ s [uint8 [(1 + length? s)]]]
-	change s-s join to binary! s #{00}
+	change s-s join-of to binary! s #{00}
 	s-s
 ]
 
@@ -98,13 +65,13 @@ demos: reduce [
 		demo-func: make struct! [
 			f: [rebval] :do-builder
 		]
-		children: none
+		children: _
 	]
 	context [
-		name: none
+		name: _
 		title: "CSS Theming"
-		filename: none
-		demo-func: none
+		filename: _
+		demo-func: _
 		children: reduce [
 			context [
 				name: "css_accordion"
@@ -113,7 +80,7 @@ demos: reduce [
 				demo-func: make struct! [
 					f: [rebval] :do-css-accordion
 				]
-				children: none
+				children: _
 			]
 		]
 	]
@@ -137,35 +104,38 @@ activate-quit: mk-cb [
 	debug ["activate-quit"]
 ]
 
-window-closed-cb: mk-cb/extern [
+window-closed-cb: mk-cb [
 	window 	[pointer]
 	data 	[pointer]
+    <with>
+        callback-data
+        global-mem-pool
 ][
-	cbdata: make callback-data compose/deep [
+	cbdata: make-similar-struct callback-data compose/deep [
 		[raw-memory: (data)]
 	]
 
 	style: make struct! [i [int32]]
 
-	iter: make gtk/GtkTreeIter []
+	iter: make-similar-struct gtk/GtkTreeIter []
 	gtk/tree_model_get_iter cbdata/model addr-of iter cbdata/path
 
-	gtk/tree_model_get reduce [
+	gtk/tree_model_get
 		cbdata/model
 		addr-of iter
 		STYLE_COLUMN [int32]
 		addr-of style [pointer]
 		-1 [int32]
-	]
+	|
 
 	if style/i = pango/PangoStyle/PANGO_STYLE_ITALIC [
-		gtk/tree_store_set reduce [
+		gtk/tree_store_set
 			cbdata/model
 			addr-of iter
 			STYLE_COLUMN [int32]
 			pango/PangoStyle/PANGO_STYLE_NORMAL [int32]
 			-1 [int32]
-		]
+		|
 	]
 
 	gtk/tree_path_free cbdata/path
@@ -179,23 +149,28 @@ window-closed-cb: mk-cb/extern [
 			]
 		]
 	]
-][
-	callback-data
-	global-mem-pool
 ]
 
-startup: mk-cb/extern [
+startup: mk-cb [
 	app [pointer]
+    <with>
+        global-mem-pool
 ][
 	debug ["startup"]
 	s-ui-main: r2utf8-string "/ui/main.ui"
 	s-app-menu: r2utf8-string "appmenu"
 
+    dump s-ui-main
+    dump s-app-menu
+
+    print ["addr-of s-ui-main" addr-of s-ui-main]
 	append global-mem-pool reduce [s-ui-main s-app-menu]
 
-	ids: make struct! [
-		data: [pointer [2]] reduce [addr-of s-app-menu 0]
+	ids: make struct! compose/deep [
+		data: [pointer [2]] [(addr-of s-app-menu) 0]
 	]
+
+    dump ids
 
 	builder: gtk/builder_new
 	gtk/builder_add_objects_from_resource builder (addr-of s-ui-main) (addr-of ids) 0
@@ -205,21 +180,21 @@ startup: mk-cb/extern [
 	gtk/application_set_app_menu app app-menu
 
 	glib/object_unref builder
-][
-	global-mem-pool
 ]
 
-run-example-for-now: function/extern [
+run-example-for-now: procedure [
 	window	[integer!]
 	model	[integer!]
 	iter	[integer!]
+    <with>
+	global-mem-pool
 ][
 	func-addr: make struct! [ ptr [pointer] ]
 	style: make struct! [i [int32]]
 
 	debug ["run-example-for-now, model:" to-hex model "iter:" to-hex iter "addr-of style" addr-of style]
 
-	gtk/tree_model_get reduce [
+	gtk/tree_model_get
 		model
 		iter
 		FUNC_COLUMN [int32]
@@ -227,7 +202,7 @@ run-example-for-now: function/extern [
 		STYLE_COLUMN [int32]
 		(addr-of style) [pointer]
 		-1 [int32]
-	]
+	|
 	debug ["tree_model_get done"]
 
 	;debug ["func-addr/ptr:" func-addr/ptr]
@@ -238,7 +213,7 @@ run-example-for-now: function/extern [
 			f [rebval]
 		]
 
-		gtk/tree_store_set reduce [
+		gtk/tree_store_set
 			model
 			iter
 			STYLE_COLUMN [int32]
@@ -248,14 +223,14 @@ run-example-for-now: function/extern [
 				pango/PangoStyle/PANGO_STYLE_ITALIC
 			] [int32]
 			-1 [int32]
-		]
+		|
 
 		;debug ["f/f:" mold :f/f]
 		demo: f/f window
 		;debug ["demo:" mold demo]
 
 		unless zero? demo [
-			cbdata: make callback-data reduce/no-set [
+			cbdata: make-similar-struct callback-data reduce/no-set [
 				model: model
 				path: gtk/tree_model_get_path model iter
 			]
@@ -267,29 +242,26 @@ run-example-for-now: function/extern [
 			]
 
 			glib/signal_connect demo (addr-of r2utf8-string "destroy")
-								(addr-of window-closed-cb)
+								(addr-of :window-closed-cb)
 								addr-of cbdata
 
 		]
 	]
-][
-	global-mem-pool
 ]
 
-activate-run: mk-cb/extern [
+activate-run: mk-cb [
 	action 		[pointer]
 	parameter 	[pointer]
 	user-data	[pointer]
+    <with> treeview
 ][
 	debug ["activate-run"]
 	model: make struct! [model [pointer]]
-	iter: make gtk/GtkTreeIter []
+	iter: make-similar-struct gtk/GtkTreeIter []
 
 	selection: gtk/tree_view_get_selection treeview
 	gtk/tree_selection_get_selected selection (addr-of model) (addr-of iter)
 	run-example-for-now user-data model/model (addr-of iter)
-][
-	treeview
 ]
 
 row-activated-cb: mk-cb [
@@ -299,7 +271,7 @@ row-activated-cb: mk-cb [
 ][
 	debug ["row-activated-cb"]
 
-	iter: make gtk/GtkTreeIter []
+	iter: make-similar-struct gtk/GtkTreeIter []
 	window: gtk/widget_get_toplevel tree-view
 	model: gtk/tree_view_get_model tree-view
 	debug ["run-example-for-now, tree-view" to-hex tree-view "model:" to-hex model "iter:" to-hex addr-of iter]
@@ -308,19 +280,21 @@ row-activated-cb: mk-cb [
 	run-example-for-now window model addr-of iter
 ]
 
-selection-cb: mk-cb/extern [
+selection-cb: mk-cb [
 	selection 	[pointer]
 	model 		[pointer]
+    <with>
+	    headerbar
 ][
 	debug ["selection-cb"]
 
-	iter: make gtk/GtkTreeIter []
+	iter: make-similar-struct gtk/GtkTreeIter []
 	if zero? gtk/tree_selection_get_selected selection 0 (addr-of iter) [return]
 
 	name: make struct! [addr [pointer]]
 	title: make struct! [addr [pointer]]
 	filename: make struct! [addr [pointer]]
- 	gtk/tree_model_get reduce [
+ 	gtk/tree_model_get
 		model (addr-of iter)
 		NAME_COLUMN [int32]
 		(addr-of name) [pointer]
@@ -329,16 +303,16 @@ selection-cb: mk-cb/extern [
 		FILENAME_COLUMN [int32]
 		(addr-of filename) [pointer]
 		-1 [int32]
-	]
+	|
 
 	unless zero? filename/addr [
 		load-file (utf82r-string name/addr) (utf82r-string filename/addr)
 	]
 
 	gtk/header_bar_set_title headerbar (utf82r-string title/addr)
-][
-	headerbar
 ]
+
+;dump selection-cb
 
 create-text: function [
 	is-source [logic!]
@@ -355,13 +329,13 @@ create-text: function [
 
 	left-margin: r2utf8-string "left-margin"
 	right-margin: r2utf8-string "right-margin"
-	glib/object_set reduce [
+	glib/object_set 
 		text-view
 		(addr-of left-margin) 20 [int32]
 		(addr-of right-margin) [pointer] 20 [int32]
 		0 [pointer]
-	]
-	
+    |
+
 	gtk/text_view_set_editable text-view 0
 	gtk/text_view_set_cursor_visible text-view 0
 
@@ -380,33 +354,41 @@ create-text: function [
 	reduce [scrolled-window text-view]
 ]
 
-populate-model: function/extern [
+populate-model: function [
 	model [integer!]
+    <with>
+        demos
+        NAME_COLUMN
+        TITLE_COLUMN
+        FILENAME_COLUMN
+        FUNC_COLUMN
+        STYLE_COLUMN
+        NUM_COLUMNS
 ][
 	foreach demo demos [
-		unless none? demo/title [
-			either none? demo/name [
+		unless blank? demo/title [
+			either blank? demo/name [
 				param-name: 0
 			][
 				name: r2utf8-string demo/name
 				param-name: addr-of name
 			]
 			title: r2utf8-string demo/title
-			either none? demo/filename [
+			either blank? demo/filename [
 				param-filename: 0
 			][
 				filename: r2utf8-string demo/filename
 				param-filename: addr-of filename
 			]
-			either none? :demo/demo-func [
+			either blank? :demo/demo-func [
 				param-demo-func: 0
 			][
 				param-demo-func: addr-of :demo/demo-func
 			]
 			title: r2utf8-string demo/title
-			iter: make gtk/GtkTreeIter []
+			iter: make-similar-struct gtk/GtkTreeIter []
 			gtk/tree_store_append model (addr-of iter) 0
-			gtk/tree_store_set reduce [
+			gtk/tree_store_set
 				model
 				addr-of iter
 				NAME_COLUMN [int32]
@@ -420,32 +402,32 @@ populate-model: function/extern [
 				STYLE_COLUMN [int32]
 				pango/PangoStyle/PANGO_STYLE_NORMAL [int32]
 				-1 [int32]
-			]
+			|
 
-			unless none? demo/children [
+			unless blank? demo/children [
 				foreach child demo/children [
-					unless none? child/title [
-						either none? child/name [
+					unless blank? child/title [
+						either blank? child/name [
 							param-name: 0
 						][
 							name: r2utf8-string child/name
 							param-name: addr-of name
 						]
 						title: r2utf8-string child/title
-						either none? child/filename [
+						either blank? child/filename [
 							param-filename: 0
 						][
 							filename: r2utf8-string child/filename
 							param-filename: addr-of filename
 						]
-						either none? :child/demo-func [
+						either blank? :child/demo-func [
 							param-demo-func: 0
 						][
 							param-demo-func: addr-of :child/demo-func
 						]
-						child-iter: make gtk/GtkTreeIter []
+						child-iter: make-similar-struct gtk/GtkTreeIter []
 						gtk/tree_store_append model (addr-of child-iter) (addr-of iter)
-						gtk/tree_store_set reduce [
+						gtk/tree_store_set
 							model
 							addr-of child-iter
 							NAME_COLUMN [int32]
@@ -459,20 +441,12 @@ populate-model: function/extern [
 							STYLE_COLUMN [int32]
 							pango/PangoStyle/PANGO_STYLE_NORMAL [int32]
 							-1 [int32]
-						]
+						|
 					]
 				]
 			]
 		]
 	]
-][
-	demos
-	NAME_COLUMN
-	TITLE_COLUMN
-	FILENAME_COLUMN
-	FUNC_COLUMN
-	STYLE_COLUMN
-	NUM_COLUMNS
 ]
 
 remove-data-tabs: func [] [
@@ -480,19 +454,21 @@ remove-data-tabs: func [] [
 	i: (gtk/notebook_get_n_pages notebook) - 1
 	while [i > 1] [
 		gtk/notebook_remove_page notebook i
-		-- i
+		i: -- 1
 	]
 ]
 
-add-data-tab: function/extern [
+add-data-tab: procedure [
 	demoname [any-string!]
+    <with>
+	    notebook
 ][
-	resource-dir: join "/" demoname
+	resource-dir: join-of "/" demoname
 	s-resource-dir: r2utf8-string resource-dir
 	resources: glib/resources_enumerate_children (addr-of s-resource-dir) 0 0
 
 	if zero? resources [
-		exit
+		leave
 	]
 
 	sizeof-pointer: length? make struct! [p [pointer]]
@@ -543,27 +519,29 @@ add-data-tab: function/extern [
 
 		gtk/notebook_append_page notebook widget label
 		s-tab-expand: r2utf8-string "tab-expand"
-		gtk/container_child_set reduce [
+		gtk/container_child_set
 			notebook widget
 			(addr-of s-tab-expand)
 			1 [int32] 0 [pointer]
-		]
+        |
 
-		++ i
+		i: ++ 1
 		res: make struct! compose/deep [
 			[raw-memory: (resources + (i * sizeof-pointer))]
 			ptr [pointer]
 		]
 	]
-][
-	notebook
 ]
 
-load-file: function/extern [
+load-file: procedure [
 	demoname [any-string!]
 	filename [any-string!]
+    <with>
+        current-file
+        source-textview
+        info-textview
 ][
-	if current-file = filename [exit]
+	if current-file = filename [leave]
 
 	current-file: filename
 	remove-data-tabs
@@ -575,11 +553,11 @@ load-file: function/extern [
 	error: make struct! compose [
 		data [pointer]
 	]
-	resource-file: join "/sources/" filename
+	resource-file: join-of "/sources/" filename
 	s-resource-file: r2utf8-string resource-file
 	bytes: glib/resources_lookup_data (addr-of s-resource-file) 0 (addr-of error)
 	if zero? bytes [
-		error-val: make glib/GError compose/deep [
+		error-val: make-similar-struct glib/GError compose/deep [
 			[raw-memory: (error/data)]
 		]
 		s-format: r2utf8-string "Cannot open source for %s: %s\n"
@@ -589,7 +567,7 @@ load-file: function/extern [
 			(addr-of s-filename) [pointer]
 			error-val/message [pointer]
 		]
-		exit
+		leave
 	]
 
 	data-size: glib/bytes_get_size bytes
@@ -615,14 +593,17 @@ load-file: function/extern [
 	;fontify source-buffer
 	gtk/text_view_set_buffer info-textview info-buffer
 	glib/object_unref info-buffer
-][
-	current-file
-	source-textview
-	info-textview
 ]
 
-activate: mk-cb/extern [
+activate: mk-cb [
 	app [pointer]
+    <with>
+        global-mem-pool
+        notebook
+        info-textview
+        source-textview
+        treeview
+        headerbar
 ][
 	debug ["activate"]
 	s-run: r2utf8-string "run"
@@ -648,9 +629,9 @@ activate: mk-cb/extern [
 		s-treeview-selection s-changed
 	]
 
-	action-entry: make glib/GActionEntry compose [
+	action-entry: make-similar-struct glib/GActionEntry compose [
 		name: (addr-of s-run)
-		activate: (addr-of activate-run)
+		activate: (addr-of :activate-run)
 	]
 
 	win-entries: make struct! compose compose/deep[
@@ -661,7 +642,7 @@ activate: mk-cb/extern [
 	gtk/builder_add_from_resource builder (addr-of s-ui-main) (addr-of error)
 
 	unless zero? error/data [
-		error-val: make glib/GError compose/deep [
+		error-val: make-similar-struct glib/GError compose/deep [
 			[raw-memory: (error/data)]
 		]
 		s-format: r2utf8-string "%s"
@@ -695,20 +676,13 @@ activate: mk-cb/extern [
 	populate-model model
 
 	debug ["in active treeview:" to-hex treeview "model:" to-hex model]
-	glib/signal_connect treeview addr-of s-row-activated addr-of row-activated-cb model
+	glib/signal_connect treeview addr-of s-row-activated addr-of :row-activated-cb model
 
 	widget: gtk/builder_get_object builder addr-of s-treeview-selection
-	glib/signal_connect widget addr-of s-changed addr-of selection-cb model
+	glib/signal_connect widget (addr-of s-changed) (addr-of :selection-cb) model
 
 	gtk/widget_show_all window
 	glib/object_unref builder
-][
-	global-mem-pool
-	notebook
-	info-textview
-	source-textview
-	treeview
-	headerbar
 ]
 
 init-resource: function [
@@ -719,7 +693,7 @@ init-resource: function [
 	]
 	resource: glib/resource_load addr-of s-resource addr-of error
 	unless zero? error/data [
-		error-val: make glib/GError compose/deep [
+		error-val: make-similar-struct glib/GError compose/deep [
 			[raw-memory: (error/data)]
 		]
 		s-format: r2utf8-string "%s"
@@ -734,27 +708,29 @@ init-resource: function [
 	glib/resources_register resource
 ]
 
-main: function/extern [
+main: function [
 	argc [integer!]
 	argv [struct!]
+    <with>
+    	activate
 ][
 	init-resource
 
 	s-about: r2utf8-string "about"
 	s-quit: r2utf8-string "quit"
 
-	about-entry: make glib/GActionEntry compose [
+	about-entry: make-similar-struct glib/GActionEntry compose [
 		name: (addr-of s-about)
-		activate: (addr-of activate-about)
+		activate: (addr-of :activate-about)
 	]
 
 	debug ["addr-of s-about:" addr-of s-about]
 	debug ["about-entry/name:" about-entry/name]
 	;debug ["s-about:" utf82r-string about-entry/name]
 
-	quit-entry: make glib/GActionEntry compose [
+	quit-entry: make-similar-struct glib/GActionEntry compose [
 		name: (addr-of s-quit)
-		activate: (addr-of activate-quit)
+		activate: (addr-of :activate-quit)
 	]
 
 	app-entries: make struct! compose/deep/only [
@@ -768,6 +744,8 @@ main: function/extern [
 		app-domain
 		glib/GApplicationFlags/G_APPLICATION_NON_UNIQUE
 
+    dump app
+
 	glib/action_map_add_action_entries
 		app
 		addr-of app-entries
@@ -776,19 +754,17 @@ main: function/extern [
 	
 	debug ["connect startup"]
 	s-startup: r2utf8-string "startup"
-	glib/signal_connect app addr-of s-startup addr-of startup 0
+	glib/signal_connect app (addr-of s-startup) addr-of :startup 0
 
 	debug ["connect activate"]
 	s-activate: r2utf8-string "activate"
-	glib/signal_connect app addr-of s-activate addr-of activate 0
+	glib/signal_connect app addr-of s-activate addr-of :activate 0
 
 	debug ["calling application_run"]
-	app-val: make glib/GApplication compose/deep [
+	app-val: make-similar-struct glib/GApplication compose/deep [
 		[raw-memory: (app)]
 	]
 	glib/application_run app argc addr-of argv
-][
-	activate
 ]
 
 argv-data: compose [
@@ -806,5 +782,6 @@ argv: make struct! compose/deep/only [
 	data: [pointer [(1 + argc)]] (argv-ptr)
 ]
 
-main argc addr-of argv
+;dump-memory %/mnt/work/dump2dot.git/test/gtk-demo.txt
+main argc argv
 ;main 0 0

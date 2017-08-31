@@ -9,9 +9,11 @@ css-accordion-window: make struct! compose [
 
 apply-css-cb: 0
 
-apply-css: function/extern [
+apply-css: function [
 	widget [integer!]
 	provider [integer!]
+    <with>
+        apply-css-cb
 ][
 	maxuint: to integer! #FFFFFFFF
 	gtk/style_context_add_provider (gtk/widget_get_style_context widget) provider maxuint
@@ -19,17 +21,17 @@ apply-css: function/extern [
 	if glib/type-check-instance-type widget gtk/container_get_type [
 		gtk/container_forall widget (addr-of apply-css-cb) provider
 	]
-][
-	apply-css-cb
 ]
 
-apply-css-cb: make callback! [[
+apply-css-cb: wrap-callback :apply-css [
 	widget [pointer]
 	provider [pointer]
-] :apply-css]
+]
 
-do-css-accordion: function/extern [
+do-css-accordion: function [
 	do-widget [integer!]
+    <with>
+        css-accordion-window
 ][
 	if zero? css-accordion-window/win [
 		window: css-accordion-window/win: gtk/window_new gtk/GtkWindowType/GTK_WINDOW_TOPLEVEL
@@ -89,6 +91,4 @@ do-css-accordion: function/extern [
 		css-accordion-window/win: 0
 	]
 	css-accordion-window/win
-][
-	css-accordion-window
 ]

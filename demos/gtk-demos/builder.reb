@@ -6,8 +6,11 @@ REBOL [
 builder-window: 0
 builder-builder: 0
 
-quit-activate: mk-cb/extern [
+quit-activate: mk-cb [
 		action [pointer]
+        <with>
+            builder-window
+            builder-builder
 ][
 	debug ["quit-active"]
 	s-window1: r2utf8-string "window1"
@@ -17,9 +20,6 @@ quit-activate: mk-cb/extern [
 	unless zero? builder-builder [
 		glib/object_unref builder-builder
 	]
-][
-	builder-window
-	builder-builder
 ]
 
 about-activate: mk-cb [
@@ -38,8 +38,11 @@ help-activate: mk-cb [
 	print ["Help not available"]
 ]
 
-do-builder: function/extern [
+do-builder: function [
 	do_widget [integer!]
+    <with>
+        builder-window
+        builder-builder
 ][
 	s-demo: r2utf8-string "/builder/demo.ui"
 	s-window1: r2utf8-string "window1"
@@ -111,7 +114,4 @@ do-builder: function/extern [
 	]
 
 	builder-window
-][
-	builder-window
-	builder-builder
 ]
