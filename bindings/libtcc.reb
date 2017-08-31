@@ -3,139 +3,120 @@ REBOL [
 ]
 make object! [
 	libtcc: make library! %libtcc.so
-	tcc_new: make routine! compose/deep [[
+	tcc_new: make-routine libtcc "tcc_new" compose/deep [
 		return: [pointer]
-		abi: default
-	] (libtcc) "tcc_new"]
+	]
 
-	tcc_delete: make routine! compose/deep [[
+	tcc_delete: make-routine libtcc "tcc_delete" compose/deep [
 		s [pointer]
 		return: [void]
-		abi: default
-	] (libtcc) "tcc_delete"]
+	]
 
-	tcc_set_lib_path: make routine! compose/deep [[
+	tcc_set_lib_path: make-routine libtcc "tcc_set_lib_path" compose/deep [
 		s [pointer]
 		path [pointer]
 		return: [void]
-		abi: default
-	] (libtcc) "tcc_set_lib_path"]
+	]
 
-	tcc_set_error_func: make routine! compose/deep [[
+	tcc_set_error_func: make-routine libtcc "tcc_set_error_func" compose/deep [
 		s [pointer]
 		error_opaque [pointer]
 		error_func [pointer]
 		return: [void]
-		abi: default
-	] (libtcc) "tcc_set_error_func"]
+	]
 
-	tcc_set_options: make routine! compose/deep [[
+	tcc_set_options: make-routine libtcc "tcc_set_options" compose/deep [
 		s [pointer]
 		str [pointer]
 		return: [int32]
-		abi: default
-	] (libtcc) "tcc_set_options"]
+	]
 
-	tcc_add_include_path: make routine! compose/deep [[
+	tcc_add_include_path: make-routine libtcc "tcc_add_include_path" compose/deep [
 		s [pointer]
 		pathname [pointer]
 		return: [int32]
-		abi: default
-	] (libtcc) "tcc_add_include_path"]
+	]
 
-	tcc_add_sysinclude_path: make routine! compose/deep [[
+	tcc_add_sysinclude_path: make-routine libtcc "tcc_add_sysinclude_path" compose/deep [
 		s [pointer]
 		pathname [pointer]
 		return: [int32]
-		abi: default
-	] (libtcc) "tcc_add_sysinclude_path"]
+	]
 
-	tcc_define_symbol: make routine! compose/deep [[
+	tcc_define_symbol: make-routine libtcc "tcc_define_symbol" compose/deep [
 		s [pointer]
 		sym [pointer]
 		value [pointer]
 		return: [void]
-		abi: default
-	] (libtcc) "tcc_define_symbol"]
+	]
 
-	tcc_undefine_symbol: make routine! compose/deep [[
+	tcc_undefine_symbol: make-routine libtcc "tcc_undefine_symbol" compose/deep [
 		s [pointer]
 		sym [pointer]
 		return: [void]
-		abi: default
-	] (libtcc) "tcc_undefine_symbol"]
+	]
 
-	tcc_add_file: make routine! compose/deep [[
+	tcc_add_file: make-routine libtcc "tcc_add_file" compose/deep [
 		s [pointer]
 		filename [pointer]
 		return: [int32]
-		abi: default
-	] (libtcc) "tcc_add_file"]
+	]
 
-	tcc_compile_string: make routine! compose/deep [[
+	tcc_compile_string: make-routine libtcc "tcc_compile_string" compose/deep [
 		s [pointer]
 		buf [pointer]
 		return: [int32]
-		abi: default
-	] (libtcc) "tcc_compile_string"]
+	]
 
-	tcc_set_output_type: make routine! compose/deep [[
+	tcc_set_output_type: make-routine libtcc "tcc_set_output_type" compose/deep [
 		s [pointer]
 		output_type [int32]
 		return: [int32]
-		abi: default
-	] (libtcc) "tcc_set_output_type"]
+	]
 
-	tcc_add_library_path: make routine! compose/deep [[
+	tcc_add_library_path: make-routine libtcc "tcc_add_library_path" compose/deep [
 		s [pointer]
 		pathname [pointer]
 		return: [int32]
-		abi: default
-	] (libtcc) "tcc_add_library_path"]
+	]
 
-	tcc_add_library: make routine! compose/deep [[
+	tcc_add_library: make-routine libtcc "tcc_add_library" compose/deep [
 		s [pointer]
 		libraryname [pointer]
 		return: [int32]
-		abi: default
-	] (libtcc) "tcc_add_library"]
+	]
 
-	tcc_add_symbol: make routine! compose/deep [[
+	tcc_add_symbol: make-routine libtcc "tcc_add_symbol" compose/deep [
 		s [pointer]
 		name [pointer]
 		val [pointer]
 		return: [int32]
-		abi: default
-	] (libtcc) "tcc_add_symbol"]
+	]
 
-	tcc_output_file: make routine! compose/deep [[
+	tcc_output_file: make-routine libtcc "tcc_output_file" compose/deep [
 		s [pointer]
 		filename [pointer]
 		return: [int32]
-		abi: default
-	] (libtcc) "tcc_output_file"]
+	]
 
-	tcc_run: make routine! compose/deep [[
+	tcc_run: make-routine libtcc "tcc_run" compose/deep [
 		s [pointer]
 		argc [int32]
 		argv [pointer]
 		return: [int32]
-		abi: default
-	] (libtcc) "tcc_run"]
+	]
 
-	tcc_relocate: make routine! compose/deep [[
+	tcc_relocate: make-routine libtcc "tcc_relocate" compose/deep [
 		s1 [pointer]
 		ptr [pointer]
 		return: [int32]
-		abi: default
-	] (libtcc) "tcc_relocate"]
+	]
 
-	tcc_get_symbol: make routine! compose/deep [[
+	tcc_get_symbol: make-routine libtcc "tcc_get_symbol" compose/deep [
 		s [pointer]
 		name [pointer]
 		return: [pointer]
-		abi: default
-	] (libtcc) "tcc_get_symbol"]
+	]
 
 
 	compile: function [

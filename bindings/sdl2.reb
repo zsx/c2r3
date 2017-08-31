@@ -1023,1047 +1023,891 @@ make object! [
 		patch [uint8]
 	]
 	sdl2: make library! %libSDL2.so
-	GetPlatform: make routine! compose/deep [[
+	GetPlatform: make-routine sdl2 "SDL_GetPlatform" compose/deep [
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetPlatform"]
+	]
 
-	malloc: make routine! compose/deep [[
+	malloc: make-routine sdl2 "SDL_malloc" compose/deep [
 		size [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_malloc"]
+	]
 
-	calloc: make routine! compose/deep [[
+	calloc: make-routine sdl2 "SDL_calloc" compose/deep [
 		nmemb [int32]
 		size [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_calloc"]
+	]
 
-	realloc: make routine! compose/deep [[
+	realloc: make-routine sdl2 "SDL_realloc" compose/deep [
 		mem [pointer]
 		size [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_realloc"]
+	]
 
-	free: make routine! compose/deep [[
+	free: make-routine sdl2 "SDL_free" compose/deep [
 		mem [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_free"]
+	]
 
-	getenv: make routine! compose/deep [[
+	getenv: make-routine sdl2 "SDL_getenv" compose/deep [
 		name [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_getenv"]
+	]
 
-	setenv: make routine! compose/deep [[
+	setenv: make-routine sdl2 "SDL_setenv" compose/deep [
 		name [pointer]
 		value [pointer]
 		overwrite [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_setenv"]
+	]
 
-	qsort: make routine! compose/deep [[
+	qsort: make-routine sdl2 "SDL_qsort" compose/deep [
 		base [pointer]
 		nmemb [int32]
 		size [int32]
 		compare [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_qsort"]
+	]
 
-	abs: make routine! compose/deep [[
+	abs: make-routine sdl2 "SDL_abs" compose/deep [
 		x [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_abs"]
+	]
 
-	isdigit: make routine! compose/deep [[
+	isdigit: make-routine sdl2 "SDL_isdigit" compose/deep [
 		x [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_isdigit"]
+	]
 
-	isspace: make routine! compose/deep [[
+	isspace: make-routine sdl2 "SDL_isspace" compose/deep [
 		x [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_isspace"]
+	]
 
-	toupper: make routine! compose/deep [[
+	toupper: make-routine sdl2 "SDL_toupper" compose/deep [
 		x [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_toupper"]
+	]
 
-	tolower: make routine! compose/deep [[
+	tolower: make-routine sdl2 "SDL_tolower" compose/deep [
 		x [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_tolower"]
+	]
 
-	memset: make routine! compose/deep [[
+	memset: make-routine sdl2 "SDL_memset" compose/deep [
 		dst [pointer]
 		c [int32]
 		len [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_memset"]
+	]
 
-	memcpy: make routine! compose/deep [[
+	memcpy: make-routine sdl2 "SDL_memcpy" compose/deep [
 		dst [pointer]
 		src [pointer]
 		len [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_memcpy"]
+	]
 
-	memmove: make routine! compose/deep [[
+	memmove: make-routine sdl2 "SDL_memmove" compose/deep [
 		dst [pointer]
 		src [pointer]
 		len [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_memmove"]
+	]
 
-	memcmp: make routine! compose/deep [[
+	memcmp: make-routine sdl2 "SDL_memcmp" compose/deep [
 		s1 [pointer]
 		s2 [pointer]
 		len [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_memcmp"]
+	]
 
-	wcslen: make routine! compose/deep [[
+	wcslen: make-routine sdl2 "SDL_wcslen" compose/deep [
 		wstr [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_wcslen"]
+	]
 
-	wcslcpy: make routine! compose/deep [[
+	wcslcpy: make-routine sdl2 "SDL_wcslcpy" compose/deep [
 		dst [pointer]
 		src [pointer]
 		maxlen [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_wcslcpy"]
+	]
 
-	wcslcat: make routine! compose/deep [[
+	wcslcat: make-routine sdl2 "SDL_wcslcat" compose/deep [
 		dst [pointer]
 		src [pointer]
 		maxlen [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_wcslcat"]
+	]
 
-	strlen: make routine! compose/deep [[
+	strlen: make-routine sdl2 "SDL_strlen" compose/deep [
 		str [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_strlen"]
+	]
 
-	strlcpy: make routine! compose/deep [[
+	strlcpy: make-routine sdl2 "SDL_strlcpy" compose/deep [
 		dst [pointer]
 		src [pointer]
 		maxlen [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_strlcpy"]
+	]
 
-	utf8strlcpy: make routine! compose/deep [[
+	utf8strlcpy: make-routine sdl2 "SDL_utf8strlcpy" compose/deep [
 		dst [pointer]
 		src [pointer]
 		dst_bytes [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_utf8strlcpy"]
+	]
 
-	strlcat: make routine! compose/deep [[
+	strlcat: make-routine sdl2 "SDL_strlcat" compose/deep [
 		dst [pointer]
 		src [pointer]
 		maxlen [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_strlcat"]
+	]
 
-	strdup: make routine! compose/deep [[
+	strdup: make-routine sdl2 "SDL_strdup" compose/deep [
 		str [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_strdup"]
+	]
 
-	strrev: make routine! compose/deep [[
+	strrev: make-routine sdl2 "SDL_strrev" compose/deep [
 		str [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_strrev"]
+	]
 
-	strupr: make routine! compose/deep [[
+	strupr: make-routine sdl2 "SDL_strupr" compose/deep [
 		str [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_strupr"]
+	]
 
-	strlwr: make routine! compose/deep [[
+	strlwr: make-routine sdl2 "SDL_strlwr" compose/deep [
 		str [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_strlwr"]
+	]
 
-	strchr: make routine! compose/deep [[
+	strchr: make-routine sdl2 "SDL_strchr" compose/deep [
 		str [pointer]
 		c [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_strchr"]
+	]
 
-	strrchr: make routine! compose/deep [[
+	strrchr: make-routine sdl2 "SDL_strrchr" compose/deep [
 		str [pointer]
 		c [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_strrchr"]
+	]
 
-	strstr: make routine! compose/deep [[
+	strstr: make-routine sdl2 "SDL_strstr" compose/deep [
 		haystack [pointer]
 		needle [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_strstr"]
+	]
 
-	itoa: make routine! compose/deep [[
+	itoa: make-routine sdl2 "SDL_itoa" compose/deep [
 		value [int32]
 		str [pointer]
 		radix [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_itoa"]
+	]
 
-	uitoa: make routine! compose/deep [[
+	uitoa: make-routine sdl2 "SDL_uitoa" compose/deep [
 		value [uint32]
 		str [pointer]
 		radix [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_uitoa"]
+	]
 
-	ltoa: make routine! compose/deep [[
+	ltoa: make-routine sdl2 "SDL_ltoa" compose/deep [
 		value [int64]
 		str [pointer]
 		radix [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_ltoa"]
+	]
 
-	ultoa: make routine! compose/deep [[
+	ultoa: make-routine sdl2 "SDL_ultoa" compose/deep [
 		value [uint64]
 		str [pointer]
 		radix [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_ultoa"]
+	]
 
-	lltoa: make routine! compose/deep [[
+	lltoa: make-routine sdl2 "SDL_lltoa" compose/deep [
 		value [int64]
 		str [pointer]
 		radix [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_lltoa"]
+	]
 
-	ulltoa: make routine! compose/deep [[
+	ulltoa: make-routine sdl2 "SDL_ulltoa" compose/deep [
 		value [uint64]
 		str [pointer]
 		radix [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_ulltoa"]
+	]
 
-	atoi: make routine! compose/deep [[
+	atoi: make-routine sdl2 "SDL_atoi" compose/deep [
 		str [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_atoi"]
+	]
 
-	atof: make routine! compose/deep [[
+	atof: make-routine sdl2 "SDL_atof" compose/deep [
 		str [pointer]
 		return: [double]
-		abi: default
-	] (sdl2) "SDL_atof"]
+	]
 
-	strtol: make routine! compose/deep [[
+	strtol: make-routine sdl2 "SDL_strtol" compose/deep [
 		str [pointer]
 		endp [pointer]
 		base [int32]
 		return: [int64]
-		abi: default
-	] (sdl2) "SDL_strtol"]
+	]
 
-	strtoul: make routine! compose/deep [[
+	strtoul: make-routine sdl2 "SDL_strtoul" compose/deep [
 		str [pointer]
 		endp [pointer]
 		base [int32]
 		return: [uint64]
-		abi: default
-	] (sdl2) "SDL_strtoul"]
+	]
 
-	strtoll: make routine! compose/deep [[
+	strtoll: make-routine sdl2 "SDL_strtoll" compose/deep [
 		str [pointer]
 		endp [pointer]
 		base [int32]
 		return: [int64]
-		abi: default
-	] (sdl2) "SDL_strtoll"]
+	]
 
-	strtoull: make routine! compose/deep [[
+	strtoull: make-routine sdl2 "SDL_strtoull" compose/deep [
 		str [pointer]
 		endp [pointer]
 		base [int32]
 		return: [uint64]
-		abi: default
-	] (sdl2) "SDL_strtoull"]
+	]
 
-	strtod: make routine! compose/deep [[
+	strtod: make-routine sdl2 "SDL_strtod" compose/deep [
 		str [pointer]
 		endp [pointer]
 		return: [double]
-		abi: default
-	] (sdl2) "SDL_strtod"]
+	]
 
-	strcmp: make routine! compose/deep [[
+	strcmp: make-routine sdl2 "SDL_strcmp" compose/deep [
 		str1 [pointer]
 		str2 [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_strcmp"]
+	]
 
-	strncmp: make routine! compose/deep [[
+	strncmp: make-routine sdl2 "SDL_strncmp" compose/deep [
 		str1 [pointer]
 		str2 [pointer]
 		maxlen [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_strncmp"]
+	]
 
-	strcasecmp: make routine! compose/deep [[
+	strcasecmp: make-routine sdl2 "SDL_strcasecmp" compose/deep [
 		str1 [pointer]
 		str2 [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_strcasecmp"]
+	]
 
-	strncasecmp: make routine! compose/deep [[
+	strncasecmp: make-routine sdl2 "SDL_strncasecmp" compose/deep [
 		str1 [pointer]
 		str2 [pointer]
 		len [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_strncasecmp"]
+	]
 
-	sscanf: make routine! compose/deep [[
+	sscanf: make-routine sdl2 "SDL_sscanf" compose/deep [
 		text [pointer]
 		fmt [pointer]
 		...
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_sscanf"]
+	]
 
-	vsscanf: make routine! compose/deep [[
+	vsscanf: make-routine sdl2 "SDL_vsscanf" compose/deep [
 		text [pointer]
 		fmt [pointer]
 		ap [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_vsscanf"]
+	]
 
-	snprintf: make routine! compose/deep [[
+	snprintf: make-routine sdl2 "SDL_snprintf" compose/deep [
 		text [pointer]
 		maxlen [int32]
 		fmt [pointer]
 		...
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_snprintf"]
+	]
 
-	vsnprintf: make routine! compose/deep [[
+	vsnprintf: make-routine sdl2 "SDL_vsnprintf" compose/deep [
 		text [pointer]
 		maxlen [int32]
 		fmt [pointer]
 		ap [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_vsnprintf"]
+	]
 
-	acos: make routine! compose/deep [[
+	acos: make-routine sdl2 "SDL_acos" compose/deep [
 		x [double]
 		return: [double]
-		abi: default
-	] (sdl2) "SDL_acos"]
+	]
 
-	asin: make routine! compose/deep [[
+	asin: make-routine sdl2 "SDL_asin" compose/deep [
 		x [double]
 		return: [double]
-		abi: default
-	] (sdl2) "SDL_asin"]
+	]
 
-	atan: make routine! compose/deep [[
+	atan: make-routine sdl2 "SDL_atan" compose/deep [
 		x [double]
 		return: [double]
-		abi: default
-	] (sdl2) "SDL_atan"]
+	]
 
-	atan2: make routine! compose/deep [[
+	atan2: make-routine sdl2 "SDL_atan2" compose/deep [
 		x [double]
 		y [double]
 		return: [double]
-		abi: default
-	] (sdl2) "SDL_atan2"]
+	]
 
-	ceil: make routine! compose/deep [[
+	ceil: make-routine sdl2 "SDL_ceil" compose/deep [
 		x [double]
 		return: [double]
-		abi: default
-	] (sdl2) "SDL_ceil"]
+	]
 
-	copysign: make routine! compose/deep [[
+	copysign: make-routine sdl2 "SDL_copysign" compose/deep [
 		x [double]
 		y [double]
 		return: [double]
-		abi: default
-	] (sdl2) "SDL_copysign"]
+	]
 
-	cos: make routine! compose/deep [[
+	cos: make-routine sdl2 "SDL_cos" compose/deep [
 		x [double]
 		return: [double]
-		abi: default
-	] (sdl2) "SDL_cos"]
+	]
 
-	cosf: make routine! compose/deep [[
+	cosf: make-routine sdl2 "SDL_cosf" compose/deep [
 		x [float]
 		return: [float]
-		abi: default
-	] (sdl2) "SDL_cosf"]
+	]
 
-	fabs: make routine! compose/deep [[
+	fabs: make-routine sdl2 "SDL_fabs" compose/deep [
 		x [double]
 		return: [double]
-		abi: default
-	] (sdl2) "SDL_fabs"]
+	]
 
-	floor: make routine! compose/deep [[
+	floor: make-routine sdl2 "SDL_floor" compose/deep [
 		x [double]
 		return: [double]
-		abi: default
-	] (sdl2) "SDL_floor"]
+	]
 
-	log: make routine! compose/deep [[
+	log: make-routine sdl2 "SDL_log" compose/deep [
 		x [double]
 		return: [double]
-		abi: default
-	] (sdl2) "SDL_log"]
+	]
 
-	pow: make routine! compose/deep [[
+	pow: make-routine sdl2 "SDL_pow" compose/deep [
 		x [double]
 		y [double]
 		return: [double]
-		abi: default
-	] (sdl2) "SDL_pow"]
+	]
 
-	scalbn: make routine! compose/deep [[
+	scalbn: make-routine sdl2 "SDL_scalbn" compose/deep [
 		x [double]
 		n [int32]
 		return: [double]
-		abi: default
-	] (sdl2) "SDL_scalbn"]
+	]
 
-	sin: make routine! compose/deep [[
+	sin: make-routine sdl2 "SDL_sin" compose/deep [
 		x [double]
 		return: [double]
-		abi: default
-	] (sdl2) "SDL_sin"]
+	]
 
-	sinf: make routine! compose/deep [[
+	sinf: make-routine sdl2 "SDL_sinf" compose/deep [
 		x [float]
 		return: [float]
-		abi: default
-	] (sdl2) "SDL_sinf"]
+	]
 
-	sqrt: make routine! compose/deep [[
+	sqrt: make-routine sdl2 "SDL_sqrt" compose/deep [
 		x [double]
 		return: [double]
-		abi: default
-	] (sdl2) "SDL_sqrt"]
+	]
 
-	iconv_open: make routine! compose/deep [[
+	iconv_open: make-routine sdl2 "SDL_iconv_open" compose/deep [
 		tocode [pointer]
 		fromcode [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_iconv_open"]
+	]
 
-	iconv_close: make routine! compose/deep [[
+	iconv_close: make-routine sdl2 "SDL_iconv_close" compose/deep [
 		cd [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_iconv_close"]
+	]
 
-	iconv: make routine! compose/deep [[
+	iconv: make-routine sdl2 "SDL_iconv" compose/deep [
 		cd [pointer]
 		inbuf [pointer]
 		inbytesleft [pointer]
 		outbuf [pointer]
 		outbytesleft [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_iconv"]
+	]
 
-	iconv_string: make routine! compose/deep [[
+	iconv_string: make-routine sdl2 "SDL_iconv_string" compose/deep [
 		tocode [pointer]
 		fromcode [pointer]
 		inbuf [pointer]
 		inbytesleft [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_iconv_string"]
+	]
 
-	SetMainReady: make routine! compose/deep [[
+	SetMainReady: make-routine sdl2 "SDL_SetMainReady" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_SetMainReady"]
+	]
 
-	ReportAssertion: make routine! compose/deep [[
+	ReportAssertion: make-routine sdl2 "SDL_ReportAssertion" compose/deep [
 		arg1 [pointer]
 		arg2 [pointer]
 		arg3 [pointer]
 		arg4 [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_ReportAssertion"]
+	]
 
-	SetAssertionHandler: make routine! compose/deep [[
+	SetAssertionHandler: make-routine sdl2 "SDL_SetAssertionHandler" compose/deep [
 		handler [pointer]
 		userdata [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_SetAssertionHandler"]
+	]
 
-	GetDefaultAssertionHandler: make routine! compose/deep [[
+	GetDefaultAssertionHandler: make-routine sdl2 "SDL_GetDefaultAssertionHandler" compose/deep [
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetDefaultAssertionHandler"]
+	]
 
-	GetAssertionHandler: make routine! compose/deep [[
+	GetAssertionHandler: make-routine sdl2 "SDL_GetAssertionHandler" compose/deep [
 		puserdata [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetAssertionHandler"]
+	]
 
-	GetAssertionReport: make routine! compose/deep [[
+	GetAssertionReport: make-routine sdl2 "SDL_GetAssertionReport" compose/deep [
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetAssertionReport"]
+	]
 
-	ResetAssertionReport: make routine! compose/deep [[
+	ResetAssertionReport: make-routine sdl2 "SDL_ResetAssertionReport" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_ResetAssertionReport"]
+	]
 
-	AtomicTryLock: make routine! compose/deep [[
+	AtomicTryLock: make-routine sdl2 "SDL_AtomicTryLock" compose/deep [
 		lock [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_AtomicTryLock"]
+	]
 
-	AtomicLock: make routine! compose/deep [[
+	AtomicLock: make-routine sdl2 "SDL_AtomicLock" compose/deep [
 		lock [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_AtomicLock"]
+	]
 
-	AtomicUnlock: make routine! compose/deep [[
+	AtomicUnlock: make-routine sdl2 "SDL_AtomicUnlock" compose/deep [
 		lock [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_AtomicUnlock"]
+	]
 
-	AtomicCAS: make routine! compose/deep [[
+	AtomicCAS: make-routine sdl2 "SDL_AtomicCAS" compose/deep [
 		a [pointer]
 		oldval [int32]
 		newval [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_AtomicCAS"]
+	]
 
-	AtomicSet: make routine! compose/deep [[
+	AtomicSet: make-routine sdl2 "SDL_AtomicSet" compose/deep [
 		a [pointer]
 		v [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_AtomicSet"]
+	]
 
-	AtomicGet: make routine! compose/deep [[
+	AtomicGet: make-routine sdl2 "SDL_AtomicGet" compose/deep [
 		a [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_AtomicGet"]
+	]
 
-	AtomicAdd: make routine! compose/deep [[
+	AtomicAdd: make-routine sdl2 "SDL_AtomicAdd" compose/deep [
 		a [pointer]
 		v [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_AtomicAdd"]
+	]
 
-	AtomicCASPtr: make routine! compose/deep [[
+	AtomicCASPtr: make-routine sdl2 "SDL_AtomicCASPtr" compose/deep [
 		a [pointer]
 		oldval [pointer]
 		newval [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_AtomicCASPtr"]
+	]
 
-	AtomicSetPtr: make routine! compose/deep [[
+	AtomicSetPtr: make-routine sdl2 "SDL_AtomicSetPtr" compose/deep [
 		a [pointer]
 		v [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_AtomicSetPtr"]
+	]
 
-	AtomicGetPtr: make routine! compose/deep [[
+	AtomicGetPtr: make-routine sdl2 "SDL_AtomicGetPtr" compose/deep [
 		a [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_AtomicGetPtr"]
+	]
 
-	SetError: make routine! compose/deep [[
+	SetError: make-routine sdl2 "SDL_SetError" compose/deep [
 		fmt [pointer]
 		...
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetError"]
+	]
 
-	GetError: make routine! compose/deep [[
+	GetError: make-routine sdl2 "SDL_GetError" compose/deep [
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetError"]
+	]
 
-	ClearError: make routine! compose/deep [[
+	ClearError: make-routine sdl2 "SDL_ClearError" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_ClearError"]
+	]
 
-	Error: make routine! compose/deep [[
+	Error: make-routine sdl2 "SDL_Error" compose/deep [
 		code [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_Error"]
+	]
 
-	CreateMutex: make routine! compose/deep [[
+	CreateMutex: make-routine sdl2 "SDL_CreateMutex" compose/deep [
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_CreateMutex"]
+	]
 
-	LockMutex: make routine! compose/deep [[
+	LockMutex: make-routine sdl2 "SDL_LockMutex" compose/deep [
 		mutex [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_LockMutex"]
+	]
 
-	TryLockMutex: make routine! compose/deep [[
+	TryLockMutex: make-routine sdl2 "SDL_TryLockMutex" compose/deep [
 		mutex [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_TryLockMutex"]
+	]
 
-	UnlockMutex: make routine! compose/deep [[
+	UnlockMutex: make-routine sdl2 "SDL_UnlockMutex" compose/deep [
 		mutex [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_UnlockMutex"]
+	]
 
-	DestroyMutex: make routine! compose/deep [[
+	DestroyMutex: make-routine sdl2 "SDL_DestroyMutex" compose/deep [
 		mutex [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_DestroyMutex"]
+	]
 
-	CreateSemaphore: make routine! compose/deep [[
+	CreateSemaphore: make-routine sdl2 "SDL_CreateSemaphore" compose/deep [
 		initial_value [uint32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_CreateSemaphore"]
+	]
 
-	DestroySemaphore: make routine! compose/deep [[
+	DestroySemaphore: make-routine sdl2 "SDL_DestroySemaphore" compose/deep [
 		sem [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_DestroySemaphore"]
+	]
 
-	SemWait: make routine! compose/deep [[
+	SemWait: make-routine sdl2 "SDL_SemWait" compose/deep [
 		sem [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SemWait"]
+	]
 
-	SemTryWait: make routine! compose/deep [[
+	SemTryWait: make-routine sdl2 "SDL_SemTryWait" compose/deep [
 		sem [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SemTryWait"]
+	]
 
-	SemWaitTimeout: make routine! compose/deep [[
+	SemWaitTimeout: make-routine sdl2 "SDL_SemWaitTimeout" compose/deep [
 		sem [pointer]
 		ms [uint32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SemWaitTimeout"]
+	]
 
-	SemPost: make routine! compose/deep [[
+	SemPost: make-routine sdl2 "SDL_SemPost" compose/deep [
 		sem [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SemPost"]
+	]
 
-	SemValue: make routine! compose/deep [[
+	SemValue: make-routine sdl2 "SDL_SemValue" compose/deep [
 		sem [pointer]
 		return: [uint32]
-		abi: default
-	] (sdl2) "SDL_SemValue"]
+	]
 
-	CreateCond: make routine! compose/deep [[
+	CreateCond: make-routine sdl2 "SDL_CreateCond" compose/deep [
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_CreateCond"]
+	]
 
-	DestroyCond: make routine! compose/deep [[
+	DestroyCond: make-routine sdl2 "SDL_DestroyCond" compose/deep [
 		cond [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_DestroyCond"]
+	]
 
-	CondSignal: make routine! compose/deep [[
+	CondSignal: make-routine sdl2 "SDL_CondSignal" compose/deep [
 		cond [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_CondSignal"]
+	]
 
-	CondBroadcast: make routine! compose/deep [[
+	CondBroadcast: make-routine sdl2 "SDL_CondBroadcast" compose/deep [
 		cond [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_CondBroadcast"]
+	]
 
-	CondWait: make routine! compose/deep [[
+	CondWait: make-routine sdl2 "SDL_CondWait" compose/deep [
 		cond [pointer]
 		mutex [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_CondWait"]
+	]
 
-	CondWaitTimeout: make routine! compose/deep [[
+	CondWaitTimeout: make-routine sdl2 "SDL_CondWaitTimeout" compose/deep [
 		cond [pointer]
 		mutex [pointer]
 		ms [uint32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_CondWaitTimeout"]
+	]
 
-	CreateThread: make routine! compose/deep [[
+	CreateThread: make-routine sdl2 "SDL_CreateThread" compose/deep [
 		fn [pointer]
 		name [pointer]
 		data [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_CreateThread"]
+	]
 
-	GetThreadName: make routine! compose/deep [[
+	GetThreadName: make-routine sdl2 "SDL_GetThreadName" compose/deep [
 		thread [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetThreadName"]
+	]
 
-	ThreadID: make routine! compose/deep [[
+	ThreadID: make-routine sdl2 "SDL_ThreadID" compose/deep [
 		return: [uint64]
-		abi: default
-	] (sdl2) "SDL_ThreadID"]
+	]
 
-	GetThreadID: make routine! compose/deep [[
+	GetThreadID: make-routine sdl2 "SDL_GetThreadID" compose/deep [
 		thread [pointer]
 		return: [uint64]
-		abi: default
-	] (sdl2) "SDL_GetThreadID"]
+	]
 
-	SetThreadPriority: make routine! compose/deep [[
+	SetThreadPriority: make-routine sdl2 "SDL_SetThreadPriority" compose/deep [
 		priority [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetThreadPriority"]
+	]
 
-	WaitThread: make routine! compose/deep [[
+	WaitThread: make-routine sdl2 "SDL_WaitThread" compose/deep [
 		thread [pointer]
 		status [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_WaitThread"]
+	]
 
-	DetachThread: make routine! compose/deep [[
+	DetachThread: make-routine sdl2 "SDL_DetachThread" compose/deep [
 		thread [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_DetachThread"]
+	]
 
-	TLSCreate: make routine! compose/deep [[
+	TLSCreate: make-routine sdl2 "SDL_TLSCreate" compose/deep [
 		return: [uint32]
-		abi: default
-	] (sdl2) "SDL_TLSCreate"]
+	]
 
-	TLSGet: make routine! compose/deep [[
+	TLSGet: make-routine sdl2 "SDL_TLSGet" compose/deep [
 		id [uint32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_TLSGet"]
+	]
 
-	TLSSet: make routine! compose/deep [[
+	TLSSet: make-routine sdl2 "SDL_TLSSet" compose/deep [
 		id [uint32]
 		value [pointer]
 		destructor [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_TLSSet"]
+	]
 
-	RWFromFile: make routine! compose/deep [[
+	RWFromFile: make-routine sdl2 "SDL_RWFromFile" compose/deep [
 		file [pointer]
 		mode [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_RWFromFile"]
+	]
 
-	RWFromFP: make routine! compose/deep [[
+	RWFromFP: make-routine sdl2 "SDL_RWFromFP" compose/deep [
 		fp [pointer]
 		autoclose [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_RWFromFP"]
+	]
 
-	RWFromMem: make routine! compose/deep [[
+	RWFromMem: make-routine sdl2 "SDL_RWFromMem" compose/deep [
 		mem [pointer]
 		size [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_RWFromMem"]
+	]
 
-	RWFromConstMem: make routine! compose/deep [[
+	RWFromConstMem: make-routine sdl2 "SDL_RWFromConstMem" compose/deep [
 		mem [pointer]
 		size [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_RWFromConstMem"]
+	]
 
-	AllocRW: make routine! compose/deep [[
+	AllocRW: make-routine sdl2 "SDL_AllocRW" compose/deep [
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_AllocRW"]
+	]
 
-	FreeRW: make routine! compose/deep [[
+	FreeRW: make-routine sdl2 "SDL_FreeRW" compose/deep [
 		area [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_FreeRW"]
+	]
 
-	ReadU8: make routine! compose/deep [[
+	ReadU8: make-routine sdl2 "SDL_ReadU8" compose/deep [
 		src [pointer]
 		return: [uint8]
-		abi: default
-	] (sdl2) "SDL_ReadU8"]
+	]
 
-	ReadLE16: make routine! compose/deep [[
+	ReadLE16: make-routine sdl2 "SDL_ReadLE16" compose/deep [
 		src [pointer]
 		return: [uint16]
-		abi: default
-	] (sdl2) "SDL_ReadLE16"]
+	]
 
-	ReadBE16: make routine! compose/deep [[
+	ReadBE16: make-routine sdl2 "SDL_ReadBE16" compose/deep [
 		src [pointer]
 		return: [uint16]
-		abi: default
-	] (sdl2) "SDL_ReadBE16"]
+	]
 
-	ReadLE32: make routine! compose/deep [[
+	ReadLE32: make-routine sdl2 "SDL_ReadLE32" compose/deep [
 		src [pointer]
 		return: [uint32]
-		abi: default
-	] (sdl2) "SDL_ReadLE32"]
+	]
 
-	ReadBE32: make routine! compose/deep [[
+	ReadBE32: make-routine sdl2 "SDL_ReadBE32" compose/deep [
 		src [pointer]
 		return: [uint32]
-		abi: default
-	] (sdl2) "SDL_ReadBE32"]
+	]
 
-	ReadLE64: make routine! compose/deep [[
+	ReadLE64: make-routine sdl2 "SDL_ReadLE64" compose/deep [
 		src [pointer]
 		return: [uint64]
-		abi: default
-	] (sdl2) "SDL_ReadLE64"]
+	]
 
-	ReadBE64: make routine! compose/deep [[
+	ReadBE64: make-routine sdl2 "SDL_ReadBE64" compose/deep [
 		src [pointer]
 		return: [uint64]
-		abi: default
-	] (sdl2) "SDL_ReadBE64"]
+	]
 
-	WriteU8: make routine! compose/deep [[
+	WriteU8: make-routine sdl2 "SDL_WriteU8" compose/deep [
 		dst [pointer]
 		value [uint8]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_WriteU8"]
+	]
 
-	WriteLE16: make routine! compose/deep [[
+	WriteLE16: make-routine sdl2 "SDL_WriteLE16" compose/deep [
 		dst [pointer]
 		value [uint16]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_WriteLE16"]
+	]
 
-	WriteBE16: make routine! compose/deep [[
+	WriteBE16: make-routine sdl2 "SDL_WriteBE16" compose/deep [
 		dst [pointer]
 		value [uint16]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_WriteBE16"]
+	]
 
-	WriteLE32: make routine! compose/deep [[
+	WriteLE32: make-routine sdl2 "SDL_WriteLE32" compose/deep [
 		dst [pointer]
 		value [uint32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_WriteLE32"]
+	]
 
-	WriteBE32: make routine! compose/deep [[
+	WriteBE32: make-routine sdl2 "SDL_WriteBE32" compose/deep [
 		dst [pointer]
 		value [uint32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_WriteBE32"]
+	]
 
-	WriteLE64: make routine! compose/deep [[
+	WriteLE64: make-routine sdl2 "SDL_WriteLE64" compose/deep [
 		dst [pointer]
 		value [uint64]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_WriteLE64"]
+	]
 
-	WriteBE64: make routine! compose/deep [[
+	WriteBE64: make-routine sdl2 "SDL_WriteBE64" compose/deep [
 		dst [pointer]
 		value [uint64]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_WriteBE64"]
+	]
 
-	GetNumAudioDrivers: make routine! compose/deep [[
+	GetNumAudioDrivers: make-routine sdl2 "SDL_GetNumAudioDrivers" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetNumAudioDrivers"]
+	]
 
-	GetAudioDriver: make routine! compose/deep [[
+	GetAudioDriver: make-routine sdl2 "SDL_GetAudioDriver" compose/deep [
 		index [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetAudioDriver"]
+	]
 
-	AudioInit: make routine! compose/deep [[
+	AudioInit: make-routine sdl2 "SDL_AudioInit" compose/deep [
 		driver_name [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_AudioInit"]
+	]
 
-	AudioQuit: make routine! compose/deep [[
+	AudioQuit: make-routine sdl2 "SDL_AudioQuit" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_AudioQuit"]
+	]
 
-	GetCurrentAudioDriver: make routine! compose/deep [[
+	GetCurrentAudioDriver: make-routine sdl2 "SDL_GetCurrentAudioDriver" compose/deep [
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetCurrentAudioDriver"]
+	]
 
-	OpenAudio: make routine! compose/deep [[
+	OpenAudio: make-routine sdl2 "SDL_OpenAudio" compose/deep [
 		desired [pointer]
 		obtained [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_OpenAudio"]
+	]
 
-	GetNumAudioDevices: make routine! compose/deep [[
+	GetNumAudioDevices: make-routine sdl2 "SDL_GetNumAudioDevices" compose/deep [
 		iscapture [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetNumAudioDevices"]
+	]
 
-	GetAudioDeviceName: make routine! compose/deep [[
+	GetAudioDeviceName: make-routine sdl2 "SDL_GetAudioDeviceName" compose/deep [
 		index [int32]
 		iscapture [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetAudioDeviceName"]
+	]
 
-	OpenAudioDevice: make routine! compose/deep [[
+	OpenAudioDevice: make-routine sdl2 "SDL_OpenAudioDevice" compose/deep [
 		device [pointer]
 		iscapture [int32]
 		desired [pointer]
 		obtained [pointer]
 		allowed_changes [int32]
 		return: [uint32]
-		abi: default
-	] (sdl2) "SDL_OpenAudioDevice"]
+	]
 
-	GetAudioStatus: make routine! compose/deep [[
+	GetAudioStatus: make-routine sdl2 "SDL_GetAudioStatus" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetAudioStatus"]
+	]
 
-	GetAudioDeviceStatus: make routine! compose/deep [[
+	GetAudioDeviceStatus: make-routine sdl2 "SDL_GetAudioDeviceStatus" compose/deep [
 		dev [uint32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetAudioDeviceStatus"]
+	]
 
-	PauseAudio: make routine! compose/deep [[
+	PauseAudio: make-routine sdl2 "SDL_PauseAudio" compose/deep [
 		pause_on [int32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_PauseAudio"]
+	]
 
-	PauseAudioDevice: make routine! compose/deep [[
+	PauseAudioDevice: make-routine sdl2 "SDL_PauseAudioDevice" compose/deep [
 		dev [uint32]
 		pause_on [int32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_PauseAudioDevice"]
+	]
 
-	LoadWAV_RW: make routine! compose/deep [[
+	LoadWAV_RW: make-routine sdl2 "SDL_LoadWAV_RW" compose/deep [
 		src [pointer]
 		freesrc [int32]
 		spec [pointer]
 		audio_buf [pointer]
 		audio_len [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_LoadWAV_RW"]
+	]
 
-	FreeWAV: make routine! compose/deep [[
+	FreeWAV: make-routine sdl2 "SDL_FreeWAV" compose/deep [
 		audio_buf [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_FreeWAV"]
+	]
 
-	BuildAudioCVT: make routine! compose/deep [[
+	BuildAudioCVT: make-routine sdl2 "SDL_BuildAudioCVT" compose/deep [
 		cvt [pointer]
 		src_format [uint16]
 		src_channels [uint8]
@@ -2072,155 +1916,128 @@ make object! [
 		dst_channels [uint8]
 		dst_rate [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_BuildAudioCVT"]
+	]
 
-	ConvertAudio: make routine! compose/deep [[
+	ConvertAudio: make-routine sdl2 "SDL_ConvertAudio" compose/deep [
 		cvt [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_ConvertAudio"]
+	]
 
-	MixAudio: make routine! compose/deep [[
+	MixAudio: make-routine sdl2 "SDL_MixAudio" compose/deep [
 		dst [pointer]
 		src [pointer]
 		len [uint32]
 		volume [int32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_MixAudio"]
+	]
 
-	MixAudioFormat: make routine! compose/deep [[
+	MixAudioFormat: make-routine sdl2 "SDL_MixAudioFormat" compose/deep [
 		dst [pointer]
 		src [pointer]
 		format [uint16]
 		len [uint32]
 		volume [int32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_MixAudioFormat"]
+	]
 
-	LockAudio: make routine! compose/deep [[
+	LockAudio: make-routine sdl2 "SDL_LockAudio" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_LockAudio"]
+	]
 
-	LockAudioDevice: make routine! compose/deep [[
+	LockAudioDevice: make-routine sdl2 "SDL_LockAudioDevice" compose/deep [
 		dev [uint32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_LockAudioDevice"]
+	]
 
-	UnlockAudio: make routine! compose/deep [[
+	UnlockAudio: make-routine sdl2 "SDL_UnlockAudio" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_UnlockAudio"]
+	]
 
-	UnlockAudioDevice: make routine! compose/deep [[
+	UnlockAudioDevice: make-routine sdl2 "SDL_UnlockAudioDevice" compose/deep [
 		dev [uint32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_UnlockAudioDevice"]
+	]
 
-	CloseAudio: make routine! compose/deep [[
+	CloseAudio: make-routine sdl2 "SDL_CloseAudio" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_CloseAudio"]
+	]
 
-	CloseAudioDevice: make routine! compose/deep [[
+	CloseAudioDevice: make-routine sdl2 "SDL_CloseAudioDevice" compose/deep [
 		dev [uint32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_CloseAudioDevice"]
+	]
 
-	SetClipboardText: make routine! compose/deep [[
+	SetClipboardText: make-routine sdl2 "SDL_SetClipboardText" compose/deep [
 		text [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetClipboardText"]
+	]
 
-	GetClipboardText: make routine! compose/deep [[
+	GetClipboardText: make-routine sdl2 "SDL_GetClipboardText" compose/deep [
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetClipboardText"]
+	]
 
-	HasClipboardText: make routine! compose/deep [[
+	HasClipboardText: make-routine sdl2 "SDL_HasClipboardText" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HasClipboardText"]
+	]
 
-	GetCPUCount: make routine! compose/deep [[
+	GetCPUCount: make-routine sdl2 "SDL_GetCPUCount" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetCPUCount"]
+	]
 
-	GetCPUCacheLineSize: make routine! compose/deep [[
+	GetCPUCacheLineSize: make-routine sdl2 "SDL_GetCPUCacheLineSize" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetCPUCacheLineSize"]
+	]
 
-	HasRDTSC: make routine! compose/deep [[
+	HasRDTSC: make-routine sdl2 "SDL_HasRDTSC" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HasRDTSC"]
+	]
 
-	HasAltiVec: make routine! compose/deep [[
+	HasAltiVec: make-routine sdl2 "SDL_HasAltiVec" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HasAltiVec"]
+	]
 
-	HasMMX: make routine! compose/deep [[
+	HasMMX: make-routine sdl2 "SDL_HasMMX" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HasMMX"]
+	]
 
-	Has3DNow: make routine! compose/deep [[
+	Has3DNow: make-routine sdl2 "SDL_Has3DNow" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_Has3DNow"]
+	]
 
-	HasSSE: make routine! compose/deep [[
+	HasSSE: make-routine sdl2 "SDL_HasSSE" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HasSSE"]
+	]
 
-	HasSSE2: make routine! compose/deep [[
+	HasSSE2: make-routine sdl2 "SDL_HasSSE2" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HasSSE2"]
+	]
 
-	HasSSE3: make routine! compose/deep [[
+	HasSSE3: make-routine sdl2 "SDL_HasSSE3" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HasSSE3"]
+	]
 
-	HasSSE41: make routine! compose/deep [[
+	HasSSE41: make-routine sdl2 "SDL_HasSSE41" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HasSSE41"]
+	]
 
-	HasSSE42: make routine! compose/deep [[
+	HasSSE42: make-routine sdl2 "SDL_HasSSE42" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HasSSE42"]
+	]
 
-	HasAVX: make routine! compose/deep [[
+	HasAVX: make-routine sdl2 "SDL_HasAVX" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HasAVX"]
+	]
 
-	GetSystemRAM: make routine! compose/deep [[
+	GetSystemRAM: make-routine sdl2 "SDL_GetSystemRAM" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetSystemRAM"]
+	]
 
-	GetPixelFormatName: make routine! compose/deep [[
+	GetPixelFormatName: make-routine sdl2 "SDL_GetPixelFormatName" compose/deep [
 		format [uint32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetPixelFormatName"]
+	]
 
-	PixelFormatEnumToMasks: make routine! compose/deep [[
+	PixelFormatEnumToMasks: make-routine sdl2 "SDL_PixelFormatEnumToMasks" compose/deep [
 		format [uint32]
 		bpp [pointer]
 		Rmask [pointer]
@@ -2228,89 +2045,78 @@ make object! [
 		Bmask [pointer]
 		Amask [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_PixelFormatEnumToMasks"]
+	]
 
-	MasksToPixelFormatEnum: make routine! compose/deep [[
+	MasksToPixelFormatEnum: make-routine sdl2 "SDL_MasksToPixelFormatEnum" compose/deep [
 		bpp [int32]
 		Rmask [uint32]
 		Gmask [uint32]
 		Bmask [uint32]
 		Amask [uint32]
 		return: [uint32]
-		abi: default
-	] (sdl2) "SDL_MasksToPixelFormatEnum"]
+	]
 
-	AllocFormat: make routine! compose/deep [[
+	AllocFormat: make-routine sdl2 "SDL_AllocFormat" compose/deep [
 		pixel_format [uint32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_AllocFormat"]
+	]
 
-	FreeFormat: make routine! compose/deep [[
+	FreeFormat: make-routine sdl2 "SDL_FreeFormat" compose/deep [
 		format [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_FreeFormat"]
+	]
 
-	AllocPalette: make routine! compose/deep [[
+	AllocPalette: make-routine sdl2 "SDL_AllocPalette" compose/deep [
 		ncolors [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_AllocPalette"]
+	]
 
-	SetPixelFormatPalette: make routine! compose/deep [[
+	SetPixelFormatPalette: make-routine sdl2 "SDL_SetPixelFormatPalette" compose/deep [
 		format [pointer]
 		palette [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetPixelFormatPalette"]
+	]
 
-	SetPaletteColors: make routine! compose/deep [[
+	SetPaletteColors: make-routine sdl2 "SDL_SetPaletteColors" compose/deep [
 		palette [pointer]
 		colors [pointer]
 		firstcolor [int32]
 		ncolors [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetPaletteColors"]
+	]
 
-	FreePalette: make routine! compose/deep [[
+	FreePalette: make-routine sdl2 "SDL_FreePalette" compose/deep [
 		palette [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_FreePalette"]
+	]
 
-	MapRGB: make routine! compose/deep [[
+	MapRGB: make-routine sdl2 "SDL_MapRGB" compose/deep [
 		format [pointer]
 		r [uint8]
 		g [uint8]
 		b [uint8]
 		return: [uint32]
-		abi: default
-	] (sdl2) "SDL_MapRGB"]
+	]
 
-	MapRGBA: make routine! compose/deep [[
+	MapRGBA: make-routine sdl2 "SDL_MapRGBA" compose/deep [
 		format [pointer]
 		r [uint8]
 		g [uint8]
 		b [uint8]
 		a [uint8]
 		return: [uint32]
-		abi: default
-	] (sdl2) "SDL_MapRGBA"]
+	]
 
-	GetRGB: make routine! compose/deep [[
+	GetRGB: make-routine sdl2 "SDL_GetRGB" compose/deep [
 		pixel [uint32]
 		format [pointer]
 		r [pointer]
 		g [pointer]
 		b [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_GetRGB"]
+	]
 
-	GetRGBA: make routine! compose/deep [[
+	GetRGBA: make-routine sdl2 "SDL_GetRGBA" compose/deep [
 		pixel [uint32]
 		format [pointer]
 		r [pointer]
@@ -2318,59 +2124,52 @@ make object! [
 		b [pointer]
 		a [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_GetRGBA"]
+	]
 
-	CalculateGammaRamp: make routine! compose/deep [[
+	CalculateGammaRamp: make-routine sdl2 "SDL_CalculateGammaRamp" compose/deep [
 		gamma [float]
 		ramp [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_CalculateGammaRamp"]
+	]
 
-	HasIntersection: make routine! compose/deep [[
+	HasIntersection: make-routine sdl2 "SDL_HasIntersection" compose/deep [
 		A [pointer]
 		B [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HasIntersection"]
+	]
 
-	IntersectRect: make routine! compose/deep [[
+	IntersectRect: make-routine sdl2 "SDL_IntersectRect" compose/deep [
 		A [pointer]
 		B [pointer]
 		result [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_IntersectRect"]
+	]
 
-	UnionRect: make routine! compose/deep [[
+	UnionRect: make-routine sdl2 "SDL_UnionRect" compose/deep [
 		A [pointer]
 		B [pointer]
 		result [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_UnionRect"]
+	]
 
-	EnclosePoints: make routine! compose/deep [[
+	EnclosePoints: make-routine sdl2 "SDL_EnclosePoints" compose/deep [
 		points [pointer]
 		count [int32]
 		clip [pointer]
 		result [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_EnclosePoints"]
+	]
 
-	IntersectRectAndLine: make routine! compose/deep [[
+	IntersectRectAndLine: make-routine sdl2 "SDL_IntersectRectAndLine" compose/deep [
 		rect [pointer]
 		X1 [pointer]
 		Y1 [pointer]
 		X2 [pointer]
 		Y2 [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_IntersectRectAndLine"]
+	]
 
-	CreateRGBSurface: make routine! compose/deep [[
+	CreateRGBSurface: make-routine sdl2 "SDL_CreateRGBSurface" compose/deep [
 		flags [uint32]
 		width [int32]
 		height [int32]
@@ -2380,10 +2179,9 @@ make object! [
 		Bmask [uint32]
 		Amask [uint32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_CreateRGBSurface"]
+	]
 
-	CreateRGBSurfaceFrom: make routine! compose/deep [[
+	CreateRGBSurfaceFrom: make-routine sdl2 "SDL_CreateRGBSurfaceFrom" compose/deep [
 		pixels [pointer]
 		width [int32]
 		height [int32]
@@ -2394,148 +2192,128 @@ make object! [
 		Bmask [uint32]
 		Amask [uint32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_CreateRGBSurfaceFrom"]
+	]
 
-	FreeSurface: make routine! compose/deep [[
+	FreeSurface: make-routine sdl2 "SDL_FreeSurface" compose/deep [
 		surface [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_FreeSurface"]
+	]
 
-	SetSurfacePalette: make routine! compose/deep [[
+	SetSurfacePalette: make-routine sdl2 "SDL_SetSurfacePalette" compose/deep [
 		surface [pointer]
 		palette [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetSurfacePalette"]
+	]
 
-	LockSurface: make routine! compose/deep [[
+	LockSurface: make-routine sdl2 "SDL_LockSurface" compose/deep [
 		surface [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_LockSurface"]
+	]
 
-	UnlockSurface: make routine! compose/deep [[
+	UnlockSurface: make-routine sdl2 "SDL_UnlockSurface" compose/deep [
 		surface [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_UnlockSurface"]
+	]
 
-	LoadBMP_RW: make routine! compose/deep [[
+	LoadBMP_RW: make-routine sdl2 "SDL_LoadBMP_RW" compose/deep [
 		src [pointer]
 		freesrc [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_LoadBMP_RW"]
+	]
 
-	SaveBMP_RW: make routine! compose/deep [[
+	SaveBMP_RW: make-routine sdl2 "SDL_SaveBMP_RW" compose/deep [
 		surface [pointer]
 		dst [pointer]
 		freedst [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SaveBMP_RW"]
+	]
 
-	SetSurfaceRLE: make routine! compose/deep [[
+	SetSurfaceRLE: make-routine sdl2 "SDL_SetSurfaceRLE" compose/deep [
 		surface [pointer]
 		flag [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetSurfaceRLE"]
+	]
 
-	SetColorKey: make routine! compose/deep [[
+	SetColorKey: make-routine sdl2 "SDL_SetColorKey" compose/deep [
 		surface [pointer]
 		flag [int32]
 		key [uint32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetColorKey"]
+	]
 
-	GetColorKey: make routine! compose/deep [[
+	GetColorKey: make-routine sdl2 "SDL_GetColorKey" compose/deep [
 		surface [pointer]
 		key [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetColorKey"]
+	]
 
-	SetSurfaceColorMod: make routine! compose/deep [[
+	SetSurfaceColorMod: make-routine sdl2 "SDL_SetSurfaceColorMod" compose/deep [
 		surface [pointer]
 		r [uint8]
 		g [uint8]
 		b [uint8]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetSurfaceColorMod"]
+	]
 
-	GetSurfaceColorMod: make routine! compose/deep [[
+	GetSurfaceColorMod: make-routine sdl2 "SDL_GetSurfaceColorMod" compose/deep [
 		surface [pointer]
 		r [pointer]
 		g [pointer]
 		b [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetSurfaceColorMod"]
+	]
 
-	SetSurfaceAlphaMod: make routine! compose/deep [[
+	SetSurfaceAlphaMod: make-routine sdl2 "SDL_SetSurfaceAlphaMod" compose/deep [
 		surface [pointer]
 		alpha [uint8]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetSurfaceAlphaMod"]
+	]
 
-	GetSurfaceAlphaMod: make routine! compose/deep [[
+	GetSurfaceAlphaMod: make-routine sdl2 "SDL_GetSurfaceAlphaMod" compose/deep [
 		surface [pointer]
 		alpha [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetSurfaceAlphaMod"]
+	]
 
-	SetSurfaceBlendMode: make routine! compose/deep [[
+	SetSurfaceBlendMode: make-routine sdl2 "SDL_SetSurfaceBlendMode" compose/deep [
 		surface [pointer]
 		blendMode [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetSurfaceBlendMode"]
+	]
 
-	GetSurfaceBlendMode: make routine! compose/deep [[
+	GetSurfaceBlendMode: make-routine sdl2 "SDL_GetSurfaceBlendMode" compose/deep [
 		surface [pointer]
 		blendMode [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetSurfaceBlendMode"]
+	]
 
-	SetClipRect: make routine! compose/deep [[
+	SetClipRect: make-routine sdl2 "SDL_SetClipRect" compose/deep [
 		surface [pointer]
 		rect [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetClipRect"]
+	]
 
-	GetClipRect: make routine! compose/deep [[
+	GetClipRect: make-routine sdl2 "SDL_GetClipRect" compose/deep [
 		surface [pointer]
 		rect [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_GetClipRect"]
+	]
 
-	ConvertSurface: make routine! compose/deep [[
+	ConvertSurface: make-routine sdl2 "SDL_ConvertSurface" compose/deep [
 		src [pointer]
 		fmt [pointer]
 		flags [uint32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_ConvertSurface"]
+	]
 
-	ConvertSurfaceFormat: make routine! compose/deep [[
+	ConvertSurfaceFormat: make-routine sdl2 "SDL_ConvertSurfaceFormat" compose/deep [
 		src [pointer]
 		pixel_format [uint32]
 		flags [uint32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_ConvertSurfaceFormat"]
+	]
 
-	ConvertPixels: make routine! compose/deep [[
+	ConvertPixels: make-routine sdl2 "SDL_ConvertPixels" compose/deep [
 		width [int32]
 		height [int32]
 		src_format [uint32]
@@ -2545,179 +2323,154 @@ make object! [
 		dst [pointer]
 		dst_pitch [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_ConvertPixels"]
+	]
 
-	FillRect: make routine! compose/deep [[
+	FillRect: make-routine sdl2 "SDL_FillRect" compose/deep [
 		dst [pointer]
 		rect [pointer]
 		color [uint32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_FillRect"]
+	]
 
-	FillRects: make routine! compose/deep [[
+	FillRects: make-routine sdl2 "SDL_FillRects" compose/deep [
 		dst [pointer]
 		rects [pointer]
 		count [int32]
 		color [uint32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_FillRects"]
+	]
 
-	UpperBlit: make routine! compose/deep [[
+	UpperBlit: make-routine sdl2 "SDL_UpperBlit" compose/deep [
 		src [pointer]
 		srcrect [pointer]
 		dst [pointer]
 		dstrect [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_UpperBlit"]
+	]
 
-	LowerBlit: make routine! compose/deep [[
+	LowerBlit: make-routine sdl2 "SDL_LowerBlit" compose/deep [
 		src [pointer]
 		srcrect [pointer]
 		dst [pointer]
 		dstrect [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_LowerBlit"]
+	]
 
-	SoftStretch: make routine! compose/deep [[
+	SoftStretch: make-routine sdl2 "SDL_SoftStretch" compose/deep [
 		src [pointer]
 		srcrect [pointer]
 		dst [pointer]
 		dstrect [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SoftStretch"]
+	]
 
-	UpperBlitScaled: make routine! compose/deep [[
+	UpperBlitScaled: make-routine sdl2 "SDL_UpperBlitScaled" compose/deep [
 		src [pointer]
 		srcrect [pointer]
 		dst [pointer]
 		dstrect [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_UpperBlitScaled"]
+	]
 
-	LowerBlitScaled: make routine! compose/deep [[
+	LowerBlitScaled: make-routine sdl2 "SDL_LowerBlitScaled" compose/deep [
 		src [pointer]
 		srcrect [pointer]
 		dst [pointer]
 		dstrect [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_LowerBlitScaled"]
+	]
 
-	GetNumVideoDrivers: make routine! compose/deep [[
+	GetNumVideoDrivers: make-routine sdl2 "SDL_GetNumVideoDrivers" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetNumVideoDrivers"]
+	]
 
-	GetVideoDriver: make routine! compose/deep [[
+	GetVideoDriver: make-routine sdl2 "SDL_GetVideoDriver" compose/deep [
 		index [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetVideoDriver"]
+	]
 
-	VideoInit: make routine! compose/deep [[
+	VideoInit: make-routine sdl2 "SDL_VideoInit" compose/deep [
 		driver_name [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_VideoInit"]
+	]
 
-	VideoQuit: make routine! compose/deep [[
+	VideoQuit: make-routine sdl2 "SDL_VideoQuit" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_VideoQuit"]
+	]
 
-	GetCurrentVideoDriver: make routine! compose/deep [[
+	GetCurrentVideoDriver: make-routine sdl2 "SDL_GetCurrentVideoDriver" compose/deep [
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetCurrentVideoDriver"]
+	]
 
-	GetNumVideoDisplays: make routine! compose/deep [[
+	GetNumVideoDisplays: make-routine sdl2 "SDL_GetNumVideoDisplays" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetNumVideoDisplays"]
+	]
 
-	GetDisplayName: make routine! compose/deep [[
+	GetDisplayName: make-routine sdl2 "SDL_GetDisplayName" compose/deep [
 		displayIndex [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetDisplayName"]
+	]
 
-	GetDisplayBounds: make routine! compose/deep [[
+	GetDisplayBounds: make-routine sdl2 "SDL_GetDisplayBounds" compose/deep [
 		displayIndex [int32]
 		rect [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetDisplayBounds"]
+	]
 
-	GetNumDisplayModes: make routine! compose/deep [[
+	GetNumDisplayModes: make-routine sdl2 "SDL_GetNumDisplayModes" compose/deep [
 		displayIndex [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetNumDisplayModes"]
+	]
 
-	GetDisplayMode: make routine! compose/deep [[
+	GetDisplayMode: make-routine sdl2 "SDL_GetDisplayMode" compose/deep [
 		displayIndex [int32]
 		modeIndex [int32]
 		mode [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetDisplayMode"]
+	]
 
-	GetDesktopDisplayMode: make routine! compose/deep [[
+	GetDesktopDisplayMode: make-routine sdl2 "SDL_GetDesktopDisplayMode" compose/deep [
 		displayIndex [int32]
 		mode [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetDesktopDisplayMode"]
+	]
 
-	GetCurrentDisplayMode: make routine! compose/deep [[
+	GetCurrentDisplayMode: make-routine sdl2 "SDL_GetCurrentDisplayMode" compose/deep [
 		displayIndex [int32]
 		mode [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetCurrentDisplayMode"]
+	]
 
-	GetClosestDisplayMode: make routine! compose/deep [[
+	GetClosestDisplayMode: make-routine sdl2 "SDL_GetClosestDisplayMode" compose/deep [
 		displayIndex [int32]
 		mode [pointer]
 		closest [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetClosestDisplayMode"]
+	]
 
-	GetWindowDisplayIndex: make routine! compose/deep [[
+	GetWindowDisplayIndex: make-routine sdl2 "SDL_GetWindowDisplayIndex" compose/deep [
 		window [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetWindowDisplayIndex"]
+	]
 
-	SetWindowDisplayMode: make routine! compose/deep [[
+	SetWindowDisplayMode: make-routine sdl2 "SDL_SetWindowDisplayMode" compose/deep [
 		window [pointer]
 		mode [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetWindowDisplayMode"]
+	]
 
-	GetWindowDisplayMode: make routine! compose/deep [[
+	GetWindowDisplayMode: make-routine sdl2 "SDL_GetWindowDisplayMode" compose/deep [
 		window [pointer]
 		mode [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetWindowDisplayMode"]
+	]
 
-	GetWindowPixelFormat: make routine! compose/deep [[
+	GetWindowPixelFormat: make-routine sdl2 "SDL_GetWindowPixelFormat" compose/deep [
 		window [pointer]
 		return: [uint32]
-		abi: default
-	] (sdl2) "SDL_GetWindowPixelFormat"]
+	]
 
-	CreateWindow: make routine! compose/deep [[
+	CreateWindow: make-routine sdl2 "SDL_CreateWindow" compose/deep [
 		title [pointer]
 		x [int32]
 		y [int32]
@@ -2725,492 +2478,415 @@ make object! [
 		h [int32]
 		flags [uint32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_CreateWindow"]
+	]
 
-	CreateWindowFrom: make routine! compose/deep [[
+	CreateWindowFrom: make-routine sdl2 "SDL_CreateWindowFrom" compose/deep [
 		data [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_CreateWindowFrom"]
+	]
 
-	GetWindowID: make routine! compose/deep [[
+	GetWindowID: make-routine sdl2 "SDL_GetWindowID" compose/deep [
 		window [pointer]
 		return: [uint32]
-		abi: default
-	] (sdl2) "SDL_GetWindowID"]
+	]
 
-	GetWindowFromID: make routine! compose/deep [[
+	GetWindowFromID: make-routine sdl2 "SDL_GetWindowFromID" compose/deep [
 		id [uint32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetWindowFromID"]
+	]
 
-	GetWindowFlags: make routine! compose/deep [[
+	GetWindowFlags: make-routine sdl2 "SDL_GetWindowFlags" compose/deep [
 		window [pointer]
 		return: [uint32]
-		abi: default
-	] (sdl2) "SDL_GetWindowFlags"]
+	]
 
-	SetWindowTitle: make routine! compose/deep [[
+	SetWindowTitle: make-routine sdl2 "SDL_SetWindowTitle" compose/deep [
 		window [pointer]
 		title [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_SetWindowTitle"]
+	]
 
-	GetWindowTitle: make routine! compose/deep [[
+	GetWindowTitle: make-routine sdl2 "SDL_GetWindowTitle" compose/deep [
 		window [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetWindowTitle"]
+	]
 
-	SetWindowIcon: make routine! compose/deep [[
+	SetWindowIcon: make-routine sdl2 "SDL_SetWindowIcon" compose/deep [
 		window [pointer]
 		icon [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_SetWindowIcon"]
+	]
 
-	SetWindowData: make routine! compose/deep [[
+	SetWindowData: make-routine sdl2 "SDL_SetWindowData" compose/deep [
 		window [pointer]
 		name [pointer]
 		userdata [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_SetWindowData"]
+	]
 
-	GetWindowData: make routine! compose/deep [[
+	GetWindowData: make-routine sdl2 "SDL_GetWindowData" compose/deep [
 		window [pointer]
 		name [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetWindowData"]
+	]
 
-	SetWindowPosition: make routine! compose/deep [[
+	SetWindowPosition: make-routine sdl2 "SDL_SetWindowPosition" compose/deep [
 		window [pointer]
 		x [int32]
 		y [int32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_SetWindowPosition"]
+	]
 
-	GetWindowPosition: make routine! compose/deep [[
+	GetWindowPosition: make-routine sdl2 "SDL_GetWindowPosition" compose/deep [
 		window [pointer]
 		x [pointer]
 		y [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_GetWindowPosition"]
+	]
 
-	SetWindowSize: make routine! compose/deep [[
+	SetWindowSize: make-routine sdl2 "SDL_SetWindowSize" compose/deep [
 		window [pointer]
 		w [int32]
 		h [int32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_SetWindowSize"]
+	]
 
-	GetWindowSize: make routine! compose/deep [[
+	GetWindowSize: make-routine sdl2 "SDL_GetWindowSize" compose/deep [
 		window [pointer]
 		w [pointer]
 		h [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_GetWindowSize"]
+	]
 
-	SetWindowMinimumSize: make routine! compose/deep [[
+	SetWindowMinimumSize: make-routine sdl2 "SDL_SetWindowMinimumSize" compose/deep [
 		window [pointer]
 		min_w [int32]
 		min_h [int32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_SetWindowMinimumSize"]
+	]
 
-	GetWindowMinimumSize: make routine! compose/deep [[
+	GetWindowMinimumSize: make-routine sdl2 "SDL_GetWindowMinimumSize" compose/deep [
 		window [pointer]
 		w [pointer]
 		h [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_GetWindowMinimumSize"]
+	]
 
-	SetWindowMaximumSize: make routine! compose/deep [[
+	SetWindowMaximumSize: make-routine sdl2 "SDL_SetWindowMaximumSize" compose/deep [
 		window [pointer]
 		max_w [int32]
 		max_h [int32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_SetWindowMaximumSize"]
+	]
 
-	GetWindowMaximumSize: make routine! compose/deep [[
+	GetWindowMaximumSize: make-routine sdl2 "SDL_GetWindowMaximumSize" compose/deep [
 		window [pointer]
 		w [pointer]
 		h [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_GetWindowMaximumSize"]
+	]
 
-	SetWindowBordered: make routine! compose/deep [[
+	SetWindowBordered: make-routine sdl2 "SDL_SetWindowBordered" compose/deep [
 		window [pointer]
 		bordered [int32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_SetWindowBordered"]
+	]
 
-	ShowWindow: make routine! compose/deep [[
+	ShowWindow: make-routine sdl2 "SDL_ShowWindow" compose/deep [
 		window [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_ShowWindow"]
+	]
 
-	HideWindow: make routine! compose/deep [[
+	HideWindow: make-routine sdl2 "SDL_HideWindow" compose/deep [
 		window [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_HideWindow"]
+	]
 
-	RaiseWindow: make routine! compose/deep [[
+	RaiseWindow: make-routine sdl2 "SDL_RaiseWindow" compose/deep [
 		window [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_RaiseWindow"]
+	]
 
-	MaximizeWindow: make routine! compose/deep [[
+	MaximizeWindow: make-routine sdl2 "SDL_MaximizeWindow" compose/deep [
 		window [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_MaximizeWindow"]
+	]
 
-	MinimizeWindow: make routine! compose/deep [[
+	MinimizeWindow: make-routine sdl2 "SDL_MinimizeWindow" compose/deep [
 		window [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_MinimizeWindow"]
+	]
 
-	RestoreWindow: make routine! compose/deep [[
+	RestoreWindow: make-routine sdl2 "SDL_RestoreWindow" compose/deep [
 		window [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_RestoreWindow"]
+	]
 
-	SetWindowFullscreen: make routine! compose/deep [[
+	SetWindowFullscreen: make-routine sdl2 "SDL_SetWindowFullscreen" compose/deep [
 		window [pointer]
 		flags [uint32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetWindowFullscreen"]
+	]
 
-	GetWindowSurface: make routine! compose/deep [[
+	GetWindowSurface: make-routine sdl2 "SDL_GetWindowSurface" compose/deep [
 		window [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetWindowSurface"]
+	]
 
-	UpdateWindowSurface: make routine! compose/deep [[
+	UpdateWindowSurface: make-routine sdl2 "SDL_UpdateWindowSurface" compose/deep [
 		window [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_UpdateWindowSurface"]
+	]
 
-	UpdateWindowSurfaceRects: make routine! compose/deep [[
+	UpdateWindowSurfaceRects: make-routine sdl2 "SDL_UpdateWindowSurfaceRects" compose/deep [
 		window [pointer]
 		rects [pointer]
 		numrects [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_UpdateWindowSurfaceRects"]
+	]
 
-	SetWindowGrab: make routine! compose/deep [[
+	SetWindowGrab: make-routine sdl2 "SDL_SetWindowGrab" compose/deep [
 		window [pointer]
 		grabbed [int32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_SetWindowGrab"]
+	]
 
-	GetWindowGrab: make routine! compose/deep [[
+	GetWindowGrab: make-routine sdl2 "SDL_GetWindowGrab" compose/deep [
 		window [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetWindowGrab"]
+	]
 
-	SetWindowBrightness: make routine! compose/deep [[
+	SetWindowBrightness: make-routine sdl2 "SDL_SetWindowBrightness" compose/deep [
 		window [pointer]
 		brightness [float]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetWindowBrightness"]
+	]
 
-	GetWindowBrightness: make routine! compose/deep [[
+	GetWindowBrightness: make-routine sdl2 "SDL_GetWindowBrightness" compose/deep [
 		window [pointer]
 		return: [float]
-		abi: default
-	] (sdl2) "SDL_GetWindowBrightness"]
+	]
 
-	SetWindowGammaRamp: make routine! compose/deep [[
+	SetWindowGammaRamp: make-routine sdl2 "SDL_SetWindowGammaRamp" compose/deep [
 		window [pointer]
 		red [pointer]
 		green [pointer]
 		blue [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetWindowGammaRamp"]
+	]
 
-	GetWindowGammaRamp: make routine! compose/deep [[
+	GetWindowGammaRamp: make-routine sdl2 "SDL_GetWindowGammaRamp" compose/deep [
 		window [pointer]
 		red [pointer]
 		green [pointer]
 		blue [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetWindowGammaRamp"]
+	]
 
-	DestroyWindow: make routine! compose/deep [[
+	DestroyWindow: make-routine sdl2 "SDL_DestroyWindow" compose/deep [
 		window [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_DestroyWindow"]
+	]
 
-	IsScreenSaverEnabled: make routine! compose/deep [[
+	IsScreenSaverEnabled: make-routine sdl2 "SDL_IsScreenSaverEnabled" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_IsScreenSaverEnabled"]
+	]
 
-	EnableScreenSaver: make routine! compose/deep [[
+	EnableScreenSaver: make-routine sdl2 "SDL_EnableScreenSaver" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_EnableScreenSaver"]
+	]
 
-	DisableScreenSaver: make routine! compose/deep [[
+	DisableScreenSaver: make-routine sdl2 "SDL_DisableScreenSaver" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_DisableScreenSaver"]
+	]
 
-	GL_LoadLibrary: make routine! compose/deep [[
+	GL_LoadLibrary: make-routine sdl2 "SDL_GL_LoadLibrary" compose/deep [
 		path [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GL_LoadLibrary"]
+	]
 
-	GL_GetProcAddress: make routine! compose/deep [[
+	GL_GetProcAddress: make-routine sdl2 "SDL_GL_GetProcAddress" compose/deep [
 		proc [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GL_GetProcAddress"]
+	]
 
-	GL_UnloadLibrary: make routine! compose/deep [[
+	GL_UnloadLibrary: make-routine sdl2 "SDL_GL_UnloadLibrary" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_GL_UnloadLibrary"]
+	]
 
-	GL_ExtensionSupported: make routine! compose/deep [[
+	GL_ExtensionSupported: make-routine sdl2 "SDL_GL_ExtensionSupported" compose/deep [
 		extension [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GL_ExtensionSupported"]
+	]
 
-	GL_ResetAttributes: make routine! compose/deep [[
+	GL_ResetAttributes: make-routine sdl2 "SDL_GL_ResetAttributes" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_GL_ResetAttributes"]
+	]
 
-	GL_SetAttribute: make routine! compose/deep [[
+	GL_SetAttribute: make-routine sdl2 "SDL_GL_SetAttribute" compose/deep [
 		attr [int32]
 		value [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GL_SetAttribute"]
+	]
 
-	GL_GetAttribute: make routine! compose/deep [[
+	GL_GetAttribute: make-routine sdl2 "SDL_GL_GetAttribute" compose/deep [
 		attr [int32]
 		value [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GL_GetAttribute"]
+	]
 
-	GL_CreateContext: make routine! compose/deep [[
+	GL_CreateContext: make-routine sdl2 "SDL_GL_CreateContext" compose/deep [
 		window [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GL_CreateContext"]
+	]
 
-	GL_MakeCurrent: make routine! compose/deep [[
+	GL_MakeCurrent: make-routine sdl2 "SDL_GL_MakeCurrent" compose/deep [
 		window [pointer]
 		context [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GL_MakeCurrent"]
+	]
 
-	GL_GetCurrentWindow: make routine! compose/deep [[
+	GL_GetCurrentWindow: make-routine sdl2 "SDL_GL_GetCurrentWindow" compose/deep [
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GL_GetCurrentWindow"]
+	]
 
-	GL_GetCurrentContext: make routine! compose/deep [[
+	GL_GetCurrentContext: make-routine sdl2 "SDL_GL_GetCurrentContext" compose/deep [
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GL_GetCurrentContext"]
+	]
 
-	GL_GetDrawableSize: make routine! compose/deep [[
+	GL_GetDrawableSize: make-routine sdl2 "SDL_GL_GetDrawableSize" compose/deep [
 		window [pointer]
 		w [pointer]
 		h [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_GL_GetDrawableSize"]
+	]
 
-	GL_SetSwapInterval: make routine! compose/deep [[
+	GL_SetSwapInterval: make-routine sdl2 "SDL_GL_SetSwapInterval" compose/deep [
 		interval [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GL_SetSwapInterval"]
+	]
 
-	GL_GetSwapInterval: make routine! compose/deep [[
+	GL_GetSwapInterval: make-routine sdl2 "SDL_GL_GetSwapInterval" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GL_GetSwapInterval"]
+	]
 
-	GL_SwapWindow: make routine! compose/deep [[
+	GL_SwapWindow: make-routine sdl2 "SDL_GL_SwapWindow" compose/deep [
 		window [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_GL_SwapWindow"]
+	]
 
-	GL_DeleteContext: make routine! compose/deep [[
+	GL_DeleteContext: make-routine sdl2 "SDL_GL_DeleteContext" compose/deep [
 		context [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_GL_DeleteContext"]
+	]
 
-	GetKeyboardFocus: make routine! compose/deep [[
+	GetKeyboardFocus: make-routine sdl2 "SDL_GetKeyboardFocus" compose/deep [
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetKeyboardFocus"]
+	]
 
-	GetKeyboardState: make routine! compose/deep [[
+	GetKeyboardState: make-routine sdl2 "SDL_GetKeyboardState" compose/deep [
 		numkeys [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetKeyboardState"]
+	]
 
-	GetModState: make routine! compose/deep [[
+	GetModState: make-routine sdl2 "SDL_GetModState" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetModState"]
+	]
 
-	SetModState: make routine! compose/deep [[
+	SetModState: make-routine sdl2 "SDL_SetModState" compose/deep [
 		modstate [int32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_SetModState"]
+	]
 
-	GetKeyFromScancode: make routine! compose/deep [[
+	GetKeyFromScancode: make-routine sdl2 "SDL_GetKeyFromScancode" compose/deep [
 		scancode [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetKeyFromScancode"]
+	]
 
-	GetScancodeFromKey: make routine! compose/deep [[
+	GetScancodeFromKey: make-routine sdl2 "SDL_GetScancodeFromKey" compose/deep [
 		key [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetScancodeFromKey"]
+	]
 
-	GetScancodeName: make routine! compose/deep [[
+	GetScancodeName: make-routine sdl2 "SDL_GetScancodeName" compose/deep [
 		scancode [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetScancodeName"]
+	]
 
-	GetScancodeFromName: make routine! compose/deep [[
+	GetScancodeFromName: make-routine sdl2 "SDL_GetScancodeFromName" compose/deep [
 		name [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetScancodeFromName"]
+	]
 
-	GetKeyName: make routine! compose/deep [[
+	GetKeyName: make-routine sdl2 "SDL_GetKeyName" compose/deep [
 		key [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetKeyName"]
+	]
 
-	GetKeyFromName: make routine! compose/deep [[
+	GetKeyFromName: make-routine sdl2 "SDL_GetKeyFromName" compose/deep [
 		name [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetKeyFromName"]
+	]
 
-	StartTextInput: make routine! compose/deep [[
+	StartTextInput: make-routine sdl2 "SDL_StartTextInput" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_StartTextInput"]
+	]
 
-	IsTextInputActive: make routine! compose/deep [[
+	IsTextInputActive: make-routine sdl2 "SDL_IsTextInputActive" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_IsTextInputActive"]
+	]
 
-	StopTextInput: make routine! compose/deep [[
+	StopTextInput: make-routine sdl2 "SDL_StopTextInput" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_StopTextInput"]
+	]
 
-	SetTextInputRect: make routine! compose/deep [[
+	SetTextInputRect: make-routine sdl2 "SDL_SetTextInputRect" compose/deep [
 		rect [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_SetTextInputRect"]
+	]
 
-	HasScreenKeyboardSupport: make routine! compose/deep [[
+	HasScreenKeyboardSupport: make-routine sdl2 "SDL_HasScreenKeyboardSupport" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HasScreenKeyboardSupport"]
+	]
 
-	IsScreenKeyboardShown: make routine! compose/deep [[
+	IsScreenKeyboardShown: make-routine sdl2 "SDL_IsScreenKeyboardShown" compose/deep [
 		window [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_IsScreenKeyboardShown"]
+	]
 
-	GetMouseFocus: make routine! compose/deep [[
+	GetMouseFocus: make-routine sdl2 "SDL_GetMouseFocus" compose/deep [
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetMouseFocus"]
+	]
 
-	GetMouseState: make routine! compose/deep [[
+	GetMouseState: make-routine sdl2 "SDL_GetMouseState" compose/deep [
 		x [pointer]
 		y [pointer]
 		return: [uint32]
-		abi: default
-	] (sdl2) "SDL_GetMouseState"]
+	]
 
-	GetRelativeMouseState: make routine! compose/deep [[
+	GetRelativeMouseState: make-routine sdl2 "SDL_GetRelativeMouseState" compose/deep [
 		x [pointer]
 		y [pointer]
 		return: [uint32]
-		abi: default
-	] (sdl2) "SDL_GetRelativeMouseState"]
+	]
 
-	WarpMouseInWindow: make routine! compose/deep [[
+	WarpMouseInWindow: make-routine sdl2 "SDL_WarpMouseInWindow" compose/deep [
 		window [pointer]
 		x [int32]
 		y [int32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_WarpMouseInWindow"]
+	]
 
-	SetRelativeMouseMode: make routine! compose/deep [[
+	SetRelativeMouseMode: make-routine sdl2 "SDL_SetRelativeMouseMode" compose/deep [
 		enabled [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetRelativeMouseMode"]
+	]
 
-	GetRelativeMouseMode: make routine! compose/deep [[
+	GetRelativeMouseMode: make-routine sdl2 "SDL_GetRelativeMouseMode" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetRelativeMouseMode"]
+	]
 
-	CreateCursor: make routine! compose/deep [[
+	CreateCursor: make-routine sdl2 "SDL_CreateCursor" compose/deep [
 		data [pointer]
 		mask [pointer]
 		w [int32]
@@ -3218,1007 +2894,856 @@ make object! [
 		hot_x [int32]
 		hot_y [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_CreateCursor"]
+	]
 
-	CreateColorCursor: make routine! compose/deep [[
+	CreateColorCursor: make-routine sdl2 "SDL_CreateColorCursor" compose/deep [
 		surface [pointer]
 		hot_x [int32]
 		hot_y [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_CreateColorCursor"]
+	]
 
-	CreateSystemCursor: make routine! compose/deep [[
+	CreateSystemCursor: make-routine sdl2 "SDL_CreateSystemCursor" compose/deep [
 		id [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_CreateSystemCursor"]
+	]
 
-	SetCursor: make routine! compose/deep [[
+	SetCursor: make-routine sdl2 "SDL_SetCursor" compose/deep [
 		cursor [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_SetCursor"]
+	]
 
-	GetCursor: make routine! compose/deep [[
+	GetCursor: make-routine sdl2 "SDL_GetCursor" compose/deep [
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetCursor"]
+	]
 
-	GetDefaultCursor: make routine! compose/deep [[
+	GetDefaultCursor: make-routine sdl2 "SDL_GetDefaultCursor" compose/deep [
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetDefaultCursor"]
+	]
 
-	FreeCursor: make routine! compose/deep [[
+	FreeCursor: make-routine sdl2 "SDL_FreeCursor" compose/deep [
 		cursor [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_FreeCursor"]
+	]
 
-	ShowCursor: make routine! compose/deep [[
+	ShowCursor: make-routine sdl2 "SDL_ShowCursor" compose/deep [
 		toggle [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_ShowCursor"]
+	]
 
-	NumJoysticks: make routine! compose/deep [[
+	NumJoysticks: make-routine sdl2 "SDL_NumJoysticks" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_NumJoysticks"]
+	]
 
-	JoystickNameForIndex: make routine! compose/deep [[
+	JoystickNameForIndex: make-routine sdl2 "SDL_JoystickNameForIndex" compose/deep [
 		device_index [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_JoystickNameForIndex"]
+	]
 
-	JoystickOpen: make routine! compose/deep [[
+	JoystickOpen: make-routine sdl2 "SDL_JoystickOpen" compose/deep [
 		device_index [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_JoystickOpen"]
+	]
 
-	JoystickName: make routine! compose/deep [[
+	JoystickName: make-routine sdl2 "SDL_JoystickName" compose/deep [
 		joystick [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_JoystickName"]
+	]
 
-	JoystickGetDeviceGUID: make routine! compose/deep [[
+	JoystickGetDeviceGUID: make-routine sdl2 "SDL_JoystickGetDeviceGUID" compose/deep [
 		device_index [int32]
 		return: [(SDL_JoystickGUID)]
-		abi: default
-	] (sdl2) "SDL_JoystickGetDeviceGUID"]
+	]
 
-	JoystickGetGUID: make routine! compose/deep [[
+	JoystickGetGUID: make-routine sdl2 "SDL_JoystickGetGUID" compose/deep [
 		joystick [pointer]
 		return: [(SDL_JoystickGUID)]
-		abi: default
-	] (sdl2) "SDL_JoystickGetGUID"]
+	]
 
-	JoystickGetGUIDString: make routine! compose/deep [[
+	JoystickGetGUIDString: make-routine sdl2 "SDL_JoystickGetGUIDString" compose/deep [
 		guid [(SDL_JoystickGUID)]
 		pszGUID [pointer]
 		cbGUID [int32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_JoystickGetGUIDString"]
+	]
 
-	JoystickGetGUIDFromString: make routine! compose/deep [[
+	JoystickGetGUIDFromString: make-routine sdl2 "SDL_JoystickGetGUIDFromString" compose/deep [
 		pchGUID [pointer]
 		return: [(SDL_JoystickGUID)]
-		abi: default
-	] (sdl2) "SDL_JoystickGetGUIDFromString"]
+	]
 
-	JoystickGetAttached: make routine! compose/deep [[
+	JoystickGetAttached: make-routine sdl2 "SDL_JoystickGetAttached" compose/deep [
 		joystick [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_JoystickGetAttached"]
+	]
 
-	JoystickInstanceID: make routine! compose/deep [[
+	JoystickInstanceID: make-routine sdl2 "SDL_JoystickInstanceID" compose/deep [
 		joystick [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_JoystickInstanceID"]
+	]
 
-	JoystickNumAxes: make routine! compose/deep [[
+	JoystickNumAxes: make-routine sdl2 "SDL_JoystickNumAxes" compose/deep [
 		joystick [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_JoystickNumAxes"]
+	]
 
-	JoystickNumBalls: make routine! compose/deep [[
+	JoystickNumBalls: make-routine sdl2 "SDL_JoystickNumBalls" compose/deep [
 		joystick [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_JoystickNumBalls"]
+	]
 
-	JoystickNumHats: make routine! compose/deep [[
+	JoystickNumHats: make-routine sdl2 "SDL_JoystickNumHats" compose/deep [
 		joystick [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_JoystickNumHats"]
+	]
 
-	JoystickNumButtons: make routine! compose/deep [[
+	JoystickNumButtons: make-routine sdl2 "SDL_JoystickNumButtons" compose/deep [
 		joystick [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_JoystickNumButtons"]
+	]
 
-	JoystickUpdate: make routine! compose/deep [[
+	JoystickUpdate: make-routine sdl2 "SDL_JoystickUpdate" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_JoystickUpdate"]
+	]
 
-	JoystickEventState: make routine! compose/deep [[
+	JoystickEventState: make-routine sdl2 "SDL_JoystickEventState" compose/deep [
 		state [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_JoystickEventState"]
+	]
 
-	JoystickGetAxis: make routine! compose/deep [[
+	JoystickGetAxis: make-routine sdl2 "SDL_JoystickGetAxis" compose/deep [
 		joystick [pointer]
 		axis [int32]
 		return: [int16]
-		abi: default
-	] (sdl2) "SDL_JoystickGetAxis"]
+	]
 
-	JoystickGetHat: make routine! compose/deep [[
+	JoystickGetHat: make-routine sdl2 "SDL_JoystickGetHat" compose/deep [
 		joystick [pointer]
 		hat [int32]
 		return: [uint8]
-		abi: default
-	] (sdl2) "SDL_JoystickGetHat"]
+	]
 
-	JoystickGetBall: make routine! compose/deep [[
+	JoystickGetBall: make-routine sdl2 "SDL_JoystickGetBall" compose/deep [
 		joystick [pointer]
 		ball [int32]
 		dx [pointer]
 		dy [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_JoystickGetBall"]
+	]
 
-	JoystickGetButton: make routine! compose/deep [[
+	JoystickGetButton: make-routine sdl2 "SDL_JoystickGetButton" compose/deep [
 		joystick [pointer]
 		button [int32]
 		return: [uint8]
-		abi: default
-	] (sdl2) "SDL_JoystickGetButton"]
+	]
 
-	JoystickClose: make routine! compose/deep [[
+	JoystickClose: make-routine sdl2 "SDL_JoystickClose" compose/deep [
 		joystick [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_JoystickClose"]
+	]
 
-	GameControllerAddMappingsFromRW: make routine! compose/deep [[
+	GameControllerAddMappingsFromRW: make-routine sdl2 "SDL_GameControllerAddMappingsFromRW" compose/deep [
 		rw [pointer]
 		freerw [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GameControllerAddMappingsFromRW"]
+	]
 
-	GameControllerAddMapping: make routine! compose/deep [[
+	GameControllerAddMapping: make-routine sdl2 "SDL_GameControllerAddMapping" compose/deep [
 		mappingString [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GameControllerAddMapping"]
+	]
 
-	GameControllerMappingForGUID: make routine! compose/deep [[
+	GameControllerMappingForGUID: make-routine sdl2 "SDL_GameControllerMappingForGUID" compose/deep [
 		guid [(SDL_JoystickGUID)]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GameControllerMappingForGUID"]
+	]
 
-	GameControllerMapping: make routine! compose/deep [[
+	GameControllerMapping: make-routine sdl2 "SDL_GameControllerMapping" compose/deep [
 		gamecontroller [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GameControllerMapping"]
+	]
 
-	IsGameController: make routine! compose/deep [[
+	IsGameController: make-routine sdl2 "SDL_IsGameController" compose/deep [
 		joystick_index [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_IsGameController"]
+	]
 
-	GameControllerNameForIndex: make routine! compose/deep [[
+	GameControllerNameForIndex: make-routine sdl2 "SDL_GameControllerNameForIndex" compose/deep [
 		joystick_index [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GameControllerNameForIndex"]
+	]
 
-	GameControllerOpen: make routine! compose/deep [[
+	GameControllerOpen: make-routine sdl2 "SDL_GameControllerOpen" compose/deep [
 		joystick_index [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GameControllerOpen"]
+	]
 
-	GameControllerName: make routine! compose/deep [[
+	GameControllerName: make-routine sdl2 "SDL_GameControllerName" compose/deep [
 		gamecontroller [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GameControllerName"]
+	]
 
-	GameControllerGetAttached: make routine! compose/deep [[
+	GameControllerGetAttached: make-routine sdl2 "SDL_GameControllerGetAttached" compose/deep [
 		gamecontroller [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GameControllerGetAttached"]
+	]
 
-	GameControllerGetJoystick: make routine! compose/deep [[
+	GameControllerGetJoystick: make-routine sdl2 "SDL_GameControllerGetJoystick" compose/deep [
 		gamecontroller [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GameControllerGetJoystick"]
+	]
 
-	GameControllerEventState: make routine! compose/deep [[
+	GameControllerEventState: make-routine sdl2 "SDL_GameControllerEventState" compose/deep [
 		state [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GameControllerEventState"]
+	]
 
-	GameControllerUpdate: make routine! compose/deep [[
+	GameControllerUpdate: make-routine sdl2 "SDL_GameControllerUpdate" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_GameControllerUpdate"]
+	]
 
-	GameControllerGetAxisFromString: make routine! compose/deep [[
+	GameControllerGetAxisFromString: make-routine sdl2 "SDL_GameControllerGetAxisFromString" compose/deep [
 		pchString [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GameControllerGetAxisFromString"]
+	]
 
-	GameControllerGetStringForAxis: make routine! compose/deep [[
+	GameControllerGetStringForAxis: make-routine sdl2 "SDL_GameControllerGetStringForAxis" compose/deep [
 		axis [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GameControllerGetStringForAxis"]
+	]
 
-	GameControllerGetBindForAxis: make routine! compose/deep [[
+	GameControllerGetBindForAxis: make-routine sdl2 "SDL_GameControllerGetBindForAxis" compose/deep [
 		gamecontroller [pointer]
 		axis [int32]
 		return: [(SDL_GameControllerButtonBind)]
-		abi: default
-	] (sdl2) "SDL_GameControllerGetBindForAxis"]
+	]
 
-	GameControllerGetAxis: make routine! compose/deep [[
+	GameControllerGetAxis: make-routine sdl2 "SDL_GameControllerGetAxis" compose/deep [
 		gamecontroller [pointer]
 		axis [int32]
 		return: [int16]
-		abi: default
-	] (sdl2) "SDL_GameControllerGetAxis"]
+	]
 
-	GameControllerGetButtonFromString: make routine! compose/deep [[
+	GameControllerGetButtonFromString: make-routine sdl2 "SDL_GameControllerGetButtonFromString" compose/deep [
 		pchString [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GameControllerGetButtonFromString"]
+	]
 
-	GameControllerGetStringForButton: make routine! compose/deep [[
+	GameControllerGetStringForButton: make-routine sdl2 "SDL_GameControllerGetStringForButton" compose/deep [
 		button [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GameControllerGetStringForButton"]
+	]
 
-	GameControllerGetBindForButton: make routine! compose/deep [[
+	GameControllerGetBindForButton: make-routine sdl2 "SDL_GameControllerGetBindForButton" compose/deep [
 		gamecontroller [pointer]
 		button [int32]
 		return: [(SDL_GameControllerButtonBind)]
-		abi: default
-	] (sdl2) "SDL_GameControllerGetBindForButton"]
+	]
 
-	GameControllerGetButton: make routine! compose/deep [[
+	GameControllerGetButton: make-routine sdl2 "SDL_GameControllerGetButton" compose/deep [
 		gamecontroller [pointer]
 		button [int32]
 		return: [uint8]
-		abi: default
-	] (sdl2) "SDL_GameControllerGetButton"]
+	]
 
-	GameControllerClose: make routine! compose/deep [[
+	GameControllerClose: make-routine sdl2 "SDL_GameControllerClose" compose/deep [
 		gamecontroller [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_GameControllerClose"]
+	]
 
-	GetNumTouchDevices: make routine! compose/deep [[
+	GetNumTouchDevices: make-routine sdl2 "SDL_GetNumTouchDevices" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetNumTouchDevices"]
+	]
 
-	GetTouchDevice: make routine! compose/deep [[
+	GetTouchDevice: make-routine sdl2 "SDL_GetTouchDevice" compose/deep [
 		index [int32]
 		return: [int64]
-		abi: default
-	] (sdl2) "SDL_GetTouchDevice"]
+	]
 
-	GetNumTouchFingers: make routine! compose/deep [[
+	GetNumTouchFingers: make-routine sdl2 "SDL_GetNumTouchFingers" compose/deep [
 		touchID [int64]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetNumTouchFingers"]
+	]
 
-	GetTouchFinger: make routine! compose/deep [[
+	GetTouchFinger: make-routine sdl2 "SDL_GetTouchFinger" compose/deep [
 		touchID [int64]
 		index [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetTouchFinger"]
+	]
 
-	RecordGesture: make routine! compose/deep [[
+	RecordGesture: make-routine sdl2 "SDL_RecordGesture" compose/deep [
 		touchId [int64]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_RecordGesture"]
+	]
 
-	SaveAllDollarTemplates: make routine! compose/deep [[
+	SaveAllDollarTemplates: make-routine sdl2 "SDL_SaveAllDollarTemplates" compose/deep [
 		dst [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SaveAllDollarTemplates"]
+	]
 
-	SaveDollarTemplate: make routine! compose/deep [[
+	SaveDollarTemplate: make-routine sdl2 "SDL_SaveDollarTemplate" compose/deep [
 		gestureId [int64]
 		dst [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SaveDollarTemplate"]
+	]
 
-	LoadDollarTemplates: make routine! compose/deep [[
+	LoadDollarTemplates: make-routine sdl2 "SDL_LoadDollarTemplates" compose/deep [
 		touchId [int64]
 		src [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_LoadDollarTemplates"]
+	]
 
-	PumpEvents: make routine! compose/deep [[
+	PumpEvents: make-routine sdl2 "SDL_PumpEvents" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_PumpEvents"]
+	]
 
-	PeepEvents: make routine! compose/deep [[
+	PeepEvents: make-routine sdl2 "SDL_PeepEvents" compose/deep [
 		events [pointer]
 		numevents [int32]
 		action [int32]
 		minType [uint32]
 		maxType [uint32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_PeepEvents"]
+	]
 
-	HasEvent: make routine! compose/deep [[
+	HasEvent: make-routine sdl2 "SDL_HasEvent" compose/deep [
 		type [uint32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HasEvent"]
+	]
 
-	HasEvents: make routine! compose/deep [[
+	HasEvents: make-routine sdl2 "SDL_HasEvents" compose/deep [
 		minType [uint32]
 		maxType [uint32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HasEvents"]
+	]
 
-	FlushEvent: make routine! compose/deep [[
+	FlushEvent: make-routine sdl2 "SDL_FlushEvent" compose/deep [
 		type [uint32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_FlushEvent"]
+	]
 
-	FlushEvents: make routine! compose/deep [[
+	FlushEvents: make-routine sdl2 "SDL_FlushEvents" compose/deep [
 		minType [uint32]
 		maxType [uint32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_FlushEvents"]
+	]
 
-	PollEvent: make routine! compose/deep [[
+	PollEvent: make-routine sdl2 "SDL_PollEvent" compose/deep [
 		event [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_PollEvent"]
+	]
 
-	WaitEvent: make routine! compose/deep [[
+	WaitEvent: make-routine sdl2 "SDL_WaitEvent" compose/deep [
 		event [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_WaitEvent"]
+	]
 
-	WaitEventTimeout: make routine! compose/deep [[
+	WaitEventTimeout: make-routine sdl2 "SDL_WaitEventTimeout" compose/deep [
 		event [pointer]
 		timeout [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_WaitEventTimeout"]
+	]
 
-	PushEvent: make routine! compose/deep [[
+	PushEvent: make-routine sdl2 "SDL_PushEvent" compose/deep [
 		event [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_PushEvent"]
+	]
 
-	SetEventFilter: make routine! compose/deep [[
+	SetEventFilter: make-routine sdl2 "SDL_SetEventFilter" compose/deep [
 		filter [pointer]
 		userdata [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_SetEventFilter"]
+	]
 
-	GetEventFilter: make routine! compose/deep [[
+	GetEventFilter: make-routine sdl2 "SDL_GetEventFilter" compose/deep [
 		filter [pointer]
 		userdata [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetEventFilter"]
+	]
 
-	AddEventWatch: make routine! compose/deep [[
+	AddEventWatch: make-routine sdl2 "SDL_AddEventWatch" compose/deep [
 		filter [pointer]
 		userdata [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_AddEventWatch"]
+	]
 
-	DelEventWatch: make routine! compose/deep [[
+	DelEventWatch: make-routine sdl2 "SDL_DelEventWatch" compose/deep [
 		filter [pointer]
 		userdata [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_DelEventWatch"]
+	]
 
-	FilterEvents: make routine! compose/deep [[
+	FilterEvents: make-routine sdl2 "SDL_FilterEvents" compose/deep [
 		filter [pointer]
 		userdata [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_FilterEvents"]
+	]
 
-	EventState: make routine! compose/deep [[
+	EventState: make-routine sdl2 "SDL_EventState" compose/deep [
 		type [uint32]
 		state [int32]
 		return: [uint8]
-		abi: default
-	] (sdl2) "SDL_EventState"]
+	]
 
-	RegisterEvents: make routine! compose/deep [[
+	RegisterEvents: make-routine sdl2 "SDL_RegisterEvents" compose/deep [
 		numevents [int32]
 		return: [uint32]
-		abi: default
-	] (sdl2) "SDL_RegisterEvents"]
+	]
 
-	GetBasePath: make routine! compose/deep [[
+	GetBasePath: make-routine sdl2 "SDL_GetBasePath" compose/deep [
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetBasePath"]
+	]
 
-	GetPrefPath: make routine! compose/deep [[
+	GetPrefPath: make-routine sdl2 "SDL_GetPrefPath" compose/deep [
 		org [pointer]
 		app [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetPrefPath"]
+	]
 
-	NumHaptics: make routine! compose/deep [[
+	NumHaptics: make-routine sdl2 "SDL_NumHaptics" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_NumHaptics"]
+	]
 
-	HapticName: make routine! compose/deep [[
+	HapticName: make-routine sdl2 "SDL_HapticName" compose/deep [
 		device_index [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_HapticName"]
+	]
 
-	HapticOpen: make routine! compose/deep [[
+	HapticOpen: make-routine sdl2 "SDL_HapticOpen" compose/deep [
 		device_index [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_HapticOpen"]
+	]
 
-	HapticOpened: make routine! compose/deep [[
+	HapticOpened: make-routine sdl2 "SDL_HapticOpened" compose/deep [
 		device_index [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticOpened"]
+	]
 
-	HapticIndex: make routine! compose/deep [[
+	HapticIndex: make-routine sdl2 "SDL_HapticIndex" compose/deep [
 		haptic [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticIndex"]
+	]
 
-	MouseIsHaptic: make routine! compose/deep [[
+	MouseIsHaptic: make-routine sdl2 "SDL_MouseIsHaptic" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_MouseIsHaptic"]
+	]
 
-	HapticOpenFromMouse: make routine! compose/deep [[
+	HapticOpenFromMouse: make-routine sdl2 "SDL_HapticOpenFromMouse" compose/deep [
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_HapticOpenFromMouse"]
+	]
 
-	JoystickIsHaptic: make routine! compose/deep [[
+	JoystickIsHaptic: make-routine sdl2 "SDL_JoystickIsHaptic" compose/deep [
 		joystick [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_JoystickIsHaptic"]
+	]
 
-	HapticOpenFromJoystick: make routine! compose/deep [[
+	HapticOpenFromJoystick: make-routine sdl2 "SDL_HapticOpenFromJoystick" compose/deep [
 		joystick [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_HapticOpenFromJoystick"]
+	]
 
-	HapticClose: make routine! compose/deep [[
+	HapticClose: make-routine sdl2 "SDL_HapticClose" compose/deep [
 		haptic [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_HapticClose"]
+	]
 
-	HapticNumEffects: make routine! compose/deep [[
+	HapticNumEffects: make-routine sdl2 "SDL_HapticNumEffects" compose/deep [
 		haptic [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticNumEffects"]
+	]
 
-	HapticNumEffectsPlaying: make routine! compose/deep [[
+	HapticNumEffectsPlaying: make-routine sdl2 "SDL_HapticNumEffectsPlaying" compose/deep [
 		haptic [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticNumEffectsPlaying"]
+	]
 
-	HapticQuery: make routine! compose/deep [[
+	HapticQuery: make-routine sdl2 "SDL_HapticQuery" compose/deep [
 		haptic [pointer]
 		return: [uint32]
-		abi: default
-	] (sdl2) "SDL_HapticQuery"]
+	]
 
-	HapticNumAxes: make routine! compose/deep [[
+	HapticNumAxes: make-routine sdl2 "SDL_HapticNumAxes" compose/deep [
 		haptic [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticNumAxes"]
+	]
 
-	HapticEffectSupported: make routine! compose/deep [[
+	HapticEffectSupported: make-routine sdl2 "SDL_HapticEffectSupported" compose/deep [
 		haptic [pointer]
 		effect [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticEffectSupported"]
+	]
 
-	HapticNewEffect: make routine! compose/deep [[
+	HapticNewEffect: make-routine sdl2 "SDL_HapticNewEffect" compose/deep [
 		haptic [pointer]
 		effect [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticNewEffect"]
+	]
 
-	HapticUpdateEffect: make routine! compose/deep [[
+	HapticUpdateEffect: make-routine sdl2 "SDL_HapticUpdateEffect" compose/deep [
 		haptic [pointer]
 		effect [int32]
 		data [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticUpdateEffect"]
+	]
 
-	HapticRunEffect: make routine! compose/deep [[
+	HapticRunEffect: make-routine sdl2 "SDL_HapticRunEffect" compose/deep [
 		haptic [pointer]
 		effect [int32]
 		iterations [uint32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticRunEffect"]
+	]
 
-	HapticStopEffect: make routine! compose/deep [[
+	HapticStopEffect: make-routine sdl2 "SDL_HapticStopEffect" compose/deep [
 		haptic [pointer]
 		effect [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticStopEffect"]
+	]
 
-	HapticDestroyEffect: make routine! compose/deep [[
+	HapticDestroyEffect: make-routine sdl2 "SDL_HapticDestroyEffect" compose/deep [
 		haptic [pointer]
 		effect [int32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_HapticDestroyEffect"]
+	]
 
-	HapticGetEffectStatus: make routine! compose/deep [[
+	HapticGetEffectStatus: make-routine sdl2 "SDL_HapticGetEffectStatus" compose/deep [
 		haptic [pointer]
 		effect [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticGetEffectStatus"]
+	]
 
-	HapticSetGain: make routine! compose/deep [[
+	HapticSetGain: make-routine sdl2 "SDL_HapticSetGain" compose/deep [
 		haptic [pointer]
 		gain [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticSetGain"]
+	]
 
-	HapticSetAutocenter: make routine! compose/deep [[
+	HapticSetAutocenter: make-routine sdl2 "SDL_HapticSetAutocenter" compose/deep [
 		haptic [pointer]
 		autocenter [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticSetAutocenter"]
+	]
 
-	HapticPause: make routine! compose/deep [[
+	HapticPause: make-routine sdl2 "SDL_HapticPause" compose/deep [
 		haptic [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticPause"]
+	]
 
-	HapticUnpause: make routine! compose/deep [[
+	HapticUnpause: make-routine sdl2 "SDL_HapticUnpause" compose/deep [
 		haptic [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticUnpause"]
+	]
 
-	HapticStopAll: make routine! compose/deep [[
+	HapticStopAll: make-routine sdl2 "SDL_HapticStopAll" compose/deep [
 		haptic [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticStopAll"]
+	]
 
-	HapticRumbleSupported: make routine! compose/deep [[
+	HapticRumbleSupported: make-routine sdl2 "SDL_HapticRumbleSupported" compose/deep [
 		haptic [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticRumbleSupported"]
+	]
 
-	HapticRumbleInit: make routine! compose/deep [[
+	HapticRumbleInit: make-routine sdl2 "SDL_HapticRumbleInit" compose/deep [
 		haptic [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticRumbleInit"]
+	]
 
-	HapticRumblePlay: make routine! compose/deep [[
+	HapticRumblePlay: make-routine sdl2 "SDL_HapticRumblePlay" compose/deep [
 		haptic [pointer]
 		strength [float]
 		length [uint32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticRumblePlay"]
+	]
 
-	HapticRumbleStop: make routine! compose/deep [[
+	HapticRumbleStop: make-routine sdl2 "SDL_HapticRumbleStop" compose/deep [
 		haptic [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_HapticRumbleStop"]
+	]
 
-	SetHintWithPriority: make routine! compose/deep [[
+	SetHintWithPriority: make-routine sdl2 "SDL_SetHintWithPriority" compose/deep [
 		name [pointer]
 		value [pointer]
 		priority [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetHintWithPriority"]
+	]
 
-	SetHint: make routine! compose/deep [[
+	SetHint: make-routine sdl2 "SDL_SetHint" compose/deep [
 		name [pointer]
 		value [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetHint"]
+	]
 
-	GetHint: make routine! compose/deep [[
+	GetHint: make-routine sdl2 "SDL_GetHint" compose/deep [
 		name [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetHint"]
+	]
 
-	AddHintCallback: make routine! compose/deep [[
+	AddHintCallback: make-routine sdl2 "SDL_AddHintCallback" compose/deep [
 		name [pointer]
 		callback [pointer]
 		userdata [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_AddHintCallback"]
+	]
 
-	DelHintCallback: make routine! compose/deep [[
+	DelHintCallback: make-routine sdl2 "SDL_DelHintCallback" compose/deep [
 		name [pointer]
 		callback [pointer]
 		userdata [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_DelHintCallback"]
+	]
 
-	ClearHints: make routine! compose/deep [[
+	ClearHints: make-routine sdl2 "SDL_ClearHints" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_ClearHints"]
+	]
 
-	LoadObject: make routine! compose/deep [[
+	LoadObject: make-routine sdl2 "SDL_LoadObject" compose/deep [
 		sofile [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_LoadObject"]
+	]
 
-	LoadFunction: make routine! compose/deep [[
+	LoadFunction: make-routine sdl2 "SDL_LoadFunction" compose/deep [
 		handle [pointer]
 		name [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_LoadFunction"]
+	]
 
-	UnloadObject: make routine! compose/deep [[
+	UnloadObject: make-routine sdl2 "SDL_UnloadObject" compose/deep [
 		handle [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_UnloadObject"]
+	]
 
-	LogSetAllPriority: make routine! compose/deep [[
+	LogSetAllPriority: make-routine sdl2 "SDL_LogSetAllPriority" compose/deep [
 		priority [int32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_LogSetAllPriority"]
+	]
 
-	LogSetPriority: make routine! compose/deep [[
+	LogSetPriority: make-routine sdl2 "SDL_LogSetPriority" compose/deep [
 		category [int32]
 		priority [int32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_LogSetPriority"]
+	]
 
-	LogGetPriority: make routine! compose/deep [[
+	LogGetPriority: make-routine sdl2 "SDL_LogGetPriority" compose/deep [
 		category [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_LogGetPriority"]
+	]
 
-	LogResetPriorities: make routine! compose/deep [[
+	LogResetPriorities: make-routine sdl2 "SDL_LogResetPriorities" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_LogResetPriorities"]
+	]
 
-	LogVerbose: make routine! compose/deep [[
+	LogVerbose: make-routine sdl2 "SDL_LogVerbose" compose/deep [
 		category [int32]
 		fmt [pointer]
 		...
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_LogVerbose"]
+	]
 
-	LogDebug: make routine! compose/deep [[
+	LogDebug: make-routine sdl2 "SDL_LogDebug" compose/deep [
 		category [int32]
 		fmt [pointer]
 		...
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_LogDebug"]
+	]
 
-	LogInfo: make routine! compose/deep [[
+	LogInfo: make-routine sdl2 "SDL_LogInfo" compose/deep [
 		category [int32]
 		fmt [pointer]
 		...
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_LogInfo"]
+	]
 
-	LogWarn: make routine! compose/deep [[
+	LogWarn: make-routine sdl2 "SDL_LogWarn" compose/deep [
 		category [int32]
 		fmt [pointer]
 		...
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_LogWarn"]
+	]
 
-	LogError: make routine! compose/deep [[
+	LogError: make-routine sdl2 "SDL_LogError" compose/deep [
 		category [int32]
 		fmt [pointer]
 		...
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_LogError"]
+	]
 
-	LogCritical: make routine! compose/deep [[
+	LogCritical: make-routine sdl2 "SDL_LogCritical" compose/deep [
 		category [int32]
 		fmt [pointer]
 		...
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_LogCritical"]
+	]
 
-	LogMessage: make routine! compose/deep [[
+	LogMessage: make-routine sdl2 "SDL_LogMessage" compose/deep [
 		category [int32]
 		priority [int32]
 		fmt [pointer]
 		...
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_LogMessage"]
+	]
 
-	LogMessageV: make routine! compose/deep [[
+	LogMessageV: make-routine sdl2 "SDL_LogMessageV" compose/deep [
 		category [int32]
 		priority [int32]
 		fmt [pointer]
 		ap [int32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_LogMessageV"]
+	]
 
-	LogGetOutputFunction: make routine! compose/deep [[
+	LogGetOutputFunction: make-routine sdl2 "SDL_LogGetOutputFunction" compose/deep [
 		callback [pointer]
 		userdata [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_LogGetOutputFunction"]
+	]
 
-	LogSetOutputFunction: make routine! compose/deep [[
+	LogSetOutputFunction: make-routine sdl2 "SDL_LogSetOutputFunction" compose/deep [
 		callback [pointer]
 		userdata [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_LogSetOutputFunction"]
+	]
 
-	ShowMessageBox: make routine! compose/deep [[
+	ShowMessageBox: make-routine sdl2 "SDL_ShowMessageBox" compose/deep [
 		messageboxdata [pointer]
 		buttonid [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_ShowMessageBox"]
+	]
 
-	ShowSimpleMessageBox: make routine! compose/deep [[
+	ShowSimpleMessageBox: make-routine sdl2 "SDL_ShowSimpleMessageBox" compose/deep [
 		flags [uint32]
 		title [pointer]
 		message [pointer]
 		window [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_ShowSimpleMessageBox"]
+	]
 
-	GetPowerInfo: make routine! compose/deep [[
+	GetPowerInfo: make-routine sdl2 "SDL_GetPowerInfo" compose/deep [
 		secs [pointer]
 		pct [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetPowerInfo"]
+	]
 
-	GetNumRenderDrivers: make routine! compose/deep [[
+	GetNumRenderDrivers: make-routine sdl2 "SDL_GetNumRenderDrivers" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetNumRenderDrivers"]
+	]
 
-	GetRenderDriverInfo: make routine! compose/deep [[
+	GetRenderDriverInfo: make-routine sdl2 "SDL_GetRenderDriverInfo" compose/deep [
 		index [int32]
 		info [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetRenderDriverInfo"]
+	]
 
-	CreateWindowAndRenderer: make routine! compose/deep [[
+	CreateWindowAndRenderer: make-routine sdl2 "SDL_CreateWindowAndRenderer" compose/deep [
 		width [int32]
 		height [int32]
 		window_flags [uint32]
 		window [pointer]
 		renderer [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_CreateWindowAndRenderer"]
+	]
 
-	CreateRenderer: make routine! compose/deep [[
+	CreateRenderer: make-routine sdl2 "SDL_CreateRenderer" compose/deep [
 		window [pointer]
 		index [int32]
 		flags [uint32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_CreateRenderer"]
+	]
 
-	CreateSoftwareRenderer: make routine! compose/deep [[
+	CreateSoftwareRenderer: make-routine sdl2 "SDL_CreateSoftwareRenderer" compose/deep [
 		surface [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_CreateSoftwareRenderer"]
+	]
 
-	GetRenderer: make routine! compose/deep [[
+	GetRenderer: make-routine sdl2 "SDL_GetRenderer" compose/deep [
 		window [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetRenderer"]
+	]
 
-	GetRendererInfo: make routine! compose/deep [[
+	GetRendererInfo: make-routine sdl2 "SDL_GetRendererInfo" compose/deep [
 		renderer [pointer]
 		info [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetRendererInfo"]
+	]
 
-	GetRendererOutputSize: make routine! compose/deep [[
+	GetRendererOutputSize: make-routine sdl2 "SDL_GetRendererOutputSize" compose/deep [
 		renderer [pointer]
 		w [pointer]
 		h [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetRendererOutputSize"]
+	]
 
-	CreateTexture: make routine! compose/deep [[
+	CreateTexture: make-routine sdl2 "SDL_CreateTexture" compose/deep [
 		renderer [pointer]
 		format [uint32]
 		access [int32]
 		w [int32]
 		h [int32]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_CreateTexture"]
+	]
 
-	CreateTextureFromSurface: make routine! compose/deep [[
+	CreateTextureFromSurface: make-routine sdl2 "SDL_CreateTextureFromSurface" compose/deep [
 		renderer [pointer]
 		surface [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_CreateTextureFromSurface"]
+	]
 
-	QueryTexture: make routine! compose/deep [[
+	QueryTexture: make-routine sdl2 "SDL_QueryTexture" compose/deep [
 		texture [pointer]
 		format [pointer]
 		access [pointer]
 		w [pointer]
 		h [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_QueryTexture"]
+	]
 
-	SetTextureColorMod: make routine! compose/deep [[
+	SetTextureColorMod: make-routine sdl2 "SDL_SetTextureColorMod" compose/deep [
 		texture [pointer]
 		r [uint8]
 		g [uint8]
 		b [uint8]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetTextureColorMod"]
+	]
 
-	GetTextureColorMod: make routine! compose/deep [[
+	GetTextureColorMod: make-routine sdl2 "SDL_GetTextureColorMod" compose/deep [
 		texture [pointer]
 		r [pointer]
 		g [pointer]
 		b [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetTextureColorMod"]
+	]
 
-	SetTextureAlphaMod: make routine! compose/deep [[
+	SetTextureAlphaMod: make-routine sdl2 "SDL_SetTextureAlphaMod" compose/deep [
 		texture [pointer]
 		alpha [uint8]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetTextureAlphaMod"]
+	]
 
-	GetTextureAlphaMod: make routine! compose/deep [[
+	GetTextureAlphaMod: make-routine sdl2 "SDL_GetTextureAlphaMod" compose/deep [
 		texture [pointer]
 		alpha [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetTextureAlphaMod"]
+	]
 
-	SetTextureBlendMode: make routine! compose/deep [[
+	SetTextureBlendMode: make-routine sdl2 "SDL_SetTextureBlendMode" compose/deep [
 		texture [pointer]
 		blendMode [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetTextureBlendMode"]
+	]
 
-	GetTextureBlendMode: make routine! compose/deep [[
+	GetTextureBlendMode: make-routine sdl2 "SDL_GetTextureBlendMode" compose/deep [
 		texture [pointer]
 		blendMode [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetTextureBlendMode"]
+	]
 
-	UpdateTexture: make routine! compose/deep [[
+	UpdateTexture: make-routine sdl2 "SDL_UpdateTexture" compose/deep [
 		texture [pointer]
 		rect [pointer]
 		pixels [pointer]
 		pitch [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_UpdateTexture"]
+	]
 
-	UpdateYUVTexture: make routine! compose/deep [[
+	UpdateYUVTexture: make-routine sdl2 "SDL_UpdateYUVTexture" compose/deep [
 		texture [pointer]
 		rect [pointer]
 		Yplane [pointer]
@@ -4228,217 +3753,189 @@ make object! [
 		Vplane [pointer]
 		Vpitch [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_UpdateYUVTexture"]
+	]
 
-	LockTexture: make routine! compose/deep [[
+	LockTexture: make-routine sdl2 "SDL_LockTexture" compose/deep [
 		texture [pointer]
 		rect [pointer]
 		pixels [pointer]
 		pitch [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_LockTexture"]
+	]
 
-	UnlockTexture: make routine! compose/deep [[
+	UnlockTexture: make-routine sdl2 "SDL_UnlockTexture" compose/deep [
 		texture [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_UnlockTexture"]
+	]
 
-	RenderTargetSupported: make routine! compose/deep [[
+	RenderTargetSupported: make-routine sdl2 "SDL_RenderTargetSupported" compose/deep [
 		renderer [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_RenderTargetSupported"]
+	]
 
-	SetRenderTarget: make routine! compose/deep [[
+	SetRenderTarget: make-routine sdl2 "SDL_SetRenderTarget" compose/deep [
 		renderer [pointer]
 		texture [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetRenderTarget"]
+	]
 
-	GetRenderTarget: make routine! compose/deep [[
+	GetRenderTarget: make-routine sdl2 "SDL_GetRenderTarget" compose/deep [
 		renderer [pointer]
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetRenderTarget"]
+	]
 
-	RenderSetLogicalSize: make routine! compose/deep [[
+	RenderSetLogicalSize: make-routine sdl2 "SDL_RenderSetLogicalSize" compose/deep [
 		renderer [pointer]
 		w [int32]
 		h [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_RenderSetLogicalSize"]
+	]
 
-	RenderGetLogicalSize: make routine! compose/deep [[
+	RenderGetLogicalSize: make-routine sdl2 "SDL_RenderGetLogicalSize" compose/deep [
 		renderer [pointer]
 		w [pointer]
 		h [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_RenderGetLogicalSize"]
+	]
 
-	RenderSetViewport: make routine! compose/deep [[
+	RenderSetViewport: make-routine sdl2 "SDL_RenderSetViewport" compose/deep [
 		renderer [pointer]
 		rect [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_RenderSetViewport"]
+	]
 
-	RenderGetViewport: make routine! compose/deep [[
+	RenderGetViewport: make-routine sdl2 "SDL_RenderGetViewport" compose/deep [
 		renderer [pointer]
 		rect [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_RenderGetViewport"]
+	]
 
-	RenderSetClipRect: make routine! compose/deep [[
+	RenderSetClipRect: make-routine sdl2 "SDL_RenderSetClipRect" compose/deep [
 		renderer [pointer]
 		rect [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_RenderSetClipRect"]
+	]
 
-	RenderGetClipRect: make routine! compose/deep [[
+	RenderGetClipRect: make-routine sdl2 "SDL_RenderGetClipRect" compose/deep [
 		renderer [pointer]
 		rect [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_RenderGetClipRect"]
+	]
 
-	RenderSetScale: make routine! compose/deep [[
+	RenderSetScale: make-routine sdl2 "SDL_RenderSetScale" compose/deep [
 		renderer [pointer]
 		scaleX [float]
 		scaleY [float]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_RenderSetScale"]
+	]
 
-	RenderGetScale: make routine! compose/deep [[
+	RenderGetScale: make-routine sdl2 "SDL_RenderGetScale" compose/deep [
 		renderer [pointer]
 		scaleX [pointer]
 		scaleY [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_RenderGetScale"]
+	]
 
-	SetRenderDrawColor: make routine! compose/deep [[
+	SetRenderDrawColor: make-routine sdl2 "SDL_SetRenderDrawColor" compose/deep [
 		renderer [pointer]
 		r [uint8]
 		g [uint8]
 		b [uint8]
 		a [uint8]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetRenderDrawColor"]
+	]
 
-	GetRenderDrawColor: make routine! compose/deep [[
+	GetRenderDrawColor: make-routine sdl2 "SDL_GetRenderDrawColor" compose/deep [
 		renderer [pointer]
 		r [pointer]
 		g [pointer]
 		b [pointer]
 		a [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetRenderDrawColor"]
+	]
 
-	SetRenderDrawBlendMode: make routine! compose/deep [[
+	SetRenderDrawBlendMode: make-routine sdl2 "SDL_SetRenderDrawBlendMode" compose/deep [
 		renderer [pointer]
 		blendMode [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_SetRenderDrawBlendMode"]
+	]
 
-	GetRenderDrawBlendMode: make routine! compose/deep [[
+	GetRenderDrawBlendMode: make-routine sdl2 "SDL_GetRenderDrawBlendMode" compose/deep [
 		renderer [pointer]
 		blendMode [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetRenderDrawBlendMode"]
+	]
 
-	RenderClear: make routine! compose/deep [[
+	RenderClear: make-routine sdl2 "SDL_RenderClear" compose/deep [
 		renderer [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_RenderClear"]
+	]
 
-	RenderDrawPoint: make routine! compose/deep [[
+	RenderDrawPoint: make-routine sdl2 "SDL_RenderDrawPoint" compose/deep [
 		renderer [pointer]
 		x [int32]
 		y [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_RenderDrawPoint"]
+	]
 
-	RenderDrawPoints: make routine! compose/deep [[
+	RenderDrawPoints: make-routine sdl2 "SDL_RenderDrawPoints" compose/deep [
 		renderer [pointer]
 		points [pointer]
 		count [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_RenderDrawPoints"]
+	]
 
-	RenderDrawLine: make routine! compose/deep [[
+	RenderDrawLine: make-routine sdl2 "SDL_RenderDrawLine" compose/deep [
 		renderer [pointer]
 		x1 [int32]
 		y1 [int32]
 		x2 [int32]
 		y2 [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_RenderDrawLine"]
+	]
 
-	RenderDrawLines: make routine! compose/deep [[
+	RenderDrawLines: make-routine sdl2 "SDL_RenderDrawLines" compose/deep [
 		renderer [pointer]
 		points [pointer]
 		count [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_RenderDrawLines"]
+	]
 
-	RenderDrawRect: make routine! compose/deep [[
+	RenderDrawRect: make-routine sdl2 "SDL_RenderDrawRect" compose/deep [
 		renderer [pointer]
 		rect [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_RenderDrawRect"]
+	]
 
-	RenderDrawRects: make routine! compose/deep [[
+	RenderDrawRects: make-routine sdl2 "SDL_RenderDrawRects" compose/deep [
 		renderer [pointer]
 		rects [pointer]
 		count [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_RenderDrawRects"]
+	]
 
-	RenderFillRect: make routine! compose/deep [[
+	RenderFillRect: make-routine sdl2 "SDL_RenderFillRect" compose/deep [
 		renderer [pointer]
 		rect [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_RenderFillRect"]
+	]
 
-	RenderFillRects: make routine! compose/deep [[
+	RenderFillRects: make-routine sdl2 "SDL_RenderFillRects" compose/deep [
 		renderer [pointer]
 		rects [pointer]
 		count [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_RenderFillRects"]
+	]
 
-	RenderCopy: make routine! compose/deep [[
+	RenderCopy: make-routine sdl2 "SDL_RenderCopy" compose/deep [
 		renderer [pointer]
 		texture [pointer]
 		srcrect [pointer]
 		dstrect [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_RenderCopy"]
+	]
 
-	RenderCopyEx: make routine! compose/deep [[
+	RenderCopyEx: make-routine sdl2 "SDL_RenderCopyEx" compose/deep [
 		renderer [pointer]
 		texture [pointer]
 		srcrect [pointer]
@@ -4447,130 +3944,109 @@ make object! [
 		center [pointer]
 		flip [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_RenderCopyEx"]
+	]
 
-	RenderReadPixels: make routine! compose/deep [[
+	RenderReadPixels: make-routine sdl2 "SDL_RenderReadPixels" compose/deep [
 		renderer [pointer]
 		rect [pointer]
 		format [uint32]
 		pixels [pointer]
 		pitch [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_RenderReadPixels"]
+	]
 
-	RenderPresent: make routine! compose/deep [[
+	RenderPresent: make-routine sdl2 "SDL_RenderPresent" compose/deep [
 		renderer [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_RenderPresent"]
+	]
 
-	DestroyTexture: make routine! compose/deep [[
+	DestroyTexture: make-routine sdl2 "SDL_DestroyTexture" compose/deep [
 		texture [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_DestroyTexture"]
+	]
 
-	DestroyRenderer: make routine! compose/deep [[
+	DestroyRenderer: make-routine sdl2 "SDL_DestroyRenderer" compose/deep [
 		renderer [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_DestroyRenderer"]
+	]
 
-	GL_BindTexture: make routine! compose/deep [[
+	GL_BindTexture: make-routine sdl2 "SDL_GL_BindTexture" compose/deep [
 		texture [pointer]
 		texw [pointer]
 		texh [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GL_BindTexture"]
+	]
 
-	GL_UnbindTexture: make routine! compose/deep [[
+	GL_UnbindTexture: make-routine sdl2 "SDL_GL_UnbindTexture" compose/deep [
 		texture [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GL_UnbindTexture"]
+	]
 
-	GetTicks: make routine! compose/deep [[
+	GetTicks: make-routine sdl2 "SDL_GetTicks" compose/deep [
 		return: [uint32]
-		abi: default
-	] (sdl2) "SDL_GetTicks"]
+	]
 
-	GetPerformanceCounter: make routine! compose/deep [[
+	GetPerformanceCounter: make-routine sdl2 "SDL_GetPerformanceCounter" compose/deep [
 		return: [uint64]
-		abi: default
-	] (sdl2) "SDL_GetPerformanceCounter"]
+	]
 
-	GetPerformanceFrequency: make routine! compose/deep [[
+	GetPerformanceFrequency: make-routine sdl2 "SDL_GetPerformanceFrequency" compose/deep [
 		return: [uint64]
-		abi: default
-	] (sdl2) "SDL_GetPerformanceFrequency"]
+	]
 
-	Delay: make routine! compose/deep [[
+	Delay: make-routine sdl2 "SDL_Delay" compose/deep [
 		ms [uint32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_Delay"]
+	]
 
-	AddTimer: make routine! compose/deep [[
+	AddTimer: make-routine sdl2 "SDL_AddTimer" compose/deep [
 		interval [uint32]
 		callback [pointer]
 		param [pointer]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_AddTimer"]
+	]
 
-	RemoveTimer: make routine! compose/deep [[
+	RemoveTimer: make-routine sdl2 "SDL_RemoveTimer" compose/deep [
 		id [int32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_RemoveTimer"]
+	]
 
-	GetVersion: make routine! compose/deep [[
+	GetVersion: make-routine sdl2 "SDL_GetVersion" compose/deep [
 		ver [pointer]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_GetVersion"]
+	]
 
-	GetRevision: make routine! compose/deep [[
+	GetRevision: make-routine sdl2 "SDL_GetRevision" compose/deep [
 		return: [pointer]
-		abi: default
-	] (sdl2) "SDL_GetRevision"]
+	]
 
-	GetRevisionNumber: make routine! compose/deep [[
+	GetRevisionNumber: make-routine sdl2 "SDL_GetRevisionNumber" compose/deep [
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_GetRevisionNumber"]
+	]
 
-	Init: make routine! compose/deep [[
+	Init: make-routine sdl2 "SDL_Init" compose/deep [
 		flags [uint32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_Init"]
+	]
 
-	InitSubSystem: make routine! compose/deep [[
+	InitSubSystem: make-routine sdl2 "SDL_InitSubSystem" compose/deep [
 		flags [uint32]
 		return: [int32]
-		abi: default
-	] (sdl2) "SDL_InitSubSystem"]
+	]
 
-	QuitSubSystem: make routine! compose/deep [[
+	QuitSubSystem: make-routine sdl2 "SDL_QuitSubSystem" compose/deep [
 		flags [uint32]
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_QuitSubSystem"]
+	]
 
-	WasInit: make routine! compose/deep [[
+	WasInit: make-routine sdl2 "SDL_WasInit" compose/deep [
 		flags [uint32]
 		return: [uint32]
-		abi: default
-	] (sdl2) "SDL_WasInit"]
+	]
 
-	Quit: make routine! compose/deep [[
+	Quit: make-routine sdl2 "SDL_Quit" compose/deep [
 		return: [void]
-		abi: default
-	] (sdl2) "SDL_Quit"]
+	]
 
 
 

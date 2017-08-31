@@ -250,297 +250,256 @@ make object! [
 	]
 
 	cairo: make library! %libcairo.so
-	version: make routine! compose/deep [[
+	version: make-routine cairo "cairo_version" compose/deep [
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_version"]
+	]
 
-	version_string: make routine! compose/deep [[
+	version_string: make-routine cairo "cairo_version_string" compose/deep [
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_version_string"]
+	]
 
-	create: make routine! compose/deep [[
+	create: make-routine cairo "cairo_create" compose/deep [
 		target [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_create"]
+	]
 
-	reference: make routine! compose/deep [[
+	reference: make-routine cairo "cairo_reference" compose/deep [
 		cr [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_reference"]
+	]
 
-	destroy: make routine! compose/deep [[
+	destroy: make-routine cairo "cairo_destroy" compose/deep [
 		cr [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_destroy"]
+	]
 
-	get_reference_count: make routine! compose/deep [[
+	get_reference_count: make-routine cairo "cairo_get_reference_count" compose/deep [
 		cr [pointer]
 		return: [uint32]
-		abi: default
-	] (cairo) "cairo_get_reference_count"]
+	]
 
-	get_user_data: make routine! compose/deep [[
+	get_user_data: make-routine cairo "cairo_get_user_data" compose/deep [
 		cr [pointer]
 		key [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_get_user_data"]
+	]
 
-	set_user_data: make routine! compose/deep [[
+	set_user_data: make-routine cairo "cairo_set_user_data" compose/deep [
 		cr [pointer]
 		key [pointer]
 		user_data [pointer]
 		destroy [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_set_user_data"]
+	]
 
-	save: make routine! compose/deep [[
+	save: make-routine cairo "cairo_save" compose/deep [
 		cr [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_save"]
+	]
 
-	restore: make routine! compose/deep [[
+	restore: make-routine cairo "cairo_restore" compose/deep [
 		cr [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_restore"]
+	]
 
-	push_group: make routine! compose/deep [[
+	push_group: make-routine cairo "cairo_push_group" compose/deep [
 		cr [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_push_group"]
+	]
 
-	push_group_with_content: make routine! compose/deep [[
+	push_group_with_content: make-routine cairo "cairo_push_group_with_content" compose/deep [
 		cr [pointer]
 		content [int32]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_push_group_with_content"]
+	]
 
-	pop_group: make routine! compose/deep [[
+	pop_group: make-routine cairo "cairo_pop_group" compose/deep [
 		cr [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_pop_group"]
+	]
 
-	pop_group_to_source: make routine! compose/deep [[
+	pop_group_to_source: make-routine cairo "cairo_pop_group_to_source" compose/deep [
 		cr [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_pop_group_to_source"]
+	]
 
-	set_operator: make routine! compose/deep [[
+	set_operator: make-routine cairo "cairo_set_operator" compose/deep [
 		cr [pointer]
 		op [int32]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_set_operator"]
+	]
 
-	set_source: make routine! compose/deep [[
+	set_source: make-routine cairo "cairo_set_source" compose/deep [
 		cr [pointer]
 		source [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_set_source"]
+	]
 
-	set_source_rgb: make routine! compose/deep [[
+	set_source_rgb: make-routine cairo "cairo_set_source_rgb" compose/deep [
 		cr [pointer]
 		red [double]
 		green [double]
 		blue [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_set_source_rgb"]
+	]
 
-	set_source_rgba: make routine! compose/deep [[
+	set_source_rgba: make-routine cairo "cairo_set_source_rgba" compose/deep [
 		cr [pointer]
 		red [double]
 		green [double]
 		blue [double]
 		alpha [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_set_source_rgba"]
+	]
 
-	set_source_surface: make routine! compose/deep [[
+	set_source_surface: make-routine cairo "cairo_set_source_surface" compose/deep [
 		cr [pointer]
 		surface [pointer]
 		x [double]
 		y [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_set_source_surface"]
+	]
 
-	set_tolerance: make routine! compose/deep [[
+	set_tolerance: make-routine cairo "cairo_set_tolerance" compose/deep [
 		cr [pointer]
 		tolerance [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_set_tolerance"]
+	]
 
-	set_antialias: make routine! compose/deep [[
+	set_antialias: make-routine cairo "cairo_set_antialias" compose/deep [
 		cr [pointer]
 		antialias [int32]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_set_antialias"]
+	]
 
-	set_fill_rule: make routine! compose/deep [[
+	set_fill_rule: make-routine cairo "cairo_set_fill_rule" compose/deep [
 		cr [pointer]
 		fill_rule [int32]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_set_fill_rule"]
+	]
 
-	set_line_width: make routine! compose/deep [[
+	set_line_width: make-routine cairo "cairo_set_line_width" compose/deep [
 		cr [pointer]
 		width [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_set_line_width"]
+	]
 
-	set_line_cap: make routine! compose/deep [[
+	set_line_cap: make-routine cairo "cairo_set_line_cap" compose/deep [
 		cr [pointer]
 		line_cap [int32]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_set_line_cap"]
+	]
 
-	set_line_join: make routine! compose/deep [[
+	set_line_join: make-routine cairo "cairo_set_line_join" compose/deep [
 		cr [pointer]
 		line_join [int32]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_set_line_join"]
+	]
 
-	set_dash: make routine! compose/deep [[
+	set_dash: make-routine cairo "cairo_set_dash" compose/deep [
 		cr [pointer]
 		dashes [pointer]
 		num_dashes [int32]
 		offset [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_set_dash"]
+	]
 
-	set_miter_limit: make routine! compose/deep [[
+	set_miter_limit: make-routine cairo "cairo_set_miter_limit" compose/deep [
 		cr [pointer]
 		limit [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_set_miter_limit"]
+	]
 
-	translate: make routine! compose/deep [[
+	translate: make-routine cairo "cairo_translate" compose/deep [
 		cr [pointer]
 		tx [double]
 		ty [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_translate"]
+	]
 
-	scale: make routine! compose/deep [[
+	scale: make-routine cairo "cairo_scale" compose/deep [
 		cr [pointer]
 		sx [double]
 		sy [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_scale"]
+	]
 
-	rotate: make routine! compose/deep [[
+	rotate: make-routine cairo "cairo_rotate" compose/deep [
 		cr [pointer]
 		angle [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_rotate"]
+	]
 
-	transform: make routine! compose/deep [[
+	transform: make-routine cairo "cairo_transform" compose/deep [
 		cr [pointer]
 		matrix [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_transform"]
+	]
 
-	set_matrix: make routine! compose/deep [[
+	set_matrix: make-routine cairo "cairo_set_matrix" compose/deep [
 		cr [pointer]
 		matrix [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_set_matrix"]
+	]
 
-	identity_matrix: make routine! compose/deep [[
+	identity_matrix: make-routine cairo "cairo_identity_matrix" compose/deep [
 		cr [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_identity_matrix"]
+	]
 
-	user_to_device: make routine! compose/deep [[
+	user_to_device: make-routine cairo "cairo_user_to_device" compose/deep [
 		cr [pointer]
 		x [pointer]
 		y [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_user_to_device"]
+	]
 
-	user_to_device_distance: make routine! compose/deep [[
+	user_to_device_distance: make-routine cairo "cairo_user_to_device_distance" compose/deep [
 		cr [pointer]
 		dx [pointer]
 		dy [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_user_to_device_distance"]
+	]
 
-	device_to_user: make routine! compose/deep [[
+	device_to_user: make-routine cairo "cairo_device_to_user" compose/deep [
 		cr [pointer]
 		x [pointer]
 		y [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_device_to_user"]
+	]
 
-	device_to_user_distance: make routine! compose/deep [[
+	device_to_user_distance: make-routine cairo "cairo_device_to_user_distance" compose/deep [
 		cr [pointer]
 		dx [pointer]
 		dy [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_device_to_user_distance"]
+	]
 
-	new_path: make routine! compose/deep [[
+	new_path: make-routine cairo "cairo_new_path" compose/deep [
 		cr [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_new_path"]
+	]
 
-	move_to: make routine! compose/deep [[
+	move_to: make-routine cairo "cairo_move_to" compose/deep [
 		cr [pointer]
 		x [double]
 		y [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_move_to"]
+	]
 
-	new_sub_path: make routine! compose/deep [[
+	new_sub_path: make-routine cairo "cairo_new_sub_path" compose/deep [
 		cr [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_new_sub_path"]
+	]
 
-	line_to: make routine! compose/deep [[
+	line_to: make-routine cairo "cairo_line_to" compose/deep [
 		cr [pointer]
 		x [double]
 		y [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_line_to"]
+	]
 
-	curve_to: make routine! compose/deep [[
+	curve_to: make-routine cairo "cairo_curve_to" compose/deep [
 		cr [pointer]
 		x1 [double]
 		y1 [double]
@@ -549,10 +508,9 @@ make object! [
 		x3 [double]
 		y3 [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_curve_to"]
+	]
 
-	arc: make routine! compose/deep [[
+	arc: make-routine cairo "cairo_arc" compose/deep [
 		cr [pointer]
 		xc [double]
 		yc [double]
@@ -560,10 +518,9 @@ make object! [
 		angle1 [double]
 		angle2 [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_arc"]
+	]
 
-	arc_negative: make routine! compose/deep [[
+	arc_negative: make-routine cairo "cairo_arc_negative" compose/deep [
 		cr [pointer]
 		xc [double]
 		yc [double]
@@ -571,26 +528,23 @@ make object! [
 		angle1 [double]
 		angle2 [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_arc_negative"]
+	]
 
-	rel_move_to: make routine! compose/deep [[
+	rel_move_to: make-routine cairo "cairo_rel_move_to" compose/deep [
 		cr [pointer]
 		dx [double]
 		dy [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_rel_move_to"]
+	]
 
-	rel_line_to: make routine! compose/deep [[
+	rel_line_to: make-routine cairo "cairo_rel_line_to" compose/deep [
 		cr [pointer]
 		dx [double]
 		dy [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_rel_line_to"]
+	]
 
-	rel_curve_to: make routine! compose/deep [[
+	rel_curve_to: make-routine cairo "cairo_rel_curve_to" compose/deep [
 		cr [pointer]
 		dx1 [double]
 		dy1 [double]
@@ -599,389 +553,333 @@ make object! [
 		dx3 [double]
 		dy3 [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_rel_curve_to"]
+	]
 
-	rectangle: make routine! compose/deep [[
+	rectangle: make-routine cairo "cairo_rectangle" compose/deep [
 		cr [pointer]
 		x [double]
 		y [double]
 		width [double]
 		height [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_rectangle"]
+	]
 
-	close_path: make routine! compose/deep [[
+	close_path: make-routine cairo "cairo_close_path" compose/deep [
 		cr [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_close_path"]
+	]
 
-	path_extents: make routine! compose/deep [[
+	path_extents: make-routine cairo "cairo_path_extents" compose/deep [
 		cr [pointer]
 		x1 [pointer]
 		y1 [pointer]
 		x2 [pointer]
 		y2 [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_path_extents"]
+	]
 
-	paint: make routine! compose/deep [[
+	paint: make-routine cairo "cairo_paint" compose/deep [
 		cr [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_paint"]
+	]
 
-	paint_with_alpha: make routine! compose/deep [[
+	paint_with_alpha: make-routine cairo "cairo_paint_with_alpha" compose/deep [
 		cr [pointer]
 		alpha [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_paint_with_alpha"]
+	]
 
-	mask: make routine! compose/deep [[
+	mask: make-routine cairo "cairo_mask" compose/deep [
 		cr [pointer]
 		pattern [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_mask"]
+	]
 
-	mask_surface: make routine! compose/deep [[
+	mask_surface: make-routine cairo "cairo_mask_surface" compose/deep [
 		cr [pointer]
 		surface [pointer]
 		surface_x [double]
 		surface_y [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_mask_surface"]
+	]
 
-	stroke: make routine! compose/deep [[
+	stroke: make-routine cairo "cairo_stroke" compose/deep [
 		cr [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_stroke"]
+	]
 
-	stroke_preserve: make routine! compose/deep [[
+	stroke_preserve: make-routine cairo "cairo_stroke_preserve" compose/deep [
 		cr [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_stroke_preserve"]
+	]
 
-	fill: make routine! compose/deep [[
+	fill: make-routine cairo "cairo_fill" compose/deep [
 		cr [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_fill"]
+	]
 
-	fill_preserve: make routine! compose/deep [[
+	fill_preserve: make-routine cairo "cairo_fill_preserve" compose/deep [
 		cr [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_fill_preserve"]
+	]
 
-	copy_page: make routine! compose/deep [[
+	copy_page: make-routine cairo "cairo_copy_page" compose/deep [
 		cr [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_copy_page"]
+	]
 
-	show_page: make routine! compose/deep [[
+	show_page: make-routine cairo "cairo_show_page" compose/deep [
 		cr [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_show_page"]
+	]
 
-	in_stroke: make routine! compose/deep [[
+	in_stroke: make-routine cairo "cairo_in_stroke" compose/deep [
 		cr [pointer]
 		x [double]
 		y [double]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_in_stroke"]
+	]
 
-	in_fill: make routine! compose/deep [[
+	in_fill: make-routine cairo "cairo_in_fill" compose/deep [
 		cr [pointer]
 		x [double]
 		y [double]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_in_fill"]
+	]
 
-	in_clip: make routine! compose/deep [[
+	in_clip: make-routine cairo "cairo_in_clip" compose/deep [
 		cr [pointer]
 		x [double]
 		y [double]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_in_clip"]
+	]
 
-	stroke_extents: make routine! compose/deep [[
+	stroke_extents: make-routine cairo "cairo_stroke_extents" compose/deep [
 		cr [pointer]
 		x1 [pointer]
 		y1 [pointer]
 		x2 [pointer]
 		y2 [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_stroke_extents"]
+	]
 
-	fill_extents: make routine! compose/deep [[
+	fill_extents: make-routine cairo "cairo_fill_extents" compose/deep [
 		cr [pointer]
 		x1 [pointer]
 		y1 [pointer]
 		x2 [pointer]
 		y2 [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_fill_extents"]
+	]
 
-	reset_clip: make routine! compose/deep [[
+	reset_clip: make-routine cairo "cairo_reset_clip" compose/deep [
 		cr [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_reset_clip"]
+	]
 
-	clip: make routine! compose/deep [[
+	clip: make-routine cairo "cairo_clip" compose/deep [
 		cr [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_clip"]
+	]
 
-	clip_preserve: make routine! compose/deep [[
+	clip_preserve: make-routine cairo "cairo_clip_preserve" compose/deep [
 		cr [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_clip_preserve"]
+	]
 
-	clip_extents: make routine! compose/deep [[
+	clip_extents: make-routine cairo "cairo_clip_extents" compose/deep [
 		cr [pointer]
 		x1 [pointer]
 		y1 [pointer]
 		x2 [pointer]
 		y2 [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_clip_extents"]
+	]
 
-	copy_clip_rectangle_list: make routine! compose/deep [[
+	copy_clip_rectangle_list: make-routine cairo "cairo_copy_clip_rectangle_list" compose/deep [
 		cr [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_copy_clip_rectangle_list"]
+	]
 
-	rectangle_list_destroy: make routine! compose/deep [[
+	rectangle_list_destroy: make-routine cairo "cairo_rectangle_list_destroy" compose/deep [
 		rectangle_list [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_rectangle_list_destroy"]
+	]
 
-	glyph_allocate: make routine! compose/deep [[
+	glyph_allocate: make-routine cairo "cairo_glyph_allocate" compose/deep [
 		num_glyphs [int32]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_glyph_allocate"]
+	]
 
-	glyph_free: make routine! compose/deep [[
+	glyph_free: make-routine cairo "cairo_glyph_free" compose/deep [
 		glyphs [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_glyph_free"]
+	]
 
-	text_cluster_allocate: make routine! compose/deep [[
+	text_cluster_allocate: make-routine cairo "cairo_text_cluster_allocate" compose/deep [
 		num_clusters [int32]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_text_cluster_allocate"]
+	]
 
-	text_cluster_free: make routine! compose/deep [[
+	text_cluster_free: make-routine cairo "cairo_text_cluster_free" compose/deep [
 		clusters [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_text_cluster_free"]
+	]
 
-	font_options_create: make routine! compose/deep [[
+	font_options_create: make-routine cairo "cairo_font_options_create" compose/deep [
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_font_options_create"]
+	]
 
-	font_options_copy: make routine! compose/deep [[
+	font_options_copy: make-routine cairo "cairo_font_options_copy" compose/deep [
 		original [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_font_options_copy"]
+	]
 
-	font_options_destroy: make routine! compose/deep [[
+	font_options_destroy: make-routine cairo "cairo_font_options_destroy" compose/deep [
 		options [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_font_options_destroy"]
+	]
 
-	font_options_status: make routine! compose/deep [[
+	font_options_status: make-routine cairo "cairo_font_options_status" compose/deep [
 		options [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_font_options_status"]
+	]
 
-	font_options_merge: make routine! compose/deep [[
+	font_options_merge: make-routine cairo "cairo_font_options_merge" compose/deep [
 		options [pointer]
 		other [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_font_options_merge"]
+	]
 
-	font_options_equal: make routine! compose/deep [[
+	font_options_equal: make-routine cairo "cairo_font_options_equal" compose/deep [
 		options [pointer]
 		other [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_font_options_equal"]
+	]
 
-	font_options_hash: make routine! compose/deep [[
+	font_options_hash: make-routine cairo "cairo_font_options_hash" compose/deep [
 		options [pointer]
 		return: [uint64]
-		abi: default
-	] (cairo) "cairo_font_options_hash"]
+	]
 
-	font_options_set_antialias: make routine! compose/deep [[
+	font_options_set_antialias: make-routine cairo "cairo_font_options_set_antialias" compose/deep [
 		options [pointer]
 		antialias [int32]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_font_options_set_antialias"]
+	]
 
-	font_options_get_antialias: make routine! compose/deep [[
+	font_options_get_antialias: make-routine cairo "cairo_font_options_get_antialias" compose/deep [
 		options [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_font_options_get_antialias"]
+	]
 
-	font_options_set_subpixel_order: make routine! compose/deep [[
+	font_options_set_subpixel_order: make-routine cairo "cairo_font_options_set_subpixel_order" compose/deep [
 		options [pointer]
 		subpixel_order [int32]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_font_options_set_subpixel_order"]
+	]
 
-	font_options_get_subpixel_order: make routine! compose/deep [[
+	font_options_get_subpixel_order: make-routine cairo "cairo_font_options_get_subpixel_order" compose/deep [
 		options [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_font_options_get_subpixel_order"]
+	]
 
-	font_options_set_hint_style: make routine! compose/deep [[
+	font_options_set_hint_style: make-routine cairo "cairo_font_options_set_hint_style" compose/deep [
 		options [pointer]
 		hint_style [int32]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_font_options_set_hint_style"]
+	]
 
-	font_options_get_hint_style: make routine! compose/deep [[
+	font_options_get_hint_style: make-routine cairo "cairo_font_options_get_hint_style" compose/deep [
 		options [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_font_options_get_hint_style"]
+	]
 
-	font_options_set_hint_metrics: make routine! compose/deep [[
+	font_options_set_hint_metrics: make-routine cairo "cairo_font_options_set_hint_metrics" compose/deep [
 		options [pointer]
 		hint_metrics [int32]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_font_options_set_hint_metrics"]
+	]
 
-	font_options_get_hint_metrics: make routine! compose/deep [[
+	font_options_get_hint_metrics: make-routine cairo "cairo_font_options_get_hint_metrics" compose/deep [
 		options [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_font_options_get_hint_metrics"]
+	]
 
-	select_font_face: make routine! compose/deep [[
+	select_font_face: make-routine cairo "cairo_select_font_face" compose/deep [
 		cr [pointer]
 		family [pointer]
 		slant [int32]
 		weight [int32]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_select_font_face"]
+	]
 
-	set_font_size: make routine! compose/deep [[
+	set_font_size: make-routine cairo "cairo_set_font_size" compose/deep [
 		cr [pointer]
 		size [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_set_font_size"]
+	]
 
-	set_font_matrix: make routine! compose/deep [[
+	set_font_matrix: make-routine cairo "cairo_set_font_matrix" compose/deep [
 		cr [pointer]
 		matrix [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_set_font_matrix"]
+	]
 
-	get_font_matrix: make routine! compose/deep [[
+	get_font_matrix: make-routine cairo "cairo_get_font_matrix" compose/deep [
 		cr [pointer]
 		matrix [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_get_font_matrix"]
+	]
 
-	set_font_options: make routine! compose/deep [[
+	set_font_options: make-routine cairo "cairo_set_font_options" compose/deep [
 		cr [pointer]
 		options [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_set_font_options"]
+	]
 
-	get_font_options: make routine! compose/deep [[
+	get_font_options: make-routine cairo "cairo_get_font_options" compose/deep [
 		cr [pointer]
 		options [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_get_font_options"]
+	]
 
-	set_font_face: make routine! compose/deep [[
+	set_font_face: make-routine cairo "cairo_set_font_face" compose/deep [
 		cr [pointer]
 		font_face [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_set_font_face"]
+	]
 
-	get_font_face: make routine! compose/deep [[
+	get_font_face: make-routine cairo "cairo_get_font_face" compose/deep [
 		cr [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_get_font_face"]
+	]
 
-	set_scaled_font: make routine! compose/deep [[
+	set_scaled_font: make-routine cairo "cairo_set_scaled_font" compose/deep [
 		cr [pointer]
 		scaled_font [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_set_scaled_font"]
+	]
 
-	get_scaled_font: make routine! compose/deep [[
+	get_scaled_font: make-routine cairo "cairo_get_scaled_font" compose/deep [
 		cr [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_get_scaled_font"]
+	]
 
-	show_text: make routine! compose/deep [[
+	show_text: make-routine cairo "cairo_show_text" compose/deep [
 		cr [pointer]
 		utf8 [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_show_text"]
+	]
 
-	show_glyphs: make routine! compose/deep [[
+	show_glyphs: make-routine cairo "cairo_show_glyphs" compose/deep [
 		cr [pointer]
 		glyphs [pointer]
 		num_glyphs [int32]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_show_glyphs"]
+	]
 
-	show_text_glyphs: make routine! compose/deep [[
+	show_text_glyphs: make-routine cairo "cairo_show_text_glyphs" compose/deep [
 		cr [pointer]
 		utf8 [pointer]
 		utf8_len [int32]
@@ -991,174 +889,150 @@ make object! [
 		num_clusters [int32]
 		cluster_flags [int32]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_show_text_glyphs"]
+	]
 
-	text_path: make routine! compose/deep [[
+	text_path: make-routine cairo "cairo_text_path" compose/deep [
 		cr [pointer]
 		utf8 [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_text_path"]
+	]
 
-	glyph_path: make routine! compose/deep [[
+	glyph_path: make-routine cairo "cairo_glyph_path" compose/deep [
 		cr [pointer]
 		glyphs [pointer]
 		num_glyphs [int32]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_glyph_path"]
+	]
 
-	text_extents: make routine! compose/deep [[
+	text_extents: make-routine cairo "cairo_text_extents" compose/deep [
 		cr [pointer]
 		utf8 [pointer]
 		extents [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_text_extents"]
+	]
 
-	glyph_extents: make routine! compose/deep [[
+	glyph_extents: make-routine cairo "cairo_glyph_extents" compose/deep [
 		cr [pointer]
 		glyphs [pointer]
 		num_glyphs [int32]
 		extents [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_glyph_extents"]
+	]
 
-	font_extents: make routine! compose/deep [[
+	font_extents: make-routine cairo "cairo_font_extents" compose/deep [
 		cr [pointer]
 		extents [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_font_extents"]
+	]
 
-	font_face_reference: make routine! compose/deep [[
+	font_face_reference: make-routine cairo "cairo_font_face_reference" compose/deep [
 		font_face [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_font_face_reference"]
+	]
 
-	font_face_destroy: make routine! compose/deep [[
+	font_face_destroy: make-routine cairo "cairo_font_face_destroy" compose/deep [
 		font_face [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_font_face_destroy"]
+	]
 
-	font_face_get_reference_count: make routine! compose/deep [[
+	font_face_get_reference_count: make-routine cairo "cairo_font_face_get_reference_count" compose/deep [
 		font_face [pointer]
 		return: [uint32]
-		abi: default
-	] (cairo) "cairo_font_face_get_reference_count"]
+	]
 
-	font_face_status: make routine! compose/deep [[
+	font_face_status: make-routine cairo "cairo_font_face_status" compose/deep [
 		font_face [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_font_face_status"]
+	]
 
-	font_face_get_type: make routine! compose/deep [[
+	font_face_get_type: make-routine cairo "cairo_font_face_get_type" compose/deep [
 		font_face [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_font_face_get_type"]
+	]
 
-	font_face_get_user_data: make routine! compose/deep [[
+	font_face_get_user_data: make-routine cairo "cairo_font_face_get_user_data" compose/deep [
 		font_face [pointer]
 		key [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_font_face_get_user_data"]
+	]
 
-	font_face_set_user_data: make routine! compose/deep [[
+	font_face_set_user_data: make-routine cairo "cairo_font_face_set_user_data" compose/deep [
 		font_face [pointer]
 		key [pointer]
 		user_data [pointer]
 		destroy [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_font_face_set_user_data"]
+	]
 
-	scaled_font_create: make routine! compose/deep [[
+	scaled_font_create: make-routine cairo "cairo_scaled_font_create" compose/deep [
 		font_face [pointer]
 		font_matrix [pointer]
 		ctm [pointer]
 		options [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_scaled_font_create"]
+	]
 
-	scaled_font_reference: make routine! compose/deep [[
+	scaled_font_reference: make-routine cairo "cairo_scaled_font_reference" compose/deep [
 		scaled_font [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_scaled_font_reference"]
+	]
 
-	scaled_font_destroy: make routine! compose/deep [[
+	scaled_font_destroy: make-routine cairo "cairo_scaled_font_destroy" compose/deep [
 		scaled_font [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_scaled_font_destroy"]
+	]
 
-	scaled_font_get_reference_count: make routine! compose/deep [[
+	scaled_font_get_reference_count: make-routine cairo "cairo_scaled_font_get_reference_count" compose/deep [
 		scaled_font [pointer]
 		return: [uint32]
-		abi: default
-	] (cairo) "cairo_scaled_font_get_reference_count"]
+	]
 
-	scaled_font_status: make routine! compose/deep [[
+	scaled_font_status: make-routine cairo "cairo_scaled_font_status" compose/deep [
 		scaled_font [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_scaled_font_status"]
+	]
 
-	scaled_font_get_type: make routine! compose/deep [[
+	scaled_font_get_type: make-routine cairo "cairo_scaled_font_get_type" compose/deep [
 		scaled_font [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_scaled_font_get_type"]
+	]
 
-	scaled_font_get_user_data: make routine! compose/deep [[
+	scaled_font_get_user_data: make-routine cairo "cairo_scaled_font_get_user_data" compose/deep [
 		scaled_font [pointer]
 		key [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_scaled_font_get_user_data"]
+	]
 
-	scaled_font_set_user_data: make routine! compose/deep [[
+	scaled_font_set_user_data: make-routine cairo "cairo_scaled_font_set_user_data" compose/deep [
 		scaled_font [pointer]
 		key [pointer]
 		user_data [pointer]
 		destroy [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_scaled_font_set_user_data"]
+	]
 
-	scaled_font_extents: make routine! compose/deep [[
+	scaled_font_extents: make-routine cairo "cairo_scaled_font_extents" compose/deep [
 		scaled_font [pointer]
 		extents [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_scaled_font_extents"]
+	]
 
-	scaled_font_text_extents: make routine! compose/deep [[
+	scaled_font_text_extents: make-routine cairo "cairo_scaled_font_text_extents" compose/deep [
 		scaled_font [pointer]
 		utf8 [pointer]
 		extents [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_scaled_font_text_extents"]
+	]
 
-	scaled_font_glyph_extents: make routine! compose/deep [[
+	scaled_font_glyph_extents: make-routine cairo "cairo_scaled_font_glyph_extents" compose/deep [
 		scaled_font [pointer]
 		glyphs [pointer]
 		num_glyphs [int32]
 		extents [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_scaled_font_glyph_extents"]
+	]
 
-	scaled_font_text_to_glyphs: make routine! compose/deep [[
+	scaled_font_text_to_glyphs: make-routine cairo "cairo_scaled_font_text_to_glyphs" compose/deep [
 		scaled_font [pointer]
 		x [double]
 		y [double]
@@ -1170,586 +1044,499 @@ make object! [
 		num_clusters [pointer]
 		cluster_flags [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_scaled_font_text_to_glyphs"]
+	]
 
-	scaled_font_get_font_face: make routine! compose/deep [[
+	scaled_font_get_font_face: make-routine cairo "cairo_scaled_font_get_font_face" compose/deep [
 		scaled_font [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_scaled_font_get_font_face"]
+	]
 
-	scaled_font_get_font_matrix: make routine! compose/deep [[
+	scaled_font_get_font_matrix: make-routine cairo "cairo_scaled_font_get_font_matrix" compose/deep [
 		scaled_font [pointer]
 		font_matrix [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_scaled_font_get_font_matrix"]
+	]
 
-	scaled_font_get_ctm: make routine! compose/deep [[
+	scaled_font_get_ctm: make-routine cairo "cairo_scaled_font_get_ctm" compose/deep [
 		scaled_font [pointer]
 		ctm [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_scaled_font_get_ctm"]
+	]
 
-	scaled_font_get_scale_matrix: make routine! compose/deep [[
+	scaled_font_get_scale_matrix: make-routine cairo "cairo_scaled_font_get_scale_matrix" compose/deep [
 		scaled_font [pointer]
 		scale_matrix [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_scaled_font_get_scale_matrix"]
+	]
 
-	scaled_font_get_font_options: make routine! compose/deep [[
+	scaled_font_get_font_options: make-routine cairo "cairo_scaled_font_get_font_options" compose/deep [
 		scaled_font [pointer]
 		options [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_scaled_font_get_font_options"]
+	]
 
-	toy_font_face_create: make routine! compose/deep [[
+	toy_font_face_create: make-routine cairo "cairo_toy_font_face_create" compose/deep [
 		family [pointer]
 		slant [int32]
 		weight [int32]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_toy_font_face_create"]
+	]
 
-	toy_font_face_get_family: make routine! compose/deep [[
+	toy_font_face_get_family: make-routine cairo "cairo_toy_font_face_get_family" compose/deep [
 		font_face [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_toy_font_face_get_family"]
+	]
 
-	toy_font_face_get_slant: make routine! compose/deep [[
+	toy_font_face_get_slant: make-routine cairo "cairo_toy_font_face_get_slant" compose/deep [
 		font_face [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_toy_font_face_get_slant"]
+	]
 
-	toy_font_face_get_weight: make routine! compose/deep [[
+	toy_font_face_get_weight: make-routine cairo "cairo_toy_font_face_get_weight" compose/deep [
 		font_face [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_toy_font_face_get_weight"]
+	]
 
-	user_font_face_create: make routine! compose/deep [[
+	user_font_face_create: make-routine cairo "cairo_user_font_face_create" compose/deep [
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_user_font_face_create"]
+	]
 
-	user_font_face_set_init_func: make routine! compose/deep [[
+	user_font_face_set_init_func: make-routine cairo "cairo_user_font_face_set_init_func" compose/deep [
 		font_face [pointer]
 		init_func [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_user_font_face_set_init_func"]
+	]
 
-	user_font_face_set_render_glyph_func: make routine! compose/deep [[
+	user_font_face_set_render_glyph_func: make-routine cairo "cairo_user_font_face_set_render_glyph_func" compose/deep [
 		font_face [pointer]
 		render_glyph_func [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_user_font_face_set_render_glyph_func"]
+	]
 
-	user_font_face_set_text_to_glyphs_func: make routine! compose/deep [[
+	user_font_face_set_text_to_glyphs_func: make-routine cairo "cairo_user_font_face_set_text_to_glyphs_func" compose/deep [
 		font_face [pointer]
 		text_to_glyphs_func [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_user_font_face_set_text_to_glyphs_func"]
+	]
 
-	user_font_face_set_unicode_to_glyph_func: make routine! compose/deep [[
+	user_font_face_set_unicode_to_glyph_func: make-routine cairo "cairo_user_font_face_set_unicode_to_glyph_func" compose/deep [
 		font_face [pointer]
 		unicode_to_glyph_func [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_user_font_face_set_unicode_to_glyph_func"]
+	]
 
-	user_font_face_get_init_func: make routine! compose/deep [[
+	user_font_face_get_init_func: make-routine cairo "cairo_user_font_face_get_init_func" compose/deep [
 		font_face [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_user_font_face_get_init_func"]
+	]
 
-	user_font_face_get_render_glyph_func: make routine! compose/deep [[
+	user_font_face_get_render_glyph_func: make-routine cairo "cairo_user_font_face_get_render_glyph_func" compose/deep [
 		font_face [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_user_font_face_get_render_glyph_func"]
+	]
 
-	user_font_face_get_text_to_glyphs_func: make routine! compose/deep [[
+	user_font_face_get_text_to_glyphs_func: make-routine cairo "cairo_user_font_face_get_text_to_glyphs_func" compose/deep [
 		font_face [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_user_font_face_get_text_to_glyphs_func"]
+	]
 
-	user_font_face_get_unicode_to_glyph_func: make routine! compose/deep [[
+	user_font_face_get_unicode_to_glyph_func: make-routine cairo "cairo_user_font_face_get_unicode_to_glyph_func" compose/deep [
 		font_face [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_user_font_face_get_unicode_to_glyph_func"]
+	]
 
-	get_operator: make routine! compose/deep [[
+	get_operator: make-routine cairo "cairo_get_operator" compose/deep [
 		cr [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_get_operator"]
+	]
 
-	get_source: make routine! compose/deep [[
+	get_source: make-routine cairo "cairo_get_source" compose/deep [
 		cr [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_get_source"]
+	]
 
-	get_tolerance: make routine! compose/deep [[
+	get_tolerance: make-routine cairo "cairo_get_tolerance" compose/deep [
 		cr [pointer]
 		return: [double]
-		abi: default
-	] (cairo) "cairo_get_tolerance"]
+	]
 
-	get_antialias: make routine! compose/deep [[
+	get_antialias: make-routine cairo "cairo_get_antialias" compose/deep [
 		cr [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_get_antialias"]
+	]
 
-	has_current_point: make routine! compose/deep [[
+	has_current_point: make-routine cairo "cairo_has_current_point" compose/deep [
 		cr [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_has_current_point"]
+	]
 
-	get_current_point: make routine! compose/deep [[
+	get_current_point: make-routine cairo "cairo_get_current_point" compose/deep [
 		cr [pointer]
 		x [pointer]
 		y [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_get_current_point"]
+	]
 
-	get_fill_rule: make routine! compose/deep [[
+	get_fill_rule: make-routine cairo "cairo_get_fill_rule" compose/deep [
 		cr [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_get_fill_rule"]
+	]
 
-	get_line_width: make routine! compose/deep [[
+	get_line_width: make-routine cairo "cairo_get_line_width" compose/deep [
 		cr [pointer]
 		return: [double]
-		abi: default
-	] (cairo) "cairo_get_line_width"]
+	]
 
-	get_line_cap: make routine! compose/deep [[
+	get_line_cap: make-routine cairo "cairo_get_line_cap" compose/deep [
 		cr [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_get_line_cap"]
+	]
 
-	get_line_join: make routine! compose/deep [[
+	get_line_join: make-routine cairo "cairo_get_line_join" compose/deep [
 		cr [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_get_line_join"]
+	]
 
-	get_miter_limit: make routine! compose/deep [[
+	get_miter_limit: make-routine cairo "cairo_get_miter_limit" compose/deep [
 		cr [pointer]
 		return: [double]
-		abi: default
-	] (cairo) "cairo_get_miter_limit"]
+	]
 
-	get_dash_count: make routine! compose/deep [[
+	get_dash_count: make-routine cairo "cairo_get_dash_count" compose/deep [
 		cr [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_get_dash_count"]
+	]
 
-	get_dash: make routine! compose/deep [[
+	get_dash: make-routine cairo "cairo_get_dash" compose/deep [
 		cr [pointer]
 		dashes [pointer]
 		offset [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_get_dash"]
+	]
 
-	get_matrix: make routine! compose/deep [[
+	get_matrix: make-routine cairo "cairo_get_matrix" compose/deep [
 		cr [pointer]
 		matrix [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_get_matrix"]
+	]
 
-	get_target: make routine! compose/deep [[
+	get_target: make-routine cairo "cairo_get_target" compose/deep [
 		cr [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_get_target"]
+	]
 
-	get_group_target: make routine! compose/deep [[
+	get_group_target: make-routine cairo "cairo_get_group_target" compose/deep [
 		cr [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_get_group_target"]
+	]
 
-	copy_path: make routine! compose/deep [[
+	copy_path: make-routine cairo "cairo_copy_path" compose/deep [
 		cr [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_copy_path"]
+	]
 
-	copy_path_flat: make routine! compose/deep [[
+	copy_path_flat: make-routine cairo "cairo_copy_path_flat" compose/deep [
 		cr [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_copy_path_flat"]
+	]
 
-	append_path: make routine! compose/deep [[
+	append_path: make-routine cairo "cairo_append_path" compose/deep [
 		cr [pointer]
 		path [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_append_path"]
+	]
 
-	path_destroy: make routine! compose/deep [[
+	path_destroy: make-routine cairo "cairo_path_destroy" compose/deep [
 		path [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_path_destroy"]
+	]
 
-	status: make routine! compose/deep [[
+	status: make-routine cairo "cairo_status" compose/deep [
 		cr [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_status"]
+	]
 
-	status_to_string: make routine! compose/deep [[
+	status_to_string: make-routine cairo "cairo_status_to_string" compose/deep [
 		status [int32]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_status_to_string"]
+	]
 
-	device_reference: make routine! compose/deep [[
+	device_reference: make-routine cairo "cairo_device_reference" compose/deep [
 		device [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_device_reference"]
+	]
 
-	device_get_type: make routine! compose/deep [[
+	device_get_type: make-routine cairo "cairo_device_get_type" compose/deep [
 		device [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_device_get_type"]
+	]
 
-	device_status: make routine! compose/deep [[
+	device_status: make-routine cairo "cairo_device_status" compose/deep [
 		device [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_device_status"]
+	]
 
-	device_acquire: make routine! compose/deep [[
+	device_acquire: make-routine cairo "cairo_device_acquire" compose/deep [
 		device [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_device_acquire"]
+	]
 
-	device_release: make routine! compose/deep [[
+	device_release: make-routine cairo "cairo_device_release" compose/deep [
 		device [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_device_release"]
+	]
 
-	device_flush: make routine! compose/deep [[
+	device_flush: make-routine cairo "cairo_device_flush" compose/deep [
 		device [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_device_flush"]
+	]
 
-	device_finish: make routine! compose/deep [[
+	device_finish: make-routine cairo "cairo_device_finish" compose/deep [
 		device [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_device_finish"]
+	]
 
-	device_destroy: make routine! compose/deep [[
+	device_destroy: make-routine cairo "cairo_device_destroy" compose/deep [
 		device [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_device_destroy"]
+	]
 
-	device_get_reference_count: make routine! compose/deep [[
+	device_get_reference_count: make-routine cairo "cairo_device_get_reference_count" compose/deep [
 		device [pointer]
 		return: [uint32]
-		abi: default
-	] (cairo) "cairo_device_get_reference_count"]
+	]
 
-	device_get_user_data: make routine! compose/deep [[
+	device_get_user_data: make-routine cairo "cairo_device_get_user_data" compose/deep [
 		device [pointer]
 		key [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_device_get_user_data"]
+	]
 
-	device_set_user_data: make routine! compose/deep [[
+	device_set_user_data: make-routine cairo "cairo_device_set_user_data" compose/deep [
 		device [pointer]
 		key [pointer]
 		user_data [pointer]
 		destroy [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_device_set_user_data"]
+	]
 
-	surface_create_similar: make routine! compose/deep [[
+	surface_create_similar: make-routine cairo "cairo_surface_create_similar" compose/deep [
 		other [pointer]
 		content [int32]
 		width [int32]
 		height [int32]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_surface_create_similar"]
+	]
 
-	surface_create_similar_image: make routine! compose/deep [[
+	surface_create_similar_image: make-routine cairo "cairo_surface_create_similar_image" compose/deep [
 		other [pointer]
 		format [int32]
 		width [int32]
 		height [int32]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_surface_create_similar_image"]
+	]
 
-	surface_map_to_image: make routine! compose/deep [[
+	surface_map_to_image: make-routine cairo "cairo_surface_map_to_image" compose/deep [
 		surface [pointer]
 		extents [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_surface_map_to_image"]
+	]
 
-	surface_unmap_image: make routine! compose/deep [[
+	surface_unmap_image: make-routine cairo "cairo_surface_unmap_image" compose/deep [
 		surface [pointer]
 		image [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_surface_unmap_image"]
+	]
 
-	surface_create_for_rectangle: make routine! compose/deep [[
+	surface_create_for_rectangle: make-routine cairo "cairo_surface_create_for_rectangle" compose/deep [
 		target [pointer]
 		x [double]
 		y [double]
 		width [double]
 		height [double]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_surface_create_for_rectangle"]
+	]
 
-	surface_create_observer: make routine! compose/deep [[
+	surface_create_observer: make-routine cairo "cairo_surface_create_observer" compose/deep [
 		target [pointer]
 		mode [int32]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_surface_create_observer"]
+	]
 
-	surface_observer_add_paint_callback: make routine! compose/deep [[
+	surface_observer_add_paint_callback: make-routine cairo "cairo_surface_observer_add_paint_callback" compose/deep [
 		abstract_surface [pointer]
 		func [pointer]
 		data [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_surface_observer_add_paint_callback"]
+	]
 
-	surface_observer_add_mask_callback: make routine! compose/deep [[
+	surface_observer_add_mask_callback: make-routine cairo "cairo_surface_observer_add_mask_callback" compose/deep [
 		abstract_surface [pointer]
 		func [pointer]
 		data [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_surface_observer_add_mask_callback"]
+	]
 
-	surface_observer_add_fill_callback: make routine! compose/deep [[
+	surface_observer_add_fill_callback: make-routine cairo "cairo_surface_observer_add_fill_callback" compose/deep [
 		abstract_surface [pointer]
 		func [pointer]
 		data [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_surface_observer_add_fill_callback"]
+	]
 
-	surface_observer_add_stroke_callback: make routine! compose/deep [[
+	surface_observer_add_stroke_callback: make-routine cairo "cairo_surface_observer_add_stroke_callback" compose/deep [
 		abstract_surface [pointer]
 		func [pointer]
 		data [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_surface_observer_add_stroke_callback"]
+	]
 
-	surface_observer_add_glyphs_callback: make routine! compose/deep [[
+	surface_observer_add_glyphs_callback: make-routine cairo "cairo_surface_observer_add_glyphs_callback" compose/deep [
 		abstract_surface [pointer]
 		func [pointer]
 		data [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_surface_observer_add_glyphs_callback"]
+	]
 
-	surface_observer_add_flush_callback: make routine! compose/deep [[
+	surface_observer_add_flush_callback: make-routine cairo "cairo_surface_observer_add_flush_callback" compose/deep [
 		abstract_surface [pointer]
 		func [pointer]
 		data [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_surface_observer_add_flush_callback"]
+	]
 
-	surface_observer_add_finish_callback: make routine! compose/deep [[
+	surface_observer_add_finish_callback: make-routine cairo "cairo_surface_observer_add_finish_callback" compose/deep [
 		abstract_surface [pointer]
 		func [pointer]
 		data [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_surface_observer_add_finish_callback"]
+	]
 
-	surface_observer_print: make routine! compose/deep [[
+	surface_observer_print: make-routine cairo "cairo_surface_observer_print" compose/deep [
 		surface [pointer]
 		write_func [pointer]
 		closure [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_surface_observer_print"]
+	]
 
-	surface_observer_elapsed: make routine! compose/deep [[
+	surface_observer_elapsed: make-routine cairo "cairo_surface_observer_elapsed" compose/deep [
 		surface [pointer]
 		return: [double]
-		abi: default
-	] (cairo) "cairo_surface_observer_elapsed"]
+	]
 
-	device_observer_print: make routine! compose/deep [[
+	device_observer_print: make-routine cairo "cairo_device_observer_print" compose/deep [
 		device [pointer]
 		write_func [pointer]
 		closure [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_device_observer_print"]
+	]
 
-	device_observer_elapsed: make routine! compose/deep [[
+	device_observer_elapsed: make-routine cairo "cairo_device_observer_elapsed" compose/deep [
 		device [pointer]
 		return: [double]
-		abi: default
-	] (cairo) "cairo_device_observer_elapsed"]
+	]
 
-	device_observer_paint_elapsed: make routine! compose/deep [[
+	device_observer_paint_elapsed: make-routine cairo "cairo_device_observer_paint_elapsed" compose/deep [
 		device [pointer]
 		return: [double]
-		abi: default
-	] (cairo) "cairo_device_observer_paint_elapsed"]
+	]
 
-	device_observer_mask_elapsed: make routine! compose/deep [[
+	device_observer_mask_elapsed: make-routine cairo "cairo_device_observer_mask_elapsed" compose/deep [
 		device [pointer]
 		return: [double]
-		abi: default
-	] (cairo) "cairo_device_observer_mask_elapsed"]
+	]
 
-	device_observer_fill_elapsed: make routine! compose/deep [[
+	device_observer_fill_elapsed: make-routine cairo "cairo_device_observer_fill_elapsed" compose/deep [
 		device [pointer]
 		return: [double]
-		abi: default
-	] (cairo) "cairo_device_observer_fill_elapsed"]
+	]
 
-	device_observer_stroke_elapsed: make routine! compose/deep [[
+	device_observer_stroke_elapsed: make-routine cairo "cairo_device_observer_stroke_elapsed" compose/deep [
 		device [pointer]
 		return: [double]
-		abi: default
-	] (cairo) "cairo_device_observer_stroke_elapsed"]
+	]
 
-	device_observer_glyphs_elapsed: make routine! compose/deep [[
+	device_observer_glyphs_elapsed: make-routine cairo "cairo_device_observer_glyphs_elapsed" compose/deep [
 		device [pointer]
 		return: [double]
-		abi: default
-	] (cairo) "cairo_device_observer_glyphs_elapsed"]
+	]
 
-	surface_reference: make routine! compose/deep [[
+	surface_reference: make-routine cairo "cairo_surface_reference" compose/deep [
 		surface [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_surface_reference"]
+	]
 
-	surface_finish: make routine! compose/deep [[
+	surface_finish: make-routine cairo "cairo_surface_finish" compose/deep [
 		surface [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_surface_finish"]
+	]
 
-	surface_destroy: make routine! compose/deep [[
+	surface_destroy: make-routine cairo "cairo_surface_destroy" compose/deep [
 		surface [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_surface_destroy"]
+	]
 
-	surface_get_device: make routine! compose/deep [[
+	surface_get_device: make-routine cairo "cairo_surface_get_device" compose/deep [
 		surface [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_surface_get_device"]
+	]
 
-	surface_get_reference_count: make routine! compose/deep [[
+	surface_get_reference_count: make-routine cairo "cairo_surface_get_reference_count" compose/deep [
 		surface [pointer]
 		return: [uint32]
-		abi: default
-	] (cairo) "cairo_surface_get_reference_count"]
+	]
 
-	surface_status: make routine! compose/deep [[
+	surface_status: make-routine cairo "cairo_surface_status" compose/deep [
 		surface [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_surface_status"]
+	]
 
-	surface_get_type: make routine! compose/deep [[
+	surface_get_type: make-routine cairo "cairo_surface_get_type" compose/deep [
 		surface [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_surface_get_type"]
+	]
 
-	surface_get_content: make routine! compose/deep [[
+	surface_get_content: make-routine cairo "cairo_surface_get_content" compose/deep [
 		surface [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_surface_get_content"]
+	]
 
-	surface_write_to_png: make routine! compose/deep [[
+	surface_write_to_png: make-routine cairo "cairo_surface_write_to_png" compose/deep [
 		surface [pointer]
 		filename [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_surface_write_to_png"]
+	]
 
-	surface_write_to_png_stream: make routine! compose/deep [[
+	surface_write_to_png_stream: make-routine cairo "cairo_surface_write_to_png_stream" compose/deep [
 		surface [pointer]
 		write_func [pointer]
 		closure [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_surface_write_to_png_stream"]
+	]
 
-	surface_get_user_data: make routine! compose/deep [[
+	surface_get_user_data: make-routine cairo "cairo_surface_get_user_data" compose/deep [
 		surface [pointer]
 		key [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_surface_get_user_data"]
+	]
 
-	surface_set_user_data: make routine! compose/deep [[
+	surface_set_user_data: make-routine cairo "cairo_surface_set_user_data" compose/deep [
 		surface [pointer]
 		key [pointer]
 		user_data [pointer]
 		destroy [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_surface_set_user_data"]
+	]
 
-	surface_get_mime_data: make routine! compose/deep [[
+	surface_get_mime_data: make-routine cairo "cairo_surface_get_mime_data" compose/deep [
 		surface [pointer]
 		mime_type [pointer]
 		data [pointer]
 		length [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_surface_get_mime_data"]
+	]
 
-	surface_set_mime_data: make routine! compose/deep [[
+	surface_set_mime_data: make-routine cairo "cairo_surface_set_mime_data" compose/deep [
 		surface [pointer]
 		mime_type [pointer]
 		data [pointer]
@@ -1757,313 +1544,270 @@ make object! [
 		destroy [pointer]
 		closure [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_surface_set_mime_data"]
+	]
 
-	surface_supports_mime_type: make routine! compose/deep [[
+	surface_supports_mime_type: make-routine cairo "cairo_surface_supports_mime_type" compose/deep [
 		surface [pointer]
 		mime_type [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_surface_supports_mime_type"]
+	]
 
-	surface_get_font_options: make routine! compose/deep [[
+	surface_get_font_options: make-routine cairo "cairo_surface_get_font_options" compose/deep [
 		surface [pointer]
 		options [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_surface_get_font_options"]
+	]
 
-	surface_flush: make routine! compose/deep [[
+	surface_flush: make-routine cairo "cairo_surface_flush" compose/deep [
 		surface [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_surface_flush"]
+	]
 
-	surface_mark_dirty: make routine! compose/deep [[
+	surface_mark_dirty: make-routine cairo "cairo_surface_mark_dirty" compose/deep [
 		surface [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_surface_mark_dirty"]
+	]
 
-	surface_mark_dirty_rectangle: make routine! compose/deep [[
+	surface_mark_dirty_rectangle: make-routine cairo "cairo_surface_mark_dirty_rectangle" compose/deep [
 		surface [pointer]
 		x [int32]
 		y [int32]
 		width [int32]
 		height [int32]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_surface_mark_dirty_rectangle"]
+	]
 
-	surface_set_device_scale: make routine! compose/deep [[
+	surface_set_device_scale: make-routine cairo "cairo_surface_set_device_scale" compose/deep [
 		surface [pointer]
 		x_scale [double]
 		y_scale [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_surface_set_device_scale"]
+	]
 
-	surface_get_device_scale: make routine! compose/deep [[
+	surface_get_device_scale: make-routine cairo "cairo_surface_get_device_scale" compose/deep [
 		surface [pointer]
 		x_scale [pointer]
 		y_scale [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_surface_get_device_scale"]
+	]
 
-	surface_set_device_offset: make routine! compose/deep [[
+	surface_set_device_offset: make-routine cairo "cairo_surface_set_device_offset" compose/deep [
 		surface [pointer]
 		x_offset [double]
 		y_offset [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_surface_set_device_offset"]
+	]
 
-	surface_get_device_offset: make routine! compose/deep [[
+	surface_get_device_offset: make-routine cairo "cairo_surface_get_device_offset" compose/deep [
 		surface [pointer]
 		x_offset [pointer]
 		y_offset [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_surface_get_device_offset"]
+	]
 
-	surface_set_fallback_resolution: make routine! compose/deep [[
+	surface_set_fallback_resolution: make-routine cairo "cairo_surface_set_fallback_resolution" compose/deep [
 		surface [pointer]
 		x_pixels_per_inch [double]
 		y_pixels_per_inch [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_surface_set_fallback_resolution"]
+	]
 
-	surface_get_fallback_resolution: make routine! compose/deep [[
+	surface_get_fallback_resolution: make-routine cairo "cairo_surface_get_fallback_resolution" compose/deep [
 		surface [pointer]
 		x_pixels_per_inch [pointer]
 		y_pixels_per_inch [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_surface_get_fallback_resolution"]
+	]
 
-	surface_copy_page: make routine! compose/deep [[
+	surface_copy_page: make-routine cairo "cairo_surface_copy_page" compose/deep [
 		surface [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_surface_copy_page"]
+	]
 
-	surface_show_page: make routine! compose/deep [[
+	surface_show_page: make-routine cairo "cairo_surface_show_page" compose/deep [
 		surface [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_surface_show_page"]
+	]
 
-	surface_has_show_text_glyphs: make routine! compose/deep [[
+	surface_has_show_text_glyphs: make-routine cairo "cairo_surface_has_show_text_glyphs" compose/deep [
 		surface [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_surface_has_show_text_glyphs"]
+	]
 
-	image_surface_create: make routine! compose/deep [[
+	image_surface_create: make-routine cairo "cairo_image_surface_create" compose/deep [
 		format [int32]
 		width [int32]
 		height [int32]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_image_surface_create"]
+	]
 
-	format_stride_for_width: make routine! compose/deep [[
+	format_stride_for_width: make-routine cairo "cairo_format_stride_for_width" compose/deep [
 		format [int32]
 		width [int32]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_format_stride_for_width"]
+	]
 
-	image_surface_create_for_data: make routine! compose/deep [[
+	image_surface_create_for_data: make-routine cairo "cairo_image_surface_create_for_data" compose/deep [
 		data [pointer]
 		format [int32]
 		width [int32]
 		height [int32]
 		stride [int32]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_image_surface_create_for_data"]
+	]
 
-	image_surface_get_data: make routine! compose/deep [[
+	image_surface_get_data: make-routine cairo "cairo_image_surface_get_data" compose/deep [
 		surface [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_image_surface_get_data"]
+	]
 
-	image_surface_get_format: make routine! compose/deep [[
+	image_surface_get_format: make-routine cairo "cairo_image_surface_get_format" compose/deep [
 		surface [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_image_surface_get_format"]
+	]
 
-	image_surface_get_width: make routine! compose/deep [[
+	image_surface_get_width: make-routine cairo "cairo_image_surface_get_width" compose/deep [
 		surface [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_image_surface_get_width"]
+	]
 
-	image_surface_get_height: make routine! compose/deep [[
+	image_surface_get_height: make-routine cairo "cairo_image_surface_get_height" compose/deep [
 		surface [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_image_surface_get_height"]
+	]
 
-	image_surface_get_stride: make routine! compose/deep [[
+	image_surface_get_stride: make-routine cairo "cairo_image_surface_get_stride" compose/deep [
 		surface [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_image_surface_get_stride"]
+	]
 
-	image_surface_create_from_png: make routine! compose/deep [[
+	image_surface_create_from_png: make-routine cairo "cairo_image_surface_create_from_png" compose/deep [
 		filename [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_image_surface_create_from_png"]
+	]
 
-	image_surface_create_from_png_stream: make routine! compose/deep [[
+	image_surface_create_from_png_stream: make-routine cairo "cairo_image_surface_create_from_png_stream" compose/deep [
 		read_func [pointer]
 		closure [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_image_surface_create_from_png_stream"]
+	]
 
-	recording_surface_create: make routine! compose/deep [[
+	recording_surface_create: make-routine cairo "cairo_recording_surface_create" compose/deep [
 		content [int32]
 		extents [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_recording_surface_create"]
+	]
 
-	recording_surface_ink_extents: make routine! compose/deep [[
+	recording_surface_ink_extents: make-routine cairo "cairo_recording_surface_ink_extents" compose/deep [
 		surface [pointer]
 		x0 [pointer]
 		y0 [pointer]
 		width [pointer]
 		height [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_recording_surface_ink_extents"]
+	]
 
-	recording_surface_get_extents: make routine! compose/deep [[
+	recording_surface_get_extents: make-routine cairo "cairo_recording_surface_get_extents" compose/deep [
 		surface [pointer]
 		extents [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_recording_surface_get_extents"]
+	]
 
-	pattern_create_raster_source: make routine! compose/deep [[
+	pattern_create_raster_source: make-routine cairo "cairo_pattern_create_raster_source" compose/deep [
 		user_data [pointer]
 		content [int32]
 		width [int32]
 		height [int32]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_pattern_create_raster_source"]
+	]
 
-	raster_source_pattern_set_callback_data: make routine! compose/deep [[
+	raster_source_pattern_set_callback_data: make-routine cairo "cairo_raster_source_pattern_set_callback_data" compose/deep [
 		pattern [pointer]
 		data [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_raster_source_pattern_set_callback_data"]
+	]
 
-	raster_source_pattern_get_callback_data: make routine! compose/deep [[
+	raster_source_pattern_get_callback_data: make-routine cairo "cairo_raster_source_pattern_get_callback_data" compose/deep [
 		pattern [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_raster_source_pattern_get_callback_data"]
+	]
 
-	raster_source_pattern_set_acquire: make routine! compose/deep [[
+	raster_source_pattern_set_acquire: make-routine cairo "cairo_raster_source_pattern_set_acquire" compose/deep [
 		pattern [pointer]
 		acquire [pointer]
 		release [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_raster_source_pattern_set_acquire"]
+	]
 
-	raster_source_pattern_get_acquire: make routine! compose/deep [[
+	raster_source_pattern_get_acquire: make-routine cairo "cairo_raster_source_pattern_get_acquire" compose/deep [
 		pattern [pointer]
 		acquire [pointer]
 		release [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_raster_source_pattern_get_acquire"]
+	]
 
-	raster_source_pattern_set_snapshot: make routine! compose/deep [[
+	raster_source_pattern_set_snapshot: make-routine cairo "cairo_raster_source_pattern_set_snapshot" compose/deep [
 		pattern [pointer]
 		snapshot [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_raster_source_pattern_set_snapshot"]
+	]
 
-	raster_source_pattern_get_snapshot: make routine! compose/deep [[
+	raster_source_pattern_get_snapshot: make-routine cairo "cairo_raster_source_pattern_get_snapshot" compose/deep [
 		pattern [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_raster_source_pattern_get_snapshot"]
+	]
 
-	raster_source_pattern_set_copy: make routine! compose/deep [[
+	raster_source_pattern_set_copy: make-routine cairo "cairo_raster_source_pattern_set_copy" compose/deep [
 		pattern [pointer]
 		copy [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_raster_source_pattern_set_copy"]
+	]
 
-	raster_source_pattern_get_copy: make routine! compose/deep [[
+	raster_source_pattern_get_copy: make-routine cairo "cairo_raster_source_pattern_get_copy" compose/deep [
 		pattern [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_raster_source_pattern_get_copy"]
+	]
 
-	raster_source_pattern_set_finish: make routine! compose/deep [[
+	raster_source_pattern_set_finish: make-routine cairo "cairo_raster_source_pattern_set_finish" compose/deep [
 		pattern [pointer]
 		finish [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_raster_source_pattern_set_finish"]
+	]
 
-	raster_source_pattern_get_finish: make routine! compose/deep [[
+	raster_source_pattern_get_finish: make-routine cairo "cairo_raster_source_pattern_get_finish" compose/deep [
 		pattern [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_raster_source_pattern_get_finish"]
+	]
 
-	pattern_create_rgb: make routine! compose/deep [[
+	pattern_create_rgb: make-routine cairo "cairo_pattern_create_rgb" compose/deep [
 		red [double]
 		green [double]
 		blue [double]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_pattern_create_rgb"]
+	]
 
-	pattern_create_rgba: make routine! compose/deep [[
+	pattern_create_rgba: make-routine cairo "cairo_pattern_create_rgba" compose/deep [
 		red [double]
 		green [double]
 		blue [double]
 		alpha [double]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_pattern_create_rgba"]
+	]
 
-	pattern_create_for_surface: make routine! compose/deep [[
+	pattern_create_for_surface: make-routine cairo "cairo_pattern_create_for_surface" compose/deep [
 		surface [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_pattern_create_for_surface"]
+	]
 
-	pattern_create_linear: make routine! compose/deep [[
+	pattern_create_linear: make-routine cairo "cairo_pattern_create_linear" compose/deep [
 		x0 [double]
 		y0 [double]
 		x1 [double]
 		y1 [double]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_pattern_create_linear"]
+	]
 
-	pattern_create_radial: make routine! compose/deep [[
+	pattern_create_radial: make-routine cairo "cairo_pattern_create_radial" compose/deep [
 		cx0 [double]
 		cy0 [double]
 		radius0 [double]
@@ -2071,71 +1815,61 @@ make object! [
 		cy1 [double]
 		radius1 [double]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_pattern_create_radial"]
+	]
 
-	pattern_create_mesh: make routine! compose/deep [[
+	pattern_create_mesh: make-routine cairo "cairo_pattern_create_mesh" compose/deep [
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_pattern_create_mesh"]
+	]
 
-	pattern_reference: make routine! compose/deep [[
+	pattern_reference: make-routine cairo "cairo_pattern_reference" compose/deep [
 		pattern [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_pattern_reference"]
+	]
 
-	pattern_destroy: make routine! compose/deep [[
+	pattern_destroy: make-routine cairo "cairo_pattern_destroy" compose/deep [
 		pattern [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_pattern_destroy"]
+	]
 
-	pattern_get_reference_count: make routine! compose/deep [[
+	pattern_get_reference_count: make-routine cairo "cairo_pattern_get_reference_count" compose/deep [
 		pattern [pointer]
 		return: [uint32]
-		abi: default
-	] (cairo) "cairo_pattern_get_reference_count"]
+	]
 
-	pattern_status: make routine! compose/deep [[
+	pattern_status: make-routine cairo "cairo_pattern_status" compose/deep [
 		pattern [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_pattern_status"]
+	]
 
-	pattern_get_user_data: make routine! compose/deep [[
+	pattern_get_user_data: make-routine cairo "cairo_pattern_get_user_data" compose/deep [
 		pattern [pointer]
 		key [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_pattern_get_user_data"]
+	]
 
-	pattern_set_user_data: make routine! compose/deep [[
+	pattern_set_user_data: make-routine cairo "cairo_pattern_set_user_data" compose/deep [
 		pattern [pointer]
 		key [pointer]
 		user_data [pointer]
 		destroy [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_pattern_set_user_data"]
+	]
 
-	pattern_get_type: make routine! compose/deep [[
+	pattern_get_type: make-routine cairo "cairo_pattern_get_type" compose/deep [
 		pattern [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_pattern_get_type"]
+	]
 
-	pattern_add_color_stop_rgb: make routine! compose/deep [[
+	pattern_add_color_stop_rgb: make-routine cairo "cairo_pattern_add_color_stop_rgb" compose/deep [
 		pattern [pointer]
 		offset [double]
 		red [double]
 		green [double]
 		blue [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_pattern_add_color_stop_rgb"]
+	]
 
-	pattern_add_color_stop_rgba: make routine! compose/deep [[
+	pattern_add_color_stop_rgba: make-routine cairo "cairo_pattern_add_color_stop_rgba" compose/deep [
 		pattern [pointer]
 		offset [double]
 		red [double]
@@ -2143,22 +1877,19 @@ make object! [
 		blue [double]
 		alpha [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_pattern_add_color_stop_rgba"]
+	]
 
-	mesh_pattern_begin_patch: make routine! compose/deep [[
+	mesh_pattern_begin_patch: make-routine cairo "cairo_mesh_pattern_begin_patch" compose/deep [
 		pattern [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_mesh_pattern_begin_patch"]
+	]
 
-	mesh_pattern_end_patch: make routine! compose/deep [[
+	mesh_pattern_end_patch: make-routine cairo "cairo_mesh_pattern_end_patch" compose/deep [
 		pattern [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_mesh_pattern_end_patch"]
+	]
 
-	mesh_pattern_curve_to: make routine! compose/deep [[
+	mesh_pattern_curve_to: make-routine cairo "cairo_mesh_pattern_curve_to" compose/deep [
 		pattern [pointer]
 		x1 [double]
 		y1 [double]
@@ -2167,45 +1898,40 @@ make object! [
 		x3 [double]
 		y3 [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_mesh_pattern_curve_to"]
+	]
 
-	mesh_pattern_line_to: make routine! compose/deep [[
+	mesh_pattern_line_to: make-routine cairo "cairo_mesh_pattern_line_to" compose/deep [
 		pattern [pointer]
 		x [double]
 		y [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_mesh_pattern_line_to"]
+	]
 
-	mesh_pattern_move_to: make routine! compose/deep [[
+	mesh_pattern_move_to: make-routine cairo "cairo_mesh_pattern_move_to" compose/deep [
 		pattern [pointer]
 		x [double]
 		y [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_mesh_pattern_move_to"]
+	]
 
-	mesh_pattern_set_control_point: make routine! compose/deep [[
+	mesh_pattern_set_control_point: make-routine cairo "cairo_mesh_pattern_set_control_point" compose/deep [
 		pattern [pointer]
 		point_num [uint32]
 		x [double]
 		y [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_mesh_pattern_set_control_point"]
+	]
 
-	mesh_pattern_set_corner_color_rgb: make routine! compose/deep [[
+	mesh_pattern_set_corner_color_rgb: make-routine cairo "cairo_mesh_pattern_set_corner_color_rgb" compose/deep [
 		pattern [pointer]
 		corner_num [uint32]
 		red [double]
 		green [double]
 		blue [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_mesh_pattern_set_corner_color_rgb"]
+	]
 
-	mesh_pattern_set_corner_color_rgba: make routine! compose/deep [[
+	mesh_pattern_set_corner_color_rgba: make-routine cairo "cairo_mesh_pattern_set_corner_color_rgba" compose/deep [
 		pattern [pointer]
 		corner_num [uint32]
 		red [double]
@@ -2213,67 +1939,58 @@ make object! [
 		blue [double]
 		alpha [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_mesh_pattern_set_corner_color_rgba"]
+	]
 
-	pattern_set_matrix: make routine! compose/deep [[
+	pattern_set_matrix: make-routine cairo "cairo_pattern_set_matrix" compose/deep [
 		pattern [pointer]
 		matrix [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_pattern_set_matrix"]
+	]
 
-	pattern_get_matrix: make routine! compose/deep [[
+	pattern_get_matrix: make-routine cairo "cairo_pattern_get_matrix" compose/deep [
 		pattern [pointer]
 		matrix [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_pattern_get_matrix"]
+	]
 
-	pattern_set_extend: make routine! compose/deep [[
+	pattern_set_extend: make-routine cairo "cairo_pattern_set_extend" compose/deep [
 		pattern [pointer]
 		extend [int32]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_pattern_set_extend"]
+	]
 
-	pattern_get_extend: make routine! compose/deep [[
+	pattern_get_extend: make-routine cairo "cairo_pattern_get_extend" compose/deep [
 		pattern [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_pattern_get_extend"]
+	]
 
-	pattern_set_filter: make routine! compose/deep [[
+	pattern_set_filter: make-routine cairo "cairo_pattern_set_filter" compose/deep [
 		pattern [pointer]
 		filter [int32]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_pattern_set_filter"]
+	]
 
-	pattern_get_filter: make routine! compose/deep [[
+	pattern_get_filter: make-routine cairo "cairo_pattern_get_filter" compose/deep [
 		pattern [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_pattern_get_filter"]
+	]
 
-	pattern_get_rgba: make routine! compose/deep [[
+	pattern_get_rgba: make-routine cairo "cairo_pattern_get_rgba" compose/deep [
 		pattern [pointer]
 		red [pointer]
 		green [pointer]
 		blue [pointer]
 		alpha [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_pattern_get_rgba"]
+	]
 
-	pattern_get_surface: make routine! compose/deep [[
+	pattern_get_surface: make-routine cairo "cairo_pattern_get_surface" compose/deep [
 		pattern [pointer]
 		surface [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_pattern_get_surface"]
+	]
 
-	pattern_get_color_stop_rgba: make routine! compose/deep [[
+	pattern_get_color_stop_rgba: make-routine cairo "cairo_pattern_get_color_stop_rgba" compose/deep [
 		pattern [pointer]
 		index [int32]
 		offset [pointer]
@@ -2282,27 +1999,24 @@ make object! [
 		blue [pointer]
 		alpha [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_pattern_get_color_stop_rgba"]
+	]
 
-	pattern_get_color_stop_count: make routine! compose/deep [[
+	pattern_get_color_stop_count: make-routine cairo "cairo_pattern_get_color_stop_count" compose/deep [
 		pattern [pointer]
 		count [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_pattern_get_color_stop_count"]
+	]
 
-	pattern_get_linear_points: make routine! compose/deep [[
+	pattern_get_linear_points: make-routine cairo "cairo_pattern_get_linear_points" compose/deep [
 		pattern [pointer]
 		x0 [pointer]
 		y0 [pointer]
 		x1 [pointer]
 		y1 [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_pattern_get_linear_points"]
+	]
 
-	pattern_get_radial_circles: make routine! compose/deep [[
+	pattern_get_radial_circles: make-routine cairo "cairo_pattern_get_radial_circles" compose/deep [
 		pattern [pointer]
 		x0 [pointer]
 		y0 [pointer]
@@ -2311,24 +2025,21 @@ make object! [
 		y1 [pointer]
 		r1 [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_pattern_get_radial_circles"]
+	]
 
-	mesh_pattern_get_patch_count: make routine! compose/deep [[
+	mesh_pattern_get_patch_count: make-routine cairo "cairo_mesh_pattern_get_patch_count" compose/deep [
 		pattern [pointer]
 		count [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_mesh_pattern_get_patch_count"]
+	]
 
-	mesh_pattern_get_path: make routine! compose/deep [[
+	mesh_pattern_get_path: make-routine cairo "cairo_mesh_pattern_get_path" compose/deep [
 		pattern [pointer]
 		patch_num [uint32]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_mesh_pattern_get_path"]
+	]
 
-	mesh_pattern_get_corner_color_rgba: make routine! compose/deep [[
+	mesh_pattern_get_corner_color_rgba: make-routine cairo "cairo_mesh_pattern_get_corner_color_rgba" compose/deep [
 		pattern [pointer]
 		patch_num [uint32]
 		corner_num [uint32]
@@ -2337,20 +2048,18 @@ make object! [
 		blue [pointer]
 		alpha [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_mesh_pattern_get_corner_color_rgba"]
+	]
 
-	mesh_pattern_get_control_point: make routine! compose/deep [[
+	mesh_pattern_get_control_point: make-routine cairo "cairo_mesh_pattern_get_control_point" compose/deep [
 		pattern [pointer]
 		patch_num [uint32]
 		point_num [uint32]
 		x [pointer]
 		y [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_mesh_pattern_get_control_point"]
+	]
 
-	matrix_init: make routine! compose/deep [[
+	matrix_init: make-routine cairo "cairo_matrix_init" compose/deep [
 		matrix [pointer]
 		xx [double]
 		yx [double]
@@ -2359,249 +2068,213 @@ make object! [
 		x0 [double]
 		y0 [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_matrix_init"]
+	]
 
-	matrix_init_identity: make routine! compose/deep [[
+	matrix_init_identity: make-routine cairo "cairo_matrix_init_identity" compose/deep [
 		matrix [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_matrix_init_identity"]
+	]
 
-	matrix_init_translate: make routine! compose/deep [[
+	matrix_init_translate: make-routine cairo "cairo_matrix_init_translate" compose/deep [
 		matrix [pointer]
 		tx [double]
 		ty [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_matrix_init_translate"]
+	]
 
-	matrix_init_scale: make routine! compose/deep [[
+	matrix_init_scale: make-routine cairo "cairo_matrix_init_scale" compose/deep [
 		matrix [pointer]
 		sx [double]
 		sy [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_matrix_init_scale"]
+	]
 
-	matrix_init_rotate: make routine! compose/deep [[
+	matrix_init_rotate: make-routine cairo "cairo_matrix_init_rotate" compose/deep [
 		matrix [pointer]
 		radians [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_matrix_init_rotate"]
+	]
 
-	matrix_translate: make routine! compose/deep [[
+	matrix_translate: make-routine cairo "cairo_matrix_translate" compose/deep [
 		matrix [pointer]
 		tx [double]
 		ty [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_matrix_translate"]
+	]
 
-	matrix_scale: make routine! compose/deep [[
+	matrix_scale: make-routine cairo "cairo_matrix_scale" compose/deep [
 		matrix [pointer]
 		sx [double]
 		sy [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_matrix_scale"]
+	]
 
-	matrix_rotate: make routine! compose/deep [[
+	matrix_rotate: make-routine cairo "cairo_matrix_rotate" compose/deep [
 		matrix [pointer]
 		radians [double]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_matrix_rotate"]
+	]
 
-	matrix_invert: make routine! compose/deep [[
+	matrix_invert: make-routine cairo "cairo_matrix_invert" compose/deep [
 		matrix [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_matrix_invert"]
+	]
 
-	matrix_multiply: make routine! compose/deep [[
+	matrix_multiply: make-routine cairo "cairo_matrix_multiply" compose/deep [
 		result [pointer]
 		a [pointer]
 		b [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_matrix_multiply"]
+	]
 
-	matrix_transform_distance: make routine! compose/deep [[
+	matrix_transform_distance: make-routine cairo "cairo_matrix_transform_distance" compose/deep [
 		matrix [pointer]
 		dx [pointer]
 		dy [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_matrix_transform_distance"]
+	]
 
-	matrix_transform_point: make routine! compose/deep [[
+	matrix_transform_point: make-routine cairo "cairo_matrix_transform_point" compose/deep [
 		matrix [pointer]
 		x [pointer]
 		y [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_matrix_transform_point"]
+	]
 
-	region_create: make routine! compose/deep [[
+	region_create: make-routine cairo "cairo_region_create" compose/deep [
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_region_create"]
+	]
 
-	region_create_rectangle: make routine! compose/deep [[
+	region_create_rectangle: make-routine cairo "cairo_region_create_rectangle" compose/deep [
 		rectangle [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_region_create_rectangle"]
+	]
 
-	region_create_rectangles: make routine! compose/deep [[
+	region_create_rectangles: make-routine cairo "cairo_region_create_rectangles" compose/deep [
 		rects [pointer]
 		count [int32]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_region_create_rectangles"]
+	]
 
-	region_copy: make routine! compose/deep [[
+	region_copy: make-routine cairo "cairo_region_copy" compose/deep [
 		original [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_region_copy"]
+	]
 
-	region_reference: make routine! compose/deep [[
+	region_reference: make-routine cairo "cairo_region_reference" compose/deep [
 		region [pointer]
 		return: [pointer]
-		abi: default
-	] (cairo) "cairo_region_reference"]
+	]
 
-	region_destroy: make routine! compose/deep [[
+	region_destroy: make-routine cairo "cairo_region_destroy" compose/deep [
 		region [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_region_destroy"]
+	]
 
-	region_equal: make routine! compose/deep [[
+	region_equal: make-routine cairo "cairo_region_equal" compose/deep [
 		a [pointer]
 		b [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_region_equal"]
+	]
 
-	region_status: make routine! compose/deep [[
+	region_status: make-routine cairo "cairo_region_status" compose/deep [
 		region [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_region_status"]
+	]
 
-	region_get_extents: make routine! compose/deep [[
+	region_get_extents: make-routine cairo "cairo_region_get_extents" compose/deep [
 		region [pointer]
 		extents [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_region_get_extents"]
+	]
 
-	region_num_rectangles: make routine! compose/deep [[
+	region_num_rectangles: make-routine cairo "cairo_region_num_rectangles" compose/deep [
 		region [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_region_num_rectangles"]
+	]
 
-	region_get_rectangle: make routine! compose/deep [[
+	region_get_rectangle: make-routine cairo "cairo_region_get_rectangle" compose/deep [
 		region [pointer]
 		nth [int32]
 		rectangle [pointer]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_region_get_rectangle"]
+	]
 
-	region_is_empty: make routine! compose/deep [[
+	region_is_empty: make-routine cairo "cairo_region_is_empty" compose/deep [
 		region [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_region_is_empty"]
+	]
 
-	region_contains_rectangle: make routine! compose/deep [[
+	region_contains_rectangle: make-routine cairo "cairo_region_contains_rectangle" compose/deep [
 		region [pointer]
 		rectangle [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_region_contains_rectangle"]
+	]
 
-	region_contains_point: make routine! compose/deep [[
+	region_contains_point: make-routine cairo "cairo_region_contains_point" compose/deep [
 		region [pointer]
 		x [int32]
 		y [int32]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_region_contains_point"]
+	]
 
-	region_translate: make routine! compose/deep [[
+	region_translate: make-routine cairo "cairo_region_translate" compose/deep [
 		region [pointer]
 		dx [int32]
 		dy [int32]
 		return: [void]
-		abi: default
-	] (cairo) "cairo_region_translate"]
+	]
 
-	region_subtract: make routine! compose/deep [[
+	region_subtract: make-routine cairo "cairo_region_subtract" compose/deep [
 		dst [pointer]
 		other [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_region_subtract"]
+	]
 
-	region_subtract_rectangle: make routine! compose/deep [[
+	region_subtract_rectangle: make-routine cairo "cairo_region_subtract_rectangle" compose/deep [
 		dst [pointer]
 		rectangle [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_region_subtract_rectangle"]
+	]
 
-	region_intersect: make routine! compose/deep [[
+	region_intersect: make-routine cairo "cairo_region_intersect" compose/deep [
 		dst [pointer]
 		other [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_region_intersect"]
+	]
 
-	region_intersect_rectangle: make routine! compose/deep [[
+	region_intersect_rectangle: make-routine cairo "cairo_region_intersect_rectangle" compose/deep [
 		dst [pointer]
 		rectangle [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_region_intersect_rectangle"]
+	]
 
-	region_union: make routine! compose/deep [[
+	region_union: make-routine cairo "cairo_region_union" compose/deep [
 		dst [pointer]
 		other [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_region_union"]
+	]
 
-	region_union_rectangle: make routine! compose/deep [[
+	region_union_rectangle: make-routine cairo "cairo_region_union_rectangle" compose/deep [
 		dst [pointer]
 		rectangle [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_region_union_rectangle"]
+	]
 
-	region_xor: make routine! compose/deep [[
+	region_xor: make-routine cairo "cairo_region_xor" compose/deep [
 		dst [pointer]
 		other [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_region_xor"]
+	]
 
-	region_xor_rectangle: make routine! compose/deep [[
+	region_xor_rectangle: make-routine cairo "cairo_region_xor_rectangle" compose/deep [
 		dst [pointer]
 		rectangle [pointer]
 		return: [int32]
-		abi: default
-	] (cairo) "cairo_region_xor_rectangle"]
+	]
 
-	debug_reset_static_data: make routine! compose/deep [[
+	debug_reset_static_data: make-routine cairo "cairo_debug_reset_static_data" compose/deep [
 		return: [void]
-		abi: default
-	] (cairo) "cairo_debug_reset_static_data"]
+	]
 
 ]

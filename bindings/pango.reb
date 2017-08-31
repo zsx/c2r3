@@ -457,1034 +457,876 @@ make object! [
 		_pango_reserved4 [pointer]
 	]
 	pango: make library! %libpango-1.0.so
-	coverage_new: make routine! compose/deep [[
+	coverage_new: make-routine pango "pango_coverage_new" compose/deep [
 		return: [pointer]
-		abi: default
-	] (pango) "pango_coverage_new"]
+	]
 
-	coverage_ref: make routine! compose/deep [[
+	coverage_ref: make-routine pango "pango_coverage_ref" compose/deep [
 		coverage [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_coverage_ref"]
+	]
 
-	coverage_unref: make routine! compose/deep [[
+	coverage_unref: make-routine pango "pango_coverage_unref" compose/deep [
 		coverage [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_coverage_unref"]
+	]
 
-	coverage_copy: make routine! compose/deep [[
+	coverage_copy: make-routine pango "pango_coverage_copy" compose/deep [
 		coverage [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_coverage_copy"]
+	]
 
-	coverage_get: make routine! compose/deep [[
+	coverage_get: make-routine pango "pango_coverage_get" compose/deep [
 		coverage [pointer]
 		index_ [int32]
 		return: [int32]
-		abi: default
-	] (pango) "pango_coverage_get"]
+	]
 
-	coverage_set: make routine! compose/deep [[
+	coverage_set: make-routine pango "pango_coverage_set" compose/deep [
 		coverage [pointer]
 		index_ [int32]
 		level [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_coverage_set"]
+	]
 
-	coverage_max: make routine! compose/deep [[
+	coverage_max: make-routine pango "pango_coverage_max" compose/deep [
 		coverage [pointer]
 		other [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_coverage_max"]
+	]
 
-	coverage_to_bytes: make routine! compose/deep [[
+	coverage_to_bytes: make-routine pango "pango_coverage_to_bytes" compose/deep [
 		coverage [pointer]
 		bytes [pointer]
 		n_bytes [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_coverage_to_bytes"]
+	]
 
-	coverage_from_bytes: make routine! compose/deep [[
+	coverage_from_bytes: make-routine pango "pango_coverage_from_bytes" compose/deep [
 		bytes [pointer]
 		n_bytes [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_coverage_from_bytes"]
+	]
 
-	units_from_double: make routine! compose/deep [[
+	units_from_double: make-routine pango "pango_units_from_double" compose/deep [
 		d [double]
 		return: [int32]
-		abi: default
-	] (pango) "pango_units_from_double"]
+	]
 
-	units_to_double: make routine! compose/deep [[
+	units_to_double: make-routine pango "pango_units_to_double" compose/deep [
 		i [int32]
 		return: [double]
-		abi: default
-	] (pango) "pango_units_to_double"]
+	]
 
-	extents_to_pixels: make routine! compose/deep [[
+	extents_to_pixels: make-routine pango "pango_extents_to_pixels" compose/deep [
 		inclusive [pointer]
 		nearest [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_extents_to_pixels"]
+	]
 
-	matrix_get_type: make routine! compose/deep [[
+	matrix_get_type: make-routine pango "pango_matrix_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_matrix_get_type"]
+	]
 
-	matrix_copy: make routine! compose/deep [[
+	matrix_copy: make-routine pango "pango_matrix_copy" compose/deep [
 		matrix [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_matrix_copy"]
+	]
 
-	matrix_free: make routine! compose/deep [[
+	matrix_free: make-routine pango "pango_matrix_free" compose/deep [
 		matrix [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_matrix_free"]
+	]
 
-	matrix_translate: make routine! compose/deep [[
+	matrix_translate: make-routine pango "pango_matrix_translate" compose/deep [
 		matrix [pointer]
 		tx [double]
 		ty [double]
 		return: [void]
-		abi: default
-	] (pango) "pango_matrix_translate"]
+	]
 
-	matrix_scale: make routine! compose/deep [[
+	matrix_scale: make-routine pango "pango_matrix_scale" compose/deep [
 		matrix [pointer]
 		scale_x [double]
 		scale_y [double]
 		return: [void]
-		abi: default
-	] (pango) "pango_matrix_scale"]
+	]
 
-	matrix_rotate: make routine! compose/deep [[
+	matrix_rotate: make-routine pango "pango_matrix_rotate" compose/deep [
 		matrix [pointer]
 		degrees [double]
 		return: [void]
-		abi: default
-	] (pango) "pango_matrix_rotate"]
+	]
 
-	matrix_concat: make routine! compose/deep [[
+	matrix_concat: make-routine pango "pango_matrix_concat" compose/deep [
 		matrix [pointer]
 		new_matrix [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_matrix_concat"]
+	]
 
-	matrix_transform_point: make routine! compose/deep [[
+	matrix_transform_point: make-routine pango "pango_matrix_transform_point" compose/deep [
 		matrix [pointer]
 		x [pointer]
 		y [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_matrix_transform_point"]
+	]
 
-	matrix_transform_distance: make routine! compose/deep [[
+	matrix_transform_distance: make-routine pango "pango_matrix_transform_distance" compose/deep [
 		matrix [pointer]
 		dx [pointer]
 		dy [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_matrix_transform_distance"]
+	]
 
-	matrix_transform_rectangle: make routine! compose/deep [[
+	matrix_transform_rectangle: make-routine pango "pango_matrix_transform_rectangle" compose/deep [
 		matrix [pointer]
 		rect [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_matrix_transform_rectangle"]
+	]
 
-	matrix_transform_pixel_rectangle: make routine! compose/deep [[
+	matrix_transform_pixel_rectangle: make-routine pango "pango_matrix_transform_pixel_rectangle" compose/deep [
 		matrix [pointer]
 		rect [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_matrix_transform_pixel_rectangle"]
+	]
 
-	matrix_get_font_scale_factor: make routine! compose/deep [[
+	matrix_get_font_scale_factor: make-routine pango "pango_matrix_get_font_scale_factor" compose/deep [
 		matrix [pointer]
 		return: [double]
-		abi: default
-	] (pango) "pango_matrix_get_font_scale_factor"]
+	]
 
-	script_for_unichar: make routine! compose/deep [[
+	script_for_unichar: make-routine pango "pango_script_for_unichar" compose/deep [
 		ch [uint32]
 		return: [int32]
-		abi: default
-	] (pango) "pango_script_for_unichar"]
+	]
 
-	script_iter_new: make routine! compose/deep [[
+	script_iter_new: make-routine pango "pango_script_iter_new" compose/deep [
 		text [pointer]
 		length [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_script_iter_new"]
+	]
 
-	script_iter_get_range: make routine! compose/deep [[
+	script_iter_get_range: make-routine pango "pango_script_iter_get_range" compose/deep [
 		iter [pointer]
 		start [pointer]
 		end [pointer]
 		script [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_script_iter_get_range"]
+	]
 
-	script_iter_next: make routine! compose/deep [[
+	script_iter_next: make-routine pango "pango_script_iter_next" compose/deep [
 		iter [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_script_iter_next"]
+	]
 
-	script_iter_free: make routine! compose/deep [[
+	script_iter_free: make-routine pango "pango_script_iter_free" compose/deep [
 		iter [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_script_iter_free"]
+	]
 
-	language_get_type: make routine! compose/deep [[
+	language_get_type: make-routine pango "pango_language_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_language_get_type"]
+	]
 
-	language_from_string: make routine! compose/deep [[
+	language_from_string: make-routine pango "pango_language_from_string" compose/deep [
 		language [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_language_from_string"]
+	]
 
-	language_to_string: make routine! compose/deep [[
+	language_to_string: make-routine pango "pango_language_to_string" compose/deep [
 		language [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_language_to_string"]
+	]
 
-	language_get_sample_string: make routine! compose/deep [[
+	language_get_sample_string: make-routine pango "pango_language_get_sample_string" compose/deep [
 		language [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_language_get_sample_string"]
+	]
 
-	language_get_default: make routine! compose/deep [[
+	language_get_default: make-routine pango "pango_language_get_default" compose/deep [
 		return: [pointer]
-		abi: default
-	] (pango) "pango_language_get_default"]
+	]
 
-	language_matches: make routine! compose/deep [[
+	language_matches: make-routine pango "pango_language_matches" compose/deep [
 		language [pointer]
 		range_list [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_language_matches"]
+	]
 
-	language_includes_script: make routine! compose/deep [[
+	language_includes_script: make-routine pango "pango_language_includes_script" compose/deep [
 		language [pointer]
 		script [int32]
 		return: [int32]
-		abi: default
-	] (pango) "pango_language_includes_script"]
+	]
 
-	language_get_scripts: make routine! compose/deep [[
+	language_get_scripts: make-routine pango "pango_language_get_scripts" compose/deep [
 		language [pointer]
 		num_scripts [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_language_get_scripts"]
+	]
 
-	script_get_sample_language: make routine! compose/deep [[
+	script_get_sample_language: make-routine pango "pango_script_get_sample_language" compose/deep [
 		script [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_script_get_sample_language"]
+	]
 
-	gravity_to_rotation: make routine! compose/deep [[
+	gravity_to_rotation: make-routine pango "pango_gravity_to_rotation" compose/deep [
 		gravity [int32]
 		return: [double]
-		abi: default
-	] (pango) "pango_gravity_to_rotation"]
+	]
 
-	gravity_get_for_matrix: make routine! compose/deep [[
+	gravity_get_for_matrix: make-routine pango "pango_gravity_get_for_matrix" compose/deep [
 		matrix [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_gravity_get_for_matrix"]
+	]
 
-	gravity_get_for_script: make routine! compose/deep [[
+	gravity_get_for_script: make-routine pango "pango_gravity_get_for_script" compose/deep [
 		script [int32]
 		base_gravity [int32]
 		hint [int32]
 		return: [int32]
-		abi: default
-	] (pango) "pango_gravity_get_for_script"]
+	]
 
-	gravity_get_for_script_and_width: make routine! compose/deep [[
+	gravity_get_for_script_and_width: make-routine pango "pango_gravity_get_for_script_and_width" compose/deep [
 		script [int32]
 		wide [int32]
 		base_gravity [int32]
 		hint [int32]
 		return: [int32]
-		abi: default
-	] (pango) "pango_gravity_get_for_script_and_width"]
+	]
 
-	bidi_type_for_unichar: make routine! compose/deep [[
+	bidi_type_for_unichar: make-routine pango "pango_bidi_type_for_unichar" compose/deep [
 		ch [uint32]
 		return: [int32]
-		abi: default
-	] (pango) "pango_bidi_type_for_unichar"]
+	]
 
-	unichar_direction: make routine! compose/deep [[
+	unichar_direction: make-routine pango "pango_unichar_direction" compose/deep [
 		ch [uint32]
 		return: [int32]
-		abi: default
-	] (pango) "pango_unichar_direction"]
+	]
 
-	find_base_dir: make routine! compose/deep [[
+	find_base_dir: make-routine pango "pango_find_base_dir" compose/deep [
 		text [pointer]
 		length [int32]
 		return: [int32]
-		abi: default
-	] (pango) "pango_find_base_dir"]
+	]
 
-	font_description_get_type: make routine! compose/deep [[
+	font_description_get_type: make-routine pango "pango_font_description_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_font_description_get_type"]
+	]
 
-	font_description_new: make routine! compose/deep [[
+	font_description_new: make-routine pango "pango_font_description_new" compose/deep [
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_description_new"]
+	]
 
-	font_description_copy: make routine! compose/deep [[
+	font_description_copy: make-routine pango "pango_font_description_copy" compose/deep [
 		desc [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_description_copy"]
+	]
 
-	font_description_copy_static: make routine! compose/deep [[
+	font_description_copy_static: make-routine pango "pango_font_description_copy_static" compose/deep [
 		desc [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_description_copy_static"]
+	]
 
-	font_description_hash: make routine! compose/deep [[
+	font_description_hash: make-routine pango "pango_font_description_hash" compose/deep [
 		desc [pointer]
 		return: [uint32]
-		abi: default
-	] (pango) "pango_font_description_hash"]
+	]
 
-	font_description_equal: make routine! compose/deep [[
+	font_description_equal: make-routine pango "pango_font_description_equal" compose/deep [
 		desc1 [pointer]
 		desc2 [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_description_equal"]
+	]
 
-	font_description_free: make routine! compose/deep [[
+	font_description_free: make-routine pango "pango_font_description_free" compose/deep [
 		desc [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_description_free"]
+	]
 
-	font_descriptions_free: make routine! compose/deep [[
+	font_descriptions_free: make-routine pango "pango_font_descriptions_free" compose/deep [
 		descs [pointer]
 		n_descs [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_descriptions_free"]
+	]
 
-	font_description_set_family: make routine! compose/deep [[
+	font_description_set_family: make-routine pango "pango_font_description_set_family" compose/deep [
 		desc [pointer]
 		family [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_description_set_family"]
+	]
 
-	font_description_set_family_static: make routine! compose/deep [[
+	font_description_set_family_static: make-routine pango "pango_font_description_set_family_static" compose/deep [
 		desc [pointer]
 		family [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_description_set_family_static"]
+	]
 
-	font_description_get_family: make routine! compose/deep [[
+	font_description_get_family: make-routine pango "pango_font_description_get_family" compose/deep [
 		desc [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_description_get_family"]
+	]
 
-	font_description_set_style: make routine! compose/deep [[
+	font_description_set_style: make-routine pango "pango_font_description_set_style" compose/deep [
 		desc [pointer]
 		style [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_description_set_style"]
+	]
 
-	font_description_get_style: make routine! compose/deep [[
+	font_description_get_style: make-routine pango "pango_font_description_get_style" compose/deep [
 		desc [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_description_get_style"]
+	]
 
-	font_description_set_variant: make routine! compose/deep [[
+	font_description_set_variant: make-routine pango "pango_font_description_set_variant" compose/deep [
 		desc [pointer]
 		variant [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_description_set_variant"]
+	]
 
-	font_description_get_variant: make routine! compose/deep [[
+	font_description_get_variant: make-routine pango "pango_font_description_get_variant" compose/deep [
 		desc [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_description_get_variant"]
+	]
 
-	font_description_set_weight: make routine! compose/deep [[
+	font_description_set_weight: make-routine pango "pango_font_description_set_weight" compose/deep [
 		desc [pointer]
 		weight [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_description_set_weight"]
+	]
 
-	font_description_get_weight: make routine! compose/deep [[
+	font_description_get_weight: make-routine pango "pango_font_description_get_weight" compose/deep [
 		desc [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_description_get_weight"]
+	]
 
-	font_description_set_stretch: make routine! compose/deep [[
+	font_description_set_stretch: make-routine pango "pango_font_description_set_stretch" compose/deep [
 		desc [pointer]
 		stretch [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_description_set_stretch"]
+	]
 
-	font_description_get_stretch: make routine! compose/deep [[
+	font_description_get_stretch: make-routine pango "pango_font_description_get_stretch" compose/deep [
 		desc [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_description_get_stretch"]
+	]
 
-	font_description_set_size: make routine! compose/deep [[
+	font_description_set_size: make-routine pango "pango_font_description_set_size" compose/deep [
 		desc [pointer]
 		size [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_description_set_size"]
+	]
 
-	font_description_get_size: make routine! compose/deep [[
+	font_description_get_size: make-routine pango "pango_font_description_get_size" compose/deep [
 		desc [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_description_get_size"]
+	]
 
-	font_description_set_absolute_size: make routine! compose/deep [[
+	font_description_set_absolute_size: make-routine pango "pango_font_description_set_absolute_size" compose/deep [
 		desc [pointer]
 		size [double]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_description_set_absolute_size"]
+	]
 
-	font_description_get_size_is_absolute: make routine! compose/deep [[
+	font_description_get_size_is_absolute: make-routine pango "pango_font_description_get_size_is_absolute" compose/deep [
 		desc [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_description_get_size_is_absolute"]
+	]
 
-	font_description_set_gravity: make routine! compose/deep [[
+	font_description_set_gravity: make-routine pango "pango_font_description_set_gravity" compose/deep [
 		desc [pointer]
 		gravity [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_description_set_gravity"]
+	]
 
-	font_description_get_gravity: make routine! compose/deep [[
+	font_description_get_gravity: make-routine pango "pango_font_description_get_gravity" compose/deep [
 		desc [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_description_get_gravity"]
+	]
 
-	font_description_get_set_fields: make routine! compose/deep [[
+	font_description_get_set_fields: make-routine pango "pango_font_description_get_set_fields" compose/deep [
 		desc [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_description_get_set_fields"]
+	]
 
-	font_description_unset_fields: make routine! compose/deep [[
+	font_description_unset_fields: make-routine pango "pango_font_description_unset_fields" compose/deep [
 		desc [pointer]
 		to_unset [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_description_unset_fields"]
+	]
 
-	font_description_merge: make routine! compose/deep [[
+	font_description_merge: make-routine pango "pango_font_description_merge" compose/deep [
 		desc [pointer]
 		desc_to_merge [pointer]
 		replace_existing [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_description_merge"]
+	]
 
-	font_description_merge_static: make routine! compose/deep [[
+	font_description_merge_static: make-routine pango "pango_font_description_merge_static" compose/deep [
 		desc [pointer]
 		desc_to_merge [pointer]
 		replace_existing [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_description_merge_static"]
+	]
 
-	font_description_better_match: make routine! compose/deep [[
+	font_description_better_match: make-routine pango "pango_font_description_better_match" compose/deep [
 		desc [pointer]
 		old_match [pointer]
 		new_match [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_description_better_match"]
+	]
 
-	font_description_from_string: make routine! compose/deep [[
+	font_description_from_string: make-routine pango "pango_font_description_from_string" compose/deep [
 		str [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_description_from_string"]
+	]
 
-	font_description_to_string: make routine! compose/deep [[
+	font_description_to_string: make-routine pango "pango_font_description_to_string" compose/deep [
 		desc [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_description_to_string"]
+	]
 
-	font_description_to_filename: make routine! compose/deep [[
+	font_description_to_filename: make-routine pango "pango_font_description_to_filename" compose/deep [
 		desc [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_description_to_filename"]
+	]
 
-	font_metrics_get_type: make routine! compose/deep [[
+	font_metrics_get_type: make-routine pango "pango_font_metrics_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_font_metrics_get_type"]
+	]
 
-	font_metrics_ref: make routine! compose/deep [[
+	font_metrics_ref: make-routine pango "pango_font_metrics_ref" compose/deep [
 		metrics [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_metrics_ref"]
+	]
 
-	font_metrics_unref: make routine! compose/deep [[
+	font_metrics_unref: make-routine pango "pango_font_metrics_unref" compose/deep [
 		metrics [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_metrics_unref"]
+	]
 
-	font_metrics_get_ascent: make routine! compose/deep [[
+	font_metrics_get_ascent: make-routine pango "pango_font_metrics_get_ascent" compose/deep [
 		metrics [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_metrics_get_ascent"]
+	]
 
-	font_metrics_get_descent: make routine! compose/deep [[
+	font_metrics_get_descent: make-routine pango "pango_font_metrics_get_descent" compose/deep [
 		metrics [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_metrics_get_descent"]
+	]
 
-	font_metrics_get_approximate_char_width: make routine! compose/deep [[
+	font_metrics_get_approximate_char_width: make-routine pango "pango_font_metrics_get_approximate_char_width" compose/deep [
 		metrics [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_metrics_get_approximate_char_width"]
+	]
 
-	font_metrics_get_approximate_digit_width: make routine! compose/deep [[
+	font_metrics_get_approximate_digit_width: make-routine pango "pango_font_metrics_get_approximate_digit_width" compose/deep [
 		metrics [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_metrics_get_approximate_digit_width"]
+	]
 
-	font_metrics_get_underline_position: make routine! compose/deep [[
+	font_metrics_get_underline_position: make-routine pango "pango_font_metrics_get_underline_position" compose/deep [
 		metrics [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_metrics_get_underline_position"]
+	]
 
-	font_metrics_get_underline_thickness: make routine! compose/deep [[
+	font_metrics_get_underline_thickness: make-routine pango "pango_font_metrics_get_underline_thickness" compose/deep [
 		metrics [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_metrics_get_underline_thickness"]
+	]
 
-	font_metrics_get_strikethrough_position: make routine! compose/deep [[
+	font_metrics_get_strikethrough_position: make-routine pango "pango_font_metrics_get_strikethrough_position" compose/deep [
 		metrics [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_metrics_get_strikethrough_position"]
+	]
 
-	font_metrics_get_strikethrough_thickness: make routine! compose/deep [[
+	font_metrics_get_strikethrough_thickness: make-routine pango "pango_font_metrics_get_strikethrough_thickness" compose/deep [
 		metrics [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_metrics_get_strikethrough_thickness"]
+	]
 
-	font_family_get_type: make routine! compose/deep [[
+	font_family_get_type: make-routine pango "pango_font_family_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_font_family_get_type"]
+	]
 
-	font_family_list_faces: make routine! compose/deep [[
+	font_family_list_faces: make-routine pango "pango_font_family_list_faces" compose/deep [
 		family [pointer]
 		faces [pointer]
 		n_faces [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_family_list_faces"]
+	]
 
-	font_family_get_name: make routine! compose/deep [[
+	font_family_get_name: make-routine pango "pango_font_family_get_name" compose/deep [
 		family [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_family_get_name"]
+	]
 
-	font_family_is_monospace: make routine! compose/deep [[
+	font_family_is_monospace: make-routine pango "pango_font_family_is_monospace" compose/deep [
 		family [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_family_is_monospace"]
+	]
 
-	font_face_get_type: make routine! compose/deep [[
+	font_face_get_type: make-routine pango "pango_font_face_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_font_face_get_type"]
+	]
 
-	font_face_describe: make routine! compose/deep [[
+	font_face_describe: make-routine pango "pango_font_face_describe" compose/deep [
 		face [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_face_describe"]
+	]
 
-	font_face_get_face_name: make routine! compose/deep [[
+	font_face_get_face_name: make-routine pango "pango_font_face_get_face_name" compose/deep [
 		face [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_face_get_face_name"]
+	]
 
-	font_face_list_sizes: make routine! compose/deep [[
+	font_face_list_sizes: make-routine pango "pango_font_face_list_sizes" compose/deep [
 		face [pointer]
 		sizes [pointer]
 		n_sizes [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_face_list_sizes"]
+	]
 
-	font_face_is_synthesized: make routine! compose/deep [[
+	font_face_is_synthesized: make-routine pango "pango_font_face_is_synthesized" compose/deep [
 		face [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_font_face_is_synthesized"]
+	]
 
-	font_get_type: make routine! compose/deep [[
+	font_get_type: make-routine pango "pango_font_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_font_get_type"]
+	]
 
-	font_describe: make routine! compose/deep [[
+	font_describe: make-routine pango "pango_font_describe" compose/deep [
 		font [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_describe"]
+	]
 
-	font_describe_with_absolute_size: make routine! compose/deep [[
+	font_describe_with_absolute_size: make-routine pango "pango_font_describe_with_absolute_size" compose/deep [
 		font [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_describe_with_absolute_size"]
+	]
 
-	font_get_coverage: make routine! compose/deep [[
+	font_get_coverage: make-routine pango "pango_font_get_coverage" compose/deep [
 		font [pointer]
 		language [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_get_coverage"]
+	]
 
-	font_find_shaper: make routine! compose/deep [[
+	font_find_shaper: make-routine pango "pango_font_find_shaper" compose/deep [
 		font [pointer]
 		language [pointer]
 		ch [uint32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_find_shaper"]
+	]
 
-	font_get_metrics: make routine! compose/deep [[
+	font_get_metrics: make-routine pango "pango_font_get_metrics" compose/deep [
 		font [pointer]
 		language [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_get_metrics"]
+	]
 
-	font_get_glyph_extents: make routine! compose/deep [[
+	font_get_glyph_extents: make-routine pango "pango_font_get_glyph_extents" compose/deep [
 		font [pointer]
 		glyph [uint32]
 		ink_rect [pointer]
 		logical_rect [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_get_glyph_extents"]
+	]
 
-	font_get_font_map: make routine! compose/deep [[
+	font_get_font_map: make-routine pango "pango_font_get_font_map" compose/deep [
 		font [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_get_font_map"]
+	]
 
-	color_get_type: make routine! compose/deep [[
+	color_get_type: make-routine pango "pango_color_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_color_get_type"]
+	]
 
-	color_copy: make routine! compose/deep [[
+	color_copy: make-routine pango "pango_color_copy" compose/deep [
 		src [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_color_copy"]
+	]
 
-	color_free: make routine! compose/deep [[
+	color_free: make-routine pango "pango_color_free" compose/deep [
 		color [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_color_free"]
+	]
 
-	color_parse: make routine! compose/deep [[
+	color_parse: make-routine pango "pango_color_parse" compose/deep [
 		color [pointer]
 		spec [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_color_parse"]
+	]
 
-	color_to_string: make routine! compose/deep [[
+	color_to_string: make-routine pango "pango_color_to_string" compose/deep [
 		color [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_color_to_string"]
+	]
 
-	attr_type_register: make routine! compose/deep [[
+	attr_type_register: make-routine pango "pango_attr_type_register" compose/deep [
 		name [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_attr_type_register"]
+	]
 
-	attr_type_get_name: make routine! compose/deep [[
+	attr_type_get_name: make-routine pango "pango_attr_type_get_name" compose/deep [
 		type [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_type_get_name"]
+	]
 
-	attribute_init: make routine! compose/deep [[
+	attribute_init: make-routine pango "pango_attribute_init" compose/deep [
 		attr [pointer]
 		klass [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_attribute_init"]
+	]
 
-	attribute_copy: make routine! compose/deep [[
+	attribute_copy: make-routine pango "pango_attribute_copy" compose/deep [
 		attr [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attribute_copy"]
+	]
 
-	attribute_destroy: make routine! compose/deep [[
+	attribute_destroy: make-routine pango "pango_attribute_destroy" compose/deep [
 		attr [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_attribute_destroy"]
+	]
 
-	attribute_equal: make routine! compose/deep [[
+	attribute_equal: make-routine pango "pango_attribute_equal" compose/deep [
 		attr1 [pointer]
 		attr2 [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_attribute_equal"]
+	]
 
-	attr_language_new: make routine! compose/deep [[
+	attr_language_new: make-routine pango "pango_attr_language_new" compose/deep [
 		language [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_language_new"]
+	]
 
-	attr_family_new: make routine! compose/deep [[
+	attr_family_new: make-routine pango "pango_attr_family_new" compose/deep [
 		family [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_family_new"]
+	]
 
-	attr_foreground_new: make routine! compose/deep [[
+	attr_foreground_new: make-routine pango "pango_attr_foreground_new" compose/deep [
 		red [uint16]
 		green [uint16]
 		blue [uint16]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_foreground_new"]
+	]
 
-	attr_background_new: make routine! compose/deep [[
+	attr_background_new: make-routine pango "pango_attr_background_new" compose/deep [
 		red [uint16]
 		green [uint16]
 		blue [uint16]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_background_new"]
+	]
 
-	attr_size_new: make routine! compose/deep [[
+	attr_size_new: make-routine pango "pango_attr_size_new" compose/deep [
 		size [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_size_new"]
+	]
 
-	attr_size_new_absolute: make routine! compose/deep [[
+	attr_size_new_absolute: make-routine pango "pango_attr_size_new_absolute" compose/deep [
 		size [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_size_new_absolute"]
+	]
 
-	attr_style_new: make routine! compose/deep [[
+	attr_style_new: make-routine pango "pango_attr_style_new" compose/deep [
 		style [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_style_new"]
+	]
 
-	attr_weight_new: make routine! compose/deep [[
+	attr_weight_new: make-routine pango "pango_attr_weight_new" compose/deep [
 		weight [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_weight_new"]
+	]
 
-	attr_variant_new: make routine! compose/deep [[
+	attr_variant_new: make-routine pango "pango_attr_variant_new" compose/deep [
 		variant [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_variant_new"]
+	]
 
-	attr_stretch_new: make routine! compose/deep [[
+	attr_stretch_new: make-routine pango "pango_attr_stretch_new" compose/deep [
 		stretch [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_stretch_new"]
+	]
 
-	attr_font_desc_new: make routine! compose/deep [[
+	attr_font_desc_new: make-routine pango "pango_attr_font_desc_new" compose/deep [
 		desc [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_font_desc_new"]
+	]
 
-	attr_underline_new: make routine! compose/deep [[
+	attr_underline_new: make-routine pango "pango_attr_underline_new" compose/deep [
 		underline [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_underline_new"]
+	]
 
-	attr_underline_color_new: make routine! compose/deep [[
+	attr_underline_color_new: make-routine pango "pango_attr_underline_color_new" compose/deep [
 		red [uint16]
 		green [uint16]
 		blue [uint16]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_underline_color_new"]
+	]
 
-	attr_strikethrough_new: make routine! compose/deep [[
+	attr_strikethrough_new: make-routine pango "pango_attr_strikethrough_new" compose/deep [
 		strikethrough [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_strikethrough_new"]
+	]
 
-	attr_strikethrough_color_new: make routine! compose/deep [[
+	attr_strikethrough_color_new: make-routine pango "pango_attr_strikethrough_color_new" compose/deep [
 		red [uint16]
 		green [uint16]
 		blue [uint16]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_strikethrough_color_new"]
+	]
 
-	attr_rise_new: make routine! compose/deep [[
+	attr_rise_new: make-routine pango "pango_attr_rise_new" compose/deep [
 		rise [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_rise_new"]
+	]
 
-	attr_scale_new: make routine! compose/deep [[
+	attr_scale_new: make-routine pango "pango_attr_scale_new" compose/deep [
 		scale_factor [double]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_scale_new"]
+	]
 
-	attr_fallback_new: make routine! compose/deep [[
+	attr_fallback_new: make-routine pango "pango_attr_fallback_new" compose/deep [
 		enable_fallback [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_fallback_new"]
+	]
 
-	attr_letter_spacing_new: make routine! compose/deep [[
+	attr_letter_spacing_new: make-routine pango "pango_attr_letter_spacing_new" compose/deep [
 		letter_spacing [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_letter_spacing_new"]
+	]
 
-	attr_shape_new: make routine! compose/deep [[
+	attr_shape_new: make-routine pango "pango_attr_shape_new" compose/deep [
 		ink_rect [pointer]
 		logical_rect [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_shape_new"]
+	]
 
-	attr_shape_new_with_data: make routine! compose/deep [[
+	attr_shape_new_with_data: make-routine pango "pango_attr_shape_new_with_data" compose/deep [
 		ink_rect [pointer]
 		logical_rect [pointer]
 		data [pointer]
 		copy_func [pointer]
 		destroy_func [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_shape_new_with_data"]
+	]
 
-	attr_gravity_new: make routine! compose/deep [[
+	attr_gravity_new: make-routine pango "pango_attr_gravity_new" compose/deep [
 		gravity [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_gravity_new"]
+	]
 
-	attr_gravity_hint_new: make routine! compose/deep [[
+	attr_gravity_hint_new: make-routine pango "pango_attr_gravity_hint_new" compose/deep [
 		hint [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_gravity_hint_new"]
+	]
 
-	attr_list_get_type: make routine! compose/deep [[
+	attr_list_get_type: make-routine pango "pango_attr_list_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_attr_list_get_type"]
+	]
 
-	attr_list_new: make routine! compose/deep [[
+	attr_list_new: make-routine pango "pango_attr_list_new" compose/deep [
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_list_new"]
+	]
 
-	attr_list_ref: make routine! compose/deep [[
+	attr_list_ref: make-routine pango "pango_attr_list_ref" compose/deep [
 		list [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_list_ref"]
+	]
 
-	attr_list_unref: make routine! compose/deep [[
+	attr_list_unref: make-routine pango "pango_attr_list_unref" compose/deep [
 		list [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_attr_list_unref"]
+	]
 
-	attr_list_copy: make routine! compose/deep [[
+	attr_list_copy: make-routine pango "pango_attr_list_copy" compose/deep [
 		list [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_list_copy"]
+	]
 
-	attr_list_insert: make routine! compose/deep [[
+	attr_list_insert: make-routine pango "pango_attr_list_insert" compose/deep [
 		list [pointer]
 		attr [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_attr_list_insert"]
+	]
 
-	attr_list_insert_before: make routine! compose/deep [[
+	attr_list_insert_before: make-routine pango "pango_attr_list_insert_before" compose/deep [
 		list [pointer]
 		attr [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_attr_list_insert_before"]
+	]
 
-	attr_list_change: make routine! compose/deep [[
+	attr_list_change: make-routine pango "pango_attr_list_change" compose/deep [
 		list [pointer]
 		attr [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_attr_list_change"]
+	]
 
-	attr_list_splice: make routine! compose/deep [[
+	attr_list_splice: make-routine pango "pango_attr_list_splice" compose/deep [
 		list [pointer]
 		other [pointer]
 		pos [int32]
 		len [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_attr_list_splice"]
+	]
 
-	attr_list_filter: make routine! compose/deep [[
+	attr_list_filter: make-routine pango "pango_attr_list_filter" compose/deep [
 		list [pointer]
 		func [pointer]
 		data [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_list_filter"]
+	]
 
-	attr_list_get_iterator: make routine! compose/deep [[
+	attr_list_get_iterator: make-routine pango "pango_attr_list_get_iterator" compose/deep [
 		list [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_list_get_iterator"]
+	]
 
-	attr_iterator_range: make routine! compose/deep [[
+	attr_iterator_range: make-routine pango "pango_attr_iterator_range" compose/deep [
 		iterator [pointer]
 		start [pointer]
 		end [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_attr_iterator_range"]
+	]
 
-	attr_iterator_next: make routine! compose/deep [[
+	attr_iterator_next: make-routine pango "pango_attr_iterator_next" compose/deep [
 		iterator [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_attr_iterator_next"]
+	]
 
-	attr_iterator_copy: make routine! compose/deep [[
+	attr_iterator_copy: make-routine pango "pango_attr_iterator_copy" compose/deep [
 		iterator [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_iterator_copy"]
+	]
 
-	attr_iterator_destroy: make routine! compose/deep [[
+	attr_iterator_destroy: make-routine pango "pango_attr_iterator_destroy" compose/deep [
 		iterator [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_attr_iterator_destroy"]
+	]
 
-	attr_iterator_get: make routine! compose/deep [[
+	attr_iterator_get: make-routine pango "pango_attr_iterator_get" compose/deep [
 		iterator [pointer]
 		type [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_iterator_get"]
+	]
 
-	attr_iterator_get_font: make routine! compose/deep [[
+	attr_iterator_get_font: make-routine pango "pango_attr_iterator_get_font" compose/deep [
 		iterator [pointer]
 		desc [pointer]
 		language [pointer]
 		extra_attrs [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_attr_iterator_get_font"]
+	]
 
-	attr_iterator_get_attrs: make routine! compose/deep [[
+	attr_iterator_get_attrs: make-routine pango "pango_attr_iterator_get_attrs" compose/deep [
 		iterator [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_attr_iterator_get_attrs"]
+	]
 
-	parse_markup: make routine! compose/deep [[
+	parse_markup: make-routine pango "pango_parse_markup" compose/deep [
 		markup_text [pointer]
 		length [int32]
 		accel_marker [uint32]
@@ -1493,75 +1335,65 @@ make object! [
 		accel_char [pointer]
 		error [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_parse_markup"]
+	]
 
-	markup_parser_new: make routine! compose/deep [[
+	markup_parser_new: make-routine pango "pango_markup_parser_new" compose/deep [
 		accel_marker [uint32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_markup_parser_new"]
+	]
 
-	markup_parser_finish: make routine! compose/deep [[
+	markup_parser_finish: make-routine pango "pango_markup_parser_finish" compose/deep [
 		context [pointer]
 		attr_list [pointer]
 		text [pointer]
 		accel_char [pointer]
 		error [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_markup_parser_finish"]
+	]
 
-	item_get_type: make routine! compose/deep [[
+	item_get_type: make-routine pango "pango_item_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_item_get_type"]
+	]
 
-	item_new: make routine! compose/deep [[
+	item_new: make-routine pango "pango_item_new" compose/deep [
 		return: [pointer]
-		abi: default
-	] (pango) "pango_item_new"]
+	]
 
-	item_copy: make routine! compose/deep [[
+	item_copy: make-routine pango "pango_item_copy" compose/deep [
 		item [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_item_copy"]
+	]
 
-	item_free: make routine! compose/deep [[
+	item_free: make-routine pango "pango_item_free" compose/deep [
 		item [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_item_free"]
+	]
 
-	item_split: make routine! compose/deep [[
+	item_split: make-routine pango "pango_item_split" compose/deep [
 		orig [pointer]
 		split_index [int32]
 		split_offset [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_item_split"]
+	]
 
-	break: make routine! compose/deep [[
+	break: make-routine pango "pango_break" compose/deep [
 		text [pointer]
 		length [int32]
 		analysis [pointer]
 		attrs [pointer]
 		attrs_len [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_break"]
+	]
 
-	find_paragraph_boundary: make routine! compose/deep [[
+	find_paragraph_boundary: make-routine pango "pango_find_paragraph_boundary" compose/deep [
 		text [pointer]
 		length [int32]
 		paragraph_delimiter_index [pointer]
 		next_paragraph_start [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_find_paragraph_boundary"]
+	]
 
-	get_log_attrs: make routine! compose/deep [[
+	get_log_attrs: make-routine pango "pango_get_log_attrs" compose/deep [
 		text [pointer]
 		length [int32]
 		level [int32]
@@ -1569,234 +1401,199 @@ make object! [
 		log_attrs [pointer]
 		attrs_len [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_get_log_attrs"]
+	]
 
-	fontset_get_type: make routine! compose/deep [[
+	fontset_get_type: make-routine pango "pango_fontset_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_fontset_get_type"]
+	]
 
-	fontset_get_font: make routine! compose/deep [[
+	fontset_get_font: make-routine pango "pango_fontset_get_font" compose/deep [
 		fontset [pointer]
 		wc [uint32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_fontset_get_font"]
+	]
 
-	fontset_get_metrics: make routine! compose/deep [[
+	fontset_get_metrics: make-routine pango "pango_fontset_get_metrics" compose/deep [
 		fontset [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_fontset_get_metrics"]
+	]
 
-	fontset_foreach: make routine! compose/deep [[
+	fontset_foreach: make-routine pango "pango_fontset_foreach" compose/deep [
 		fontset [pointer]
 		func [pointer]
 		data [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_fontset_foreach"]
+	]
 
-	font_map_get_type: make routine! compose/deep [[
+	font_map_get_type: make-routine pango "pango_font_map_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_font_map_get_type"]
+	]
 
-	font_map_create_context: make routine! compose/deep [[
+	font_map_create_context: make-routine pango "pango_font_map_create_context" compose/deep [
 		fontmap [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_map_create_context"]
+	]
 
-	font_map_load_font: make routine! compose/deep [[
+	font_map_load_font: make-routine pango "pango_font_map_load_font" compose/deep [
 		fontmap [pointer]
 		context [pointer]
 		desc [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_map_load_font"]
+	]
 
-	font_map_load_fontset: make routine! compose/deep [[
+	font_map_load_fontset: make-routine pango "pango_font_map_load_fontset" compose/deep [
 		fontmap [pointer]
 		context [pointer]
 		desc [pointer]
 		language [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_font_map_load_fontset"]
+	]
 
-	font_map_list_families: make routine! compose/deep [[
+	font_map_list_families: make-routine pango "pango_font_map_list_families" compose/deep [
 		fontmap [pointer]
 		families [pointer]
 		n_families [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_map_list_families"]
+	]
 
-	font_map_get_serial: make routine! compose/deep [[
+	font_map_get_serial: make-routine pango "pango_font_map_get_serial" compose/deep [
 		fontmap [pointer]
 		return: [uint32]
-		abi: default
-	] (pango) "pango_font_map_get_serial"]
+	]
 
-	font_map_changed: make routine! compose/deep [[
+	font_map_changed: make-routine pango "pango_font_map_changed" compose/deep [
 		fontmap [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_font_map_changed"]
+	]
 
-	context_get_type: make routine! compose/deep [[
+	context_get_type: make-routine pango "pango_context_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_context_get_type"]
+	]
 
-	context_new: make routine! compose/deep [[
+	context_new: make-routine pango "pango_context_new" compose/deep [
 		return: [pointer]
-		abi: default
-	] (pango) "pango_context_new"]
+	]
 
-	context_changed: make routine! compose/deep [[
+	context_changed: make-routine pango "pango_context_changed" compose/deep [
 		context [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_context_changed"]
+	]
 
-	context_set_font_map: make routine! compose/deep [[
+	context_set_font_map: make-routine pango "pango_context_set_font_map" compose/deep [
 		context [pointer]
 		font_map [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_context_set_font_map"]
+	]
 
-	context_get_font_map: make routine! compose/deep [[
+	context_get_font_map: make-routine pango "pango_context_get_font_map" compose/deep [
 		context [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_context_get_font_map"]
+	]
 
-	context_get_serial: make routine! compose/deep [[
+	context_get_serial: make-routine pango "pango_context_get_serial" compose/deep [
 		context [pointer]
 		return: [uint32]
-		abi: default
-	] (pango) "pango_context_get_serial"]
+	]
 
-	context_list_families: make routine! compose/deep [[
+	context_list_families: make-routine pango "pango_context_list_families" compose/deep [
 		context [pointer]
 		families [pointer]
 		n_families [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_context_list_families"]
+	]
 
-	context_load_font: make routine! compose/deep [[
+	context_load_font: make-routine pango "pango_context_load_font" compose/deep [
 		context [pointer]
 		desc [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_context_load_font"]
+	]
 
-	context_load_fontset: make routine! compose/deep [[
-		context [pointer]
-		desc [pointer]
-		language [pointer]
-		return: [pointer]
-		abi: default
-	] (pango) "pango_context_load_fontset"]
-
-	context_get_metrics: make routine! compose/deep [[
+	context_load_fontset: make-routine pango "pango_context_load_fontset" compose/deep [
 		context [pointer]
 		desc [pointer]
 		language [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_context_get_metrics"]
+	]
 
-	context_set_font_description: make routine! compose/deep [[
+	context_get_metrics: make-routine pango "pango_context_get_metrics" compose/deep [
+		context [pointer]
+		desc [pointer]
+		language [pointer]
+		return: [pointer]
+	]
+
+	context_set_font_description: make-routine pango "pango_context_set_font_description" compose/deep [
 		context [pointer]
 		desc [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_context_set_font_description"]
+	]
 
-	context_get_font_description: make routine! compose/deep [[
+	context_get_font_description: make-routine pango "pango_context_get_font_description" compose/deep [
 		context [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_context_get_font_description"]
+	]
 
-	context_get_language: make routine! compose/deep [[
+	context_get_language: make-routine pango "pango_context_get_language" compose/deep [
 		context [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_context_get_language"]
+	]
 
-	context_set_language: make routine! compose/deep [[
+	context_set_language: make-routine pango "pango_context_set_language" compose/deep [
 		context [pointer]
 		language [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_context_set_language"]
+	]
 
-	context_set_base_dir: make routine! compose/deep [[
+	context_set_base_dir: make-routine pango "pango_context_set_base_dir" compose/deep [
 		context [pointer]
 		direction [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_context_set_base_dir"]
+	]
 
-	context_get_base_dir: make routine! compose/deep [[
+	context_get_base_dir: make-routine pango "pango_context_get_base_dir" compose/deep [
 		context [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_context_get_base_dir"]
+	]
 
-	context_set_base_gravity: make routine! compose/deep [[
+	context_set_base_gravity: make-routine pango "pango_context_set_base_gravity" compose/deep [
 		context [pointer]
 		gravity [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_context_set_base_gravity"]
+	]
 
-	context_get_base_gravity: make routine! compose/deep [[
+	context_get_base_gravity: make-routine pango "pango_context_get_base_gravity" compose/deep [
 		context [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_context_get_base_gravity"]
+	]
 
-	context_get_gravity: make routine! compose/deep [[
+	context_get_gravity: make-routine pango "pango_context_get_gravity" compose/deep [
 		context [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_context_get_gravity"]
+	]
 
-	context_set_gravity_hint: make routine! compose/deep [[
+	context_set_gravity_hint: make-routine pango "pango_context_set_gravity_hint" compose/deep [
 		context [pointer]
 		hint [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_context_set_gravity_hint"]
+	]
 
-	context_get_gravity_hint: make routine! compose/deep [[
+	context_get_gravity_hint: make-routine pango "pango_context_get_gravity_hint" compose/deep [
 		context [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_context_get_gravity_hint"]
+	]
 
-	context_set_matrix: make routine! compose/deep [[
+	context_set_matrix: make-routine pango "pango_context_set_matrix" compose/deep [
 		context [pointer]
 		matrix [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_context_set_matrix"]
+	]
 
-	context_get_matrix: make routine! compose/deep [[
+	context_get_matrix: make-routine pango "pango_context_get_matrix" compose/deep [
 		context [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_context_get_matrix"]
+	]
 
-	itemize: make routine! compose/deep [[
+	itemize: make-routine pango "pango_itemize" compose/deep [
 		context [pointer]
 		text [pointer]
 		start_index [int32]
@@ -1804,10 +1601,9 @@ make object! [
 		attrs [pointer]
 		cached_iter [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_itemize"]
+	]
 
-	itemize_with_base_dir: make routine! compose/deep [[
+	itemize_with_base_dir: make-routine pango "pango_itemize_with_base_dir" compose/deep [
 		context [pointer]
 		base_dir [int32]
 		text [pointer]
@@ -1816,54 +1612,46 @@ make object! [
 		attrs [pointer]
 		cached_iter [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_itemize_with_base_dir"]
+	]
 
-	glyph_string_new: make routine! compose/deep [[
+	glyph_string_new: make-routine pango "pango_glyph_string_new" compose/deep [
 		return: [pointer]
-		abi: default
-	] (pango) "pango_glyph_string_new"]
+	]
 
-	glyph_string_set_size: make routine! compose/deep [[
+	glyph_string_set_size: make-routine pango "pango_glyph_string_set_size" compose/deep [
 		string [pointer]
 		new_len [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_glyph_string_set_size"]
+	]
 
-	glyph_string_get_type: make routine! compose/deep [[
+	glyph_string_get_type: make-routine pango "pango_glyph_string_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_glyph_string_get_type"]
+	]
 
-	glyph_string_copy: make routine! compose/deep [[
+	glyph_string_copy: make-routine pango "pango_glyph_string_copy" compose/deep [
 		string [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_glyph_string_copy"]
+	]
 
-	glyph_string_free: make routine! compose/deep [[
+	glyph_string_free: make-routine pango "pango_glyph_string_free" compose/deep [
 		string [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_glyph_string_free"]
+	]
 
-	glyph_string_extents: make routine! compose/deep [[
+	glyph_string_extents: make-routine pango "pango_glyph_string_extents" compose/deep [
 		glyphs [pointer]
 		font [pointer]
 		ink_rect [pointer]
 		logical_rect [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_glyph_string_extents"]
+	]
 
-	glyph_string_get_width: make routine! compose/deep [[
+	glyph_string_get_width: make-routine pango "pango_glyph_string_get_width" compose/deep [
 		glyphs [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_glyph_string_get_width"]
+	]
 
-	glyph_string_extents_range: make routine! compose/deep [[
+	glyph_string_extents_range: make-routine pango "pango_glyph_string_extents_range" compose/deep [
 		glyphs [pointer]
 		start [int32]
 		end [int32]
@@ -1871,20 +1659,18 @@ make object! [
 		ink_rect [pointer]
 		logical_rect [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_glyph_string_extents_range"]
+	]
 
-	glyph_string_get_logical_widths: make routine! compose/deep [[
+	glyph_string_get_logical_widths: make-routine pango "pango_glyph_string_get_logical_widths" compose/deep [
 		glyphs [pointer]
 		text [pointer]
 		length [int32]
 		embedding_level [int32]
 		logical_widths [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_glyph_string_get_logical_widths"]
+	]
 
-	glyph_string_index_to_x: make routine! compose/deep [[
+	glyph_string_index_to_x: make-routine pango "pango_glyph_string_index_to_x" compose/deep [
 		glyphs [pointer]
 		text [pointer]
 		length [int32]
@@ -1893,10 +1679,9 @@ make object! [
 		trailing [int32]
 		x_pos [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_glyph_string_index_to_x"]
+	]
 
-	glyph_string_x_to_index: make routine! compose/deep [[
+	glyph_string_x_to_index: make-routine pango "pango_glyph_string_x_to_index" compose/deep [
 		glyphs [pointer]
 		text [pointer]
 		length [int32]
@@ -1905,19 +1690,17 @@ make object! [
 		index_ [pointer]
 		trailing [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_glyph_string_x_to_index"]
+	]
 
-	shape: make routine! compose/deep [[
+	shape: make-routine pango "pango_shape" compose/deep [
 		text [pointer]
 		length [int32]
 		analysis [pointer]
 		glyphs [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_shape"]
+	]
 
-	shape_full: make routine! compose/deep [[
+	shape_full: make-routine pango "pango_shape_full" compose/deep [
 		item_text [pointer]
 		item_length [int32]
 		paragraph_text [pointer]
@@ -1925,582 +1708,492 @@ make object! [
 		analysis [pointer]
 		glyphs [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_shape_full"]
+	]
 
-	reorder_items: make routine! compose/deep [[
+	reorder_items: make-routine pango "pango_reorder_items" compose/deep [
 		logical_items [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_reorder_items"]
+	]
 
-	attr_type_get_type: make routine! compose/deep [[
+	attr_type_get_type: make-routine pango "pango_attr_type_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_attr_type_get_type"]
+	]
 
-	underline_get_type: make routine! compose/deep [[
+	underline_get_type: make-routine pango "pango_underline_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_underline_get_type"]
+	]
 
-	bidi_type_get_type: make routine! compose/deep [[
+	bidi_type_get_type: make-routine pango "pango_bidi_type_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_bidi_type_get_type"]
+	]
 
-	direction_get_type: make routine! compose/deep [[
+	direction_get_type: make-routine pango "pango_direction_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_direction_get_type"]
+	]
 
-	coverage_level_get_type: make routine! compose/deep [[
+	coverage_level_get_type: make-routine pango "pango_coverage_level_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_coverage_level_get_type"]
+	]
 
-	style_get_type: make routine! compose/deep [[
+	style_get_type: make-routine pango "pango_style_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_style_get_type"]
+	]
 
-	variant_get_type: make routine! compose/deep [[
+	variant_get_type: make-routine pango "pango_variant_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_variant_get_type"]
+	]
 
-	weight_get_type: make routine! compose/deep [[
+	weight_get_type: make-routine pango "pango_weight_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_weight_get_type"]
+	]
 
-	stretch_get_type: make routine! compose/deep [[
+	stretch_get_type: make-routine pango "pango_stretch_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_stretch_get_type"]
+	]
 
-	font_mask_get_type: make routine! compose/deep [[
+	font_mask_get_type: make-routine pango "pango_font_mask_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_font_mask_get_type"]
+	]
 
-	gravity_get_type: make routine! compose/deep [[
+	gravity_get_type: make-routine pango "pango_gravity_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_gravity_get_type"]
+	]
 
-	gravity_hint_get_type: make routine! compose/deep [[
+	gravity_hint_get_type: make-routine pango "pango_gravity_hint_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_gravity_hint_get_type"]
+	]
 
-	alignment_get_type: make routine! compose/deep [[
+	alignment_get_type: make-routine pango "pango_alignment_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_alignment_get_type"]
+	]
 
-	wrap_mode_get_type: make routine! compose/deep [[
+	wrap_mode_get_type: make-routine pango "pango_wrap_mode_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_wrap_mode_get_type"]
+	]
 
-	ellipsize_mode_get_type: make routine! compose/deep [[
+	ellipsize_mode_get_type: make-routine pango "pango_ellipsize_mode_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_ellipsize_mode_get_type"]
+	]
 
-	render_part_get_type: make routine! compose/deep [[
+	render_part_get_type: make-routine pango "pango_render_part_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_render_part_get_type"]
+	]
 
-	script_get_type: make routine! compose/deep [[
+	script_get_type: make-routine pango "pango_script_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_script_get_type"]
+	]
 
-	tab_align_get_type: make routine! compose/deep [[
+	tab_align_get_type: make-routine pango "pango_tab_align_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_tab_align_get_type"]
+	]
 
-	glyph_item_get_type: make routine! compose/deep [[
+	glyph_item_get_type: make-routine pango "pango_glyph_item_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_glyph_item_get_type"]
+	]
 
-	glyph_item_split: make routine! compose/deep [[
+	glyph_item_split: make-routine pango "pango_glyph_item_split" compose/deep [
 		orig [pointer]
 		text [pointer]
 		split_index [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_glyph_item_split"]
+	]
 
-	glyph_item_copy: make routine! compose/deep [[
+	glyph_item_copy: make-routine pango "pango_glyph_item_copy" compose/deep [
 		orig [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_glyph_item_copy"]
+	]
 
-	glyph_item_free: make routine! compose/deep [[
+	glyph_item_free: make-routine pango "pango_glyph_item_free" compose/deep [
 		glyph_item [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_glyph_item_free"]
+	]
 
-	glyph_item_apply_attrs: make routine! compose/deep [[
+	glyph_item_apply_attrs: make-routine pango "pango_glyph_item_apply_attrs" compose/deep [
 		glyph_item [pointer]
 		text [pointer]
 		list [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_glyph_item_apply_attrs"]
+	]
 
-	glyph_item_letter_space: make routine! compose/deep [[
+	glyph_item_letter_space: make-routine pango "pango_glyph_item_letter_space" compose/deep [
 		glyph_item [pointer]
 		text [pointer]
 		log_attrs [pointer]
 		letter_spacing [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_glyph_item_letter_space"]
+	]
 
-	glyph_item_get_logical_widths: make routine! compose/deep [[
+	glyph_item_get_logical_widths: make-routine pango "pango_glyph_item_get_logical_widths" compose/deep [
 		glyph_item [pointer]
 		text [pointer]
 		logical_widths [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_glyph_item_get_logical_widths"]
+	]
 
-	glyph_item_iter_get_type: make routine! compose/deep [[
+	glyph_item_iter_get_type: make-routine pango "pango_glyph_item_iter_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_glyph_item_iter_get_type"]
+	]
 
-	glyph_item_iter_copy: make routine! compose/deep [[
+	glyph_item_iter_copy: make-routine pango "pango_glyph_item_iter_copy" compose/deep [
 		orig [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_glyph_item_iter_copy"]
+	]
 
-	glyph_item_iter_free: make routine! compose/deep [[
+	glyph_item_iter_free: make-routine pango "pango_glyph_item_iter_free" compose/deep [
 		iter [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_glyph_item_iter_free"]
+	]
 
-	glyph_item_iter_init_start: make routine! compose/deep [[
+	glyph_item_iter_init_start: make-routine pango "pango_glyph_item_iter_init_start" compose/deep [
 		iter [pointer]
 		glyph_item [pointer]
 		text [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_glyph_item_iter_init_start"]
+	]
 
-	glyph_item_iter_init_end: make routine! compose/deep [[
+	glyph_item_iter_init_end: make-routine pango "pango_glyph_item_iter_init_end" compose/deep [
 		iter [pointer]
 		glyph_item [pointer]
 		text [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_glyph_item_iter_init_end"]
+	]
 
-	glyph_item_iter_next_cluster: make routine! compose/deep [[
+	glyph_item_iter_next_cluster: make-routine pango "pango_glyph_item_iter_next_cluster" compose/deep [
 		iter [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_glyph_item_iter_next_cluster"]
+	]
 
-	glyph_item_iter_prev_cluster: make routine! compose/deep [[
+	glyph_item_iter_prev_cluster: make-routine pango "pango_glyph_item_iter_prev_cluster" compose/deep [
 		iter [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_glyph_item_iter_prev_cluster"]
+	]
 
-	tab_array_new: make routine! compose/deep [[
+	tab_array_new: make-routine pango "pango_tab_array_new" compose/deep [
 		initial_size [int32]
 		positions_in_pixels [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_tab_array_new"]
+	]
 
-	tab_array_new_with_positions: make routine! compose/deep [[
+	tab_array_new_with_positions: make-routine pango "pango_tab_array_new_with_positions" compose/deep [
 		size [int32]
 		positions_in_pixels [int32]
 		first_alignment [int32]
 		first_position [int32]
 		...
 		return: [pointer]
-		abi: default
-	] (pango) "pango_tab_array_new_with_positions"]
+	]
 
-	tab_array_get_type: make routine! compose/deep [[
+	tab_array_get_type: make-routine pango "pango_tab_array_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_tab_array_get_type"]
+	]
 
-	tab_array_copy: make routine! compose/deep [[
+	tab_array_copy: make-routine pango "pango_tab_array_copy" compose/deep [
 		src [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_tab_array_copy"]
+	]
 
-	tab_array_free: make routine! compose/deep [[
+	tab_array_free: make-routine pango "pango_tab_array_free" compose/deep [
 		tab_array [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_tab_array_free"]
+	]
 
-	tab_array_get_size: make routine! compose/deep [[
+	tab_array_get_size: make-routine pango "pango_tab_array_get_size" compose/deep [
 		tab_array [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_tab_array_get_size"]
+	]
 
-	tab_array_resize: make routine! compose/deep [[
+	tab_array_resize: make-routine pango "pango_tab_array_resize" compose/deep [
 		tab_array [pointer]
 		new_size [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_tab_array_resize"]
+	]
 
-	tab_array_set_tab: make routine! compose/deep [[
+	tab_array_set_tab: make-routine pango "pango_tab_array_set_tab" compose/deep [
 		tab_array [pointer]
 		tab_index [int32]
 		alignment [int32]
 		location [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_tab_array_set_tab"]
+	]
 
-	tab_array_get_tab: make routine! compose/deep [[
+	tab_array_get_tab: make-routine pango "pango_tab_array_get_tab" compose/deep [
 		tab_array [pointer]
 		tab_index [int32]
 		alignment [pointer]
 		location [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_tab_array_get_tab"]
+	]
 
-	tab_array_get_tabs: make routine! compose/deep [[
+	tab_array_get_tabs: make-routine pango "pango_tab_array_get_tabs" compose/deep [
 		tab_array [pointer]
 		alignments [pointer]
 		locations [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_tab_array_get_tabs"]
+	]
 
-	tab_array_get_positions_in_pixels: make routine! compose/deep [[
+	tab_array_get_positions_in_pixels: make-routine pango "pango_tab_array_get_positions_in_pixels" compose/deep [
 		tab_array [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_tab_array_get_positions_in_pixels"]
+	]
 
-	layout_get_type: make routine! compose/deep [[
+	layout_get_type: make-routine pango "pango_layout_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_layout_get_type"]
+	]
 
-	layout_new: make routine! compose/deep [[
+	layout_new: make-routine pango "pango_layout_new" compose/deep [
 		context [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_new"]
+	]
 
-	layout_copy: make routine! compose/deep [[
+	layout_copy: make-routine pango "pango_layout_copy" compose/deep [
 		src [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_copy"]
+	]
 
-	layout_get_context: make routine! compose/deep [[
+	layout_get_context: make-routine pango "pango_layout_get_context" compose/deep [
 		layout [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_get_context"]
+	]
 
-	layout_set_attributes: make routine! compose/deep [[
+	layout_set_attributes: make-routine pango "pango_layout_set_attributes" compose/deep [
 		layout [pointer]
 		attrs [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_set_attributes"]
+	]
 
-	layout_get_attributes: make routine! compose/deep [[
+	layout_get_attributes: make-routine pango "pango_layout_get_attributes" compose/deep [
 		layout [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_get_attributes"]
+	]
 
-	layout_set_text: make routine! compose/deep [[
+	layout_set_text: make-routine pango "pango_layout_set_text" compose/deep [
 		layout [pointer]
 		text [pointer]
 		length [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_set_text"]
+	]
 
-	layout_get_text: make routine! compose/deep [[
+	layout_get_text: make-routine pango "pango_layout_get_text" compose/deep [
 		layout [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_get_text"]
+	]
 
-	layout_get_character_count: make routine! compose/deep [[
+	layout_get_character_count: make-routine pango "pango_layout_get_character_count" compose/deep [
 		layout [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_get_character_count"]
+	]
 
-	layout_set_markup: make routine! compose/deep [[
+	layout_set_markup: make-routine pango "pango_layout_set_markup" compose/deep [
 		layout [pointer]
 		markup [pointer]
 		length [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_set_markup"]
+	]
 
-	layout_set_markup_with_accel: make routine! compose/deep [[
+	layout_set_markup_with_accel: make-routine pango "pango_layout_set_markup_with_accel" compose/deep [
 		layout [pointer]
 		markup [pointer]
 		length [int32]
 		accel_marker [uint32]
 		accel_char [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_set_markup_with_accel"]
+	]
 
-	layout_set_font_description: make routine! compose/deep [[
+	layout_set_font_description: make-routine pango "pango_layout_set_font_description" compose/deep [
 		layout [pointer]
 		desc [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_set_font_description"]
+	]
 
-	layout_get_font_description: make routine! compose/deep [[
+	layout_get_font_description: make-routine pango "pango_layout_get_font_description" compose/deep [
 		layout [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_get_font_description"]
+	]
 
-	layout_set_width: make routine! compose/deep [[
+	layout_set_width: make-routine pango "pango_layout_set_width" compose/deep [
 		layout [pointer]
 		width [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_set_width"]
+	]
 
-	layout_get_width: make routine! compose/deep [[
+	layout_get_width: make-routine pango "pango_layout_get_width" compose/deep [
 		layout [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_get_width"]
+	]
 
-	layout_set_height: make routine! compose/deep [[
+	layout_set_height: make-routine pango "pango_layout_set_height" compose/deep [
 		layout [pointer]
 		height [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_set_height"]
+	]
 
-	layout_get_height: make routine! compose/deep [[
+	layout_get_height: make-routine pango "pango_layout_get_height" compose/deep [
 		layout [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_get_height"]
+	]
 
-	layout_set_wrap: make routine! compose/deep [[
+	layout_set_wrap: make-routine pango "pango_layout_set_wrap" compose/deep [
 		layout [pointer]
 		wrap [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_set_wrap"]
+	]
 
-	layout_get_wrap: make routine! compose/deep [[
+	layout_get_wrap: make-routine pango "pango_layout_get_wrap" compose/deep [
 		layout [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_get_wrap"]
+	]
 
-	layout_is_wrapped: make routine! compose/deep [[
+	layout_is_wrapped: make-routine pango "pango_layout_is_wrapped" compose/deep [
 		layout [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_is_wrapped"]
+	]
 
-	layout_set_indent: make routine! compose/deep [[
+	layout_set_indent: make-routine pango "pango_layout_set_indent" compose/deep [
 		layout [pointer]
 		indent [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_set_indent"]
+	]
 
-	layout_get_indent: make routine! compose/deep [[
+	layout_get_indent: make-routine pango "pango_layout_get_indent" compose/deep [
 		layout [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_get_indent"]
+	]
 
-	layout_set_spacing: make routine! compose/deep [[
+	layout_set_spacing: make-routine pango "pango_layout_set_spacing" compose/deep [
 		layout [pointer]
 		spacing [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_set_spacing"]
+	]
 
-	layout_get_spacing: make routine! compose/deep [[
+	layout_get_spacing: make-routine pango "pango_layout_get_spacing" compose/deep [
 		layout [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_get_spacing"]
+	]
 
-	layout_set_justify: make routine! compose/deep [[
+	layout_set_justify: make-routine pango "pango_layout_set_justify" compose/deep [
 		layout [pointer]
 		justify [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_set_justify"]
+	]
 
-	layout_get_justify: make routine! compose/deep [[
+	layout_get_justify: make-routine pango "pango_layout_get_justify" compose/deep [
 		layout [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_get_justify"]
+	]
 
-	layout_set_auto_dir: make routine! compose/deep [[
+	layout_set_auto_dir: make-routine pango "pango_layout_set_auto_dir" compose/deep [
 		layout [pointer]
 		auto_dir [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_set_auto_dir"]
+	]
 
-	layout_get_auto_dir: make routine! compose/deep [[
+	layout_get_auto_dir: make-routine pango "pango_layout_get_auto_dir" compose/deep [
 		layout [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_get_auto_dir"]
+	]
 
-	layout_set_alignment: make routine! compose/deep [[
+	layout_set_alignment: make-routine pango "pango_layout_set_alignment" compose/deep [
 		layout [pointer]
 		alignment [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_set_alignment"]
+	]
 
-	layout_get_alignment: make routine! compose/deep [[
+	layout_get_alignment: make-routine pango "pango_layout_get_alignment" compose/deep [
 		layout [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_get_alignment"]
+	]
 
-	layout_set_tabs: make routine! compose/deep [[
+	layout_set_tabs: make-routine pango "pango_layout_set_tabs" compose/deep [
 		layout [pointer]
 		tabs [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_set_tabs"]
+	]
 
-	layout_get_tabs: make routine! compose/deep [[
+	layout_get_tabs: make-routine pango "pango_layout_get_tabs" compose/deep [
 		layout [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_get_tabs"]
+	]
 
-	layout_set_single_paragraph_mode: make routine! compose/deep [[
+	layout_set_single_paragraph_mode: make-routine pango "pango_layout_set_single_paragraph_mode" compose/deep [
 		layout [pointer]
 		setting [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_set_single_paragraph_mode"]
+	]
 
-	layout_get_single_paragraph_mode: make routine! compose/deep [[
+	layout_get_single_paragraph_mode: make-routine pango "pango_layout_get_single_paragraph_mode" compose/deep [
 		layout [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_get_single_paragraph_mode"]
+	]
 
-	layout_set_ellipsize: make routine! compose/deep [[
+	layout_set_ellipsize: make-routine pango "pango_layout_set_ellipsize" compose/deep [
 		layout [pointer]
 		ellipsize [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_set_ellipsize"]
+	]
 
-	layout_get_ellipsize: make routine! compose/deep [[
+	layout_get_ellipsize: make-routine pango "pango_layout_get_ellipsize" compose/deep [
 		layout [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_get_ellipsize"]
+	]
 
-	layout_is_ellipsized: make routine! compose/deep [[
+	layout_is_ellipsized: make-routine pango "pango_layout_is_ellipsized" compose/deep [
 		layout [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_is_ellipsized"]
+	]
 
-	layout_get_unknown_glyphs_count: make routine! compose/deep [[
+	layout_get_unknown_glyphs_count: make-routine pango "pango_layout_get_unknown_glyphs_count" compose/deep [
 		layout [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_get_unknown_glyphs_count"]
+	]
 
-	layout_context_changed: make routine! compose/deep [[
+	layout_context_changed: make-routine pango "pango_layout_context_changed" compose/deep [
 		layout [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_context_changed"]
+	]
 
-	layout_get_serial: make routine! compose/deep [[
+	layout_get_serial: make-routine pango "pango_layout_get_serial" compose/deep [
 		layout [pointer]
 		return: [uint32]
-		abi: default
-	] (pango) "pango_layout_get_serial"]
+	]
 
-	layout_get_log_attrs: make routine! compose/deep [[
+	layout_get_log_attrs: make-routine pango "pango_layout_get_log_attrs" compose/deep [
 		layout [pointer]
 		attrs [pointer]
 		n_attrs [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_get_log_attrs"]
+	]
 
-	layout_get_log_attrs_readonly: make routine! compose/deep [[
+	layout_get_log_attrs_readonly: make-routine pango "pango_layout_get_log_attrs_readonly" compose/deep [
 		layout [pointer]
 		n_attrs [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_get_log_attrs_readonly"]
+	]
 
-	layout_index_to_pos: make routine! compose/deep [[
+	layout_index_to_pos: make-routine pango "pango_layout_index_to_pos" compose/deep [
 		layout [pointer]
 		index_ [int32]
 		pos [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_index_to_pos"]
+	]
 
-	layout_index_to_line_x: make routine! compose/deep [[
+	layout_index_to_line_x: make-routine pango "pango_layout_index_to_line_x" compose/deep [
 		layout [pointer]
 		index_ [int32]
 		trailing [int32]
 		line [pointer]
 		x_pos [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_index_to_line_x"]
+	]
 
-	layout_get_cursor_pos: make routine! compose/deep [[
+	layout_get_cursor_pos: make-routine pango "pango_layout_get_cursor_pos" compose/deep [
 		layout [pointer]
 		index_ [int32]
 		strong_pos [pointer]
 		weak_pos [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_get_cursor_pos"]
+	]
 
-	layout_move_cursor_visually: make routine! compose/deep [[
+	layout_move_cursor_visually: make-routine pango "pango_layout_move_cursor_visually" compose/deep [
 		layout [pointer]
 		strong [int32]
 		old_index [int32]
@@ -2509,336 +2202,289 @@ make object! [
 		new_index [pointer]
 		new_trailing [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_move_cursor_visually"]
+	]
 
-	layout_xy_to_index: make routine! compose/deep [[
+	layout_xy_to_index: make-routine pango "pango_layout_xy_to_index" compose/deep [
 		layout [pointer]
 		x [int32]
 		y [int32]
 		index_ [pointer]
 		trailing [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_xy_to_index"]
+	]
 
-	layout_get_extents: make routine! compose/deep [[
+	layout_get_extents: make-routine pango "pango_layout_get_extents" compose/deep [
 		layout [pointer]
 		ink_rect [pointer]
 		logical_rect [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_get_extents"]
+	]
 
-	layout_get_pixel_extents: make routine! compose/deep [[
+	layout_get_pixel_extents: make-routine pango "pango_layout_get_pixel_extents" compose/deep [
 		layout [pointer]
 		ink_rect [pointer]
 		logical_rect [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_get_pixel_extents"]
+	]
 
-	layout_get_size: make routine! compose/deep [[
+	layout_get_size: make-routine pango "pango_layout_get_size" compose/deep [
 		layout [pointer]
 		width [pointer]
 		height [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_get_size"]
+	]
 
-	layout_get_pixel_size: make routine! compose/deep [[
+	layout_get_pixel_size: make-routine pango "pango_layout_get_pixel_size" compose/deep [
 		layout [pointer]
 		width [pointer]
 		height [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_get_pixel_size"]
+	]
 
-	layout_get_baseline: make routine! compose/deep [[
+	layout_get_baseline: make-routine pango "pango_layout_get_baseline" compose/deep [
 		layout [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_get_baseline"]
+	]
 
-	layout_get_line_count: make routine! compose/deep [[
+	layout_get_line_count: make-routine pango "pango_layout_get_line_count" compose/deep [
 		layout [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_get_line_count"]
+	]
 
-	layout_get_line: make routine! compose/deep [[
+	layout_get_line: make-routine pango "pango_layout_get_line" compose/deep [
 		layout [pointer]
 		line [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_get_line"]
+	]
 
-	layout_get_line_readonly: make routine! compose/deep [[
+	layout_get_line_readonly: make-routine pango "pango_layout_get_line_readonly" compose/deep [
 		layout [pointer]
 		line [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_get_line_readonly"]
+	]
 
-	layout_get_lines: make routine! compose/deep [[
+	layout_get_lines: make-routine pango "pango_layout_get_lines" compose/deep [
 		layout [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_get_lines"]
+	]
 
-	layout_get_lines_readonly: make routine! compose/deep [[
+	layout_get_lines_readonly: make-routine pango "pango_layout_get_lines_readonly" compose/deep [
 		layout [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_get_lines_readonly"]
+	]
 
-	layout_line_get_type: make routine! compose/deep [[
+	layout_line_get_type: make-routine pango "pango_layout_line_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_layout_line_get_type"]
+	]
 
-	layout_line_ref: make routine! compose/deep [[
+	layout_line_ref: make-routine pango "pango_layout_line_ref" compose/deep [
 		line [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_line_ref"]
+	]
 
-	layout_line_unref: make routine! compose/deep [[
+	layout_line_unref: make-routine pango "pango_layout_line_unref" compose/deep [
 		line [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_line_unref"]
+	]
 
-	layout_line_x_to_index: make routine! compose/deep [[
+	layout_line_x_to_index: make-routine pango "pango_layout_line_x_to_index" compose/deep [
 		line [pointer]
 		x_pos [int32]
 		index_ [pointer]
 		trailing [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_line_x_to_index"]
+	]
 
-	layout_line_index_to_x: make routine! compose/deep [[
+	layout_line_index_to_x: make-routine pango "pango_layout_line_index_to_x" compose/deep [
 		line [pointer]
 		index_ [int32]
 		trailing [int32]
 		x_pos [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_line_index_to_x"]
+	]
 
-	layout_line_get_x_ranges: make routine! compose/deep [[
+	layout_line_get_x_ranges: make-routine pango "pango_layout_line_get_x_ranges" compose/deep [
 		line [pointer]
 		start_index [int32]
 		end_index [int32]
 		ranges [pointer]
 		n_ranges [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_line_get_x_ranges"]
+	]
 
-	layout_line_get_extents: make routine! compose/deep [[
+	layout_line_get_extents: make-routine pango "pango_layout_line_get_extents" compose/deep [
 		line [pointer]
 		ink_rect [pointer]
 		logical_rect [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_line_get_extents"]
+	]
 
-	layout_line_get_pixel_extents: make routine! compose/deep [[
+	layout_line_get_pixel_extents: make-routine pango "pango_layout_line_get_pixel_extents" compose/deep [
 		layout_line [pointer]
 		ink_rect [pointer]
 		logical_rect [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_line_get_pixel_extents"]
+	]
 
-	layout_iter_get_type: make routine! compose/deep [[
+	layout_iter_get_type: make-routine pango "pango_layout_iter_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_layout_iter_get_type"]
+	]
 
-	layout_get_iter: make routine! compose/deep [[
+	layout_get_iter: make-routine pango "pango_layout_get_iter" compose/deep [
 		layout [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_get_iter"]
+	]
 
-	layout_iter_copy: make routine! compose/deep [[
+	layout_iter_copy: make-routine pango "pango_layout_iter_copy" compose/deep [
 		iter [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_iter_copy"]
+	]
 
-	layout_iter_free: make routine! compose/deep [[
+	layout_iter_free: make-routine pango "pango_layout_iter_free" compose/deep [
 		iter [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_iter_free"]
+	]
 
-	layout_iter_get_index: make routine! compose/deep [[
+	layout_iter_get_index: make-routine pango "pango_layout_iter_get_index" compose/deep [
 		iter [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_iter_get_index"]
+	]
 
-	layout_iter_get_run: make routine! compose/deep [[
+	layout_iter_get_run: make-routine pango "pango_layout_iter_get_run" compose/deep [
 		iter [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_iter_get_run"]
+	]
 
-	layout_iter_get_run_readonly: make routine! compose/deep [[
+	layout_iter_get_run_readonly: make-routine pango "pango_layout_iter_get_run_readonly" compose/deep [
 		iter [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_iter_get_run_readonly"]
+	]
 
-	layout_iter_get_line: make routine! compose/deep [[
+	layout_iter_get_line: make-routine pango "pango_layout_iter_get_line" compose/deep [
 		iter [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_iter_get_line"]
+	]
 
-	layout_iter_get_line_readonly: make routine! compose/deep [[
+	layout_iter_get_line_readonly: make-routine pango "pango_layout_iter_get_line_readonly" compose/deep [
 		iter [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_iter_get_line_readonly"]
+	]
 
-	layout_iter_at_last_line: make routine! compose/deep [[
+	layout_iter_at_last_line: make-routine pango "pango_layout_iter_at_last_line" compose/deep [
 		iter [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_iter_at_last_line"]
+	]
 
-	layout_iter_get_layout: make routine! compose/deep [[
+	layout_iter_get_layout: make-routine pango "pango_layout_iter_get_layout" compose/deep [
 		iter [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_layout_iter_get_layout"]
+	]
 
-	layout_iter_next_char: make routine! compose/deep [[
+	layout_iter_next_char: make-routine pango "pango_layout_iter_next_char" compose/deep [
 		iter [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_iter_next_char"]
+	]
 
-	layout_iter_next_cluster: make routine! compose/deep [[
+	layout_iter_next_cluster: make-routine pango "pango_layout_iter_next_cluster" compose/deep [
 		iter [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_iter_next_cluster"]
+	]
 
-	layout_iter_next_run: make routine! compose/deep [[
+	layout_iter_next_run: make-routine pango "pango_layout_iter_next_run" compose/deep [
 		iter [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_iter_next_run"]
+	]
 
-	layout_iter_next_line: make routine! compose/deep [[
+	layout_iter_next_line: make-routine pango "pango_layout_iter_next_line" compose/deep [
 		iter [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_iter_next_line"]
+	]
 
-	layout_iter_get_char_extents: make routine! compose/deep [[
+	layout_iter_get_char_extents: make-routine pango "pango_layout_iter_get_char_extents" compose/deep [
 		iter [pointer]
 		logical_rect [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_iter_get_char_extents"]
+	]
 
-	layout_iter_get_cluster_extents: make routine! compose/deep [[
+	layout_iter_get_cluster_extents: make-routine pango "pango_layout_iter_get_cluster_extents" compose/deep [
 		iter [pointer]
 		ink_rect [pointer]
 		logical_rect [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_iter_get_cluster_extents"]
+	]
 
-	layout_iter_get_run_extents: make routine! compose/deep [[
+	layout_iter_get_run_extents: make-routine pango "pango_layout_iter_get_run_extents" compose/deep [
 		iter [pointer]
 		ink_rect [pointer]
 		logical_rect [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_iter_get_run_extents"]
+	]
 
-	layout_iter_get_line_extents: make routine! compose/deep [[
+	layout_iter_get_line_extents: make-routine pango "pango_layout_iter_get_line_extents" compose/deep [
 		iter [pointer]
 		ink_rect [pointer]
 		logical_rect [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_iter_get_line_extents"]
+	]
 
-	layout_iter_get_line_yrange: make routine! compose/deep [[
+	layout_iter_get_line_yrange: make-routine pango "pango_layout_iter_get_line_yrange" compose/deep [
 		iter [pointer]
 		y0_ [pointer]
 		y1_ [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_iter_get_line_yrange"]
+	]
 
-	layout_iter_get_layout_extents: make routine! compose/deep [[
+	layout_iter_get_layout_extents: make-routine pango "pango_layout_iter_get_layout_extents" compose/deep [
 		iter [pointer]
 		ink_rect [pointer]
 		logical_rect [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_layout_iter_get_layout_extents"]
+	]
 
-	layout_iter_get_baseline: make routine! compose/deep [[
+	layout_iter_get_baseline: make-routine pango "pango_layout_iter_get_baseline" compose/deep [
 		iter [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_layout_iter_get_baseline"]
+	]
 
-	renderer_get_type: make routine! compose/deep [[
+	renderer_get_type: make-routine pango "pango_renderer_get_type" compose/deep [
 		return: [uint64]
-		abi: default
-	] (pango) "pango_renderer_get_type"]
+	]
 
-	renderer_draw_layout: make routine! compose/deep [[
+	renderer_draw_layout: make-routine pango "pango_renderer_draw_layout" compose/deep [
 		renderer [pointer]
 		layout [pointer]
 		x [int32]
 		y [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_renderer_draw_layout"]
+	]
 
-	renderer_draw_layout_line: make routine! compose/deep [[
+	renderer_draw_layout_line: make-routine pango "pango_renderer_draw_layout_line" compose/deep [
 		renderer [pointer]
 		line [pointer]
 		x [int32]
 		y [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_renderer_draw_layout_line"]
+	]
 
-	renderer_draw_glyphs: make routine! compose/deep [[
+	renderer_draw_glyphs: make-routine pango "pango_renderer_draw_glyphs" compose/deep [
 		renderer [pointer]
 		font [pointer]
 		glyphs [pointer]
 		x [int32]
 		y [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_renderer_draw_glyphs"]
+	]
 
-	renderer_draw_glyph_item: make routine! compose/deep [[
+	renderer_draw_glyph_item: make-routine pango "pango_renderer_draw_glyph_item" compose/deep [
 		renderer [pointer]
 		text [pointer]
 		glyph_item [pointer]
 		x [int32]
 		y [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_renderer_draw_glyph_item"]
+	]
 
-	renderer_draw_rectangle: make routine! compose/deep [[
+	renderer_draw_rectangle: make-routine pango "pango_renderer_draw_rectangle" compose/deep [
 		renderer [pointer]
 		part [int32]
 		x [int32]
@@ -2846,20 +2492,18 @@ make object! [
 		width [int32]
 		height [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_renderer_draw_rectangle"]
+	]
 
-	renderer_draw_error_underline: make routine! compose/deep [[
+	renderer_draw_error_underline: make-routine pango "pango_renderer_draw_error_underline" compose/deep [
 		renderer [pointer]
 		x [int32]
 		y [int32]
 		width [int32]
 		height [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_renderer_draw_error_underline"]
+	]
 
-	renderer_draw_trapezoid: make routine! compose/deep [[
+	renderer_draw_trapezoid: make-routine pango "pango_renderer_draw_trapezoid" compose/deep [
 		renderer [pointer]
 		part [int32]
 		y1_ [double]
@@ -2869,203 +2513,174 @@ make object! [
 		x12 [double]
 		x22 [double]
 		return: [void]
-		abi: default
-	] (pango) "pango_renderer_draw_trapezoid"]
+	]
 
-	renderer_draw_glyph: make routine! compose/deep [[
+	renderer_draw_glyph: make-routine pango "pango_renderer_draw_glyph" compose/deep [
 		renderer [pointer]
 		font [pointer]
 		glyph [uint32]
 		x [double]
 		y [double]
 		return: [void]
-		abi: default
-	] (pango) "pango_renderer_draw_glyph"]
+	]
 
-	renderer_activate: make routine! compose/deep [[
+	renderer_activate: make-routine pango "pango_renderer_activate" compose/deep [
 		renderer [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_renderer_activate"]
+	]
 
-	renderer_deactivate: make routine! compose/deep [[
+	renderer_deactivate: make-routine pango "pango_renderer_deactivate" compose/deep [
 		renderer [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_renderer_deactivate"]
+	]
 
-	renderer_part_changed: make routine! compose/deep [[
+	renderer_part_changed: make-routine pango "pango_renderer_part_changed" compose/deep [
 		renderer [pointer]
 		part [int32]
 		return: [void]
-		abi: default
-	] (pango) "pango_renderer_part_changed"]
+	]
 
-	renderer_set_color: make routine! compose/deep [[
+	renderer_set_color: make-routine pango "pango_renderer_set_color" compose/deep [
 		renderer [pointer]
 		part [int32]
 		color [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_renderer_set_color"]
+	]
 
-	renderer_get_color: make routine! compose/deep [[
+	renderer_get_color: make-routine pango "pango_renderer_get_color" compose/deep [
 		renderer [pointer]
 		part [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_renderer_get_color"]
+	]
 
-	renderer_set_matrix: make routine! compose/deep [[
+	renderer_set_matrix: make-routine pango "pango_renderer_set_matrix" compose/deep [
 		renderer [pointer]
 		matrix [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_renderer_set_matrix"]
+	]
 
-	renderer_get_matrix: make routine! compose/deep [[
+	renderer_get_matrix: make-routine pango "pango_renderer_get_matrix" compose/deep [
 		renderer [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_renderer_get_matrix"]
+	]
 
-	renderer_get_layout: make routine! compose/deep [[
+	renderer_get_layout: make-routine pango "pango_renderer_get_layout" compose/deep [
 		renderer [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_renderer_get_layout"]
+	]
 
-	renderer_get_layout_line: make routine! compose/deep [[
+	renderer_get_layout_line: make-routine pango "pango_renderer_get_layout_line" compose/deep [
 		renderer [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_renderer_get_layout_line"]
+	]
 
-	split_file_list: make routine! compose/deep [[
+	split_file_list: make-routine pango "pango_split_file_list" compose/deep [
 		str [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_split_file_list"]
+	]
 
-	trim_string: make routine! compose/deep [[
+	trim_string: make-routine pango "pango_trim_string" compose/deep [
 		str [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_trim_string"]
+	]
 
-	read_line: make routine! compose/deep [[
+	read_line: make-routine pango "pango_read_line" compose/deep [
 		stream [pointer]
 		str [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_read_line"]
+	]
 
-	skip_space: make routine! compose/deep [[
+	skip_space: make-routine pango "pango_skip_space" compose/deep [
 		pos [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_skip_space"]
+	]
 
-	scan_word: make routine! compose/deep [[
+	scan_word: make-routine pango "pango_scan_word" compose/deep [
 		pos [pointer]
 		out [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_scan_word"]
+	]
 
-	scan_string: make routine! compose/deep [[
+	scan_string: make-routine pango "pango_scan_string" compose/deep [
 		pos [pointer]
 		out [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_scan_string"]
+	]
 
-	scan_int: make routine! compose/deep [[
+	scan_int: make-routine pango "pango_scan_int" compose/deep [
 		pos [pointer]
 		out [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_scan_int"]
+	]
 
-	parse_enum: make routine! compose/deep [[
+	parse_enum: make-routine pango "pango_parse_enum" compose/deep [
 		type [uint64]
 		str [pointer]
 		value [pointer]
 		warn [int32]
 		possible_values [pointer]
 		return: [int32]
-		abi: default
-	] (pango) "pango_parse_enum"]
+	]
 
-	parse_style: make routine! compose/deep [[
+	parse_style: make-routine pango "pango_parse_style" compose/deep [
 		str [pointer]
 		style [pointer]
 		warn [int32]
 		return: [int32]
-		abi: default
-	] (pango) "pango_parse_style"]
+	]
 
-	parse_variant: make routine! compose/deep [[
+	parse_variant: make-routine pango "pango_parse_variant" compose/deep [
 		str [pointer]
 		variant [pointer]
 		warn [int32]
 		return: [int32]
-		abi: default
-	] (pango) "pango_parse_variant"]
+	]
 
-	parse_weight: make routine! compose/deep [[
+	parse_weight: make-routine pango "pango_parse_weight" compose/deep [
 		str [pointer]
 		weight [pointer]
 		warn [int32]
 		return: [int32]
-		abi: default
-	] (pango) "pango_parse_weight"]
+	]
 
-	parse_stretch: make routine! compose/deep [[
+	parse_stretch: make-routine pango "pango_parse_stretch" compose/deep [
 		str [pointer]
 		stretch [pointer]
 		warn [int32]
 		return: [int32]
-		abi: default
-	] (pango) "pango_parse_stretch"]
+	]
 
-	quantize_line_geometry: make routine! compose/deep [[
+	quantize_line_geometry: make-routine pango "pango_quantize_line_geometry" compose/deep [
 		thickness [pointer]
 		position [pointer]
 		return: [void]
-		abi: default
-	] (pango) "pango_quantize_line_geometry"]
+	]
 
-	log2vis_get_embedding_levels: make routine! compose/deep [[
+	log2vis_get_embedding_levels: make-routine pango "pango_log2vis_get_embedding_levels" compose/deep [
 		text [pointer]
 		length [int32]
 		pbase_dir [pointer]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_log2vis_get_embedding_levels"]
+	]
 
-	is_zero_width: make routine! compose/deep [[
+	is_zero_width: make-routine pango "pango_is_zero_width" compose/deep [
 		ch [uint32]
 		return: [int32]
-		abi: default
-	] (pango) "pango_is_zero_width"]
+	]
 
-	version: make routine! compose/deep [[
+	version: make-routine pango "pango_version" compose/deep [
 		return: [int32]
-		abi: default
-	] (pango) "pango_version"]
+	]
 
-	version_string: make routine! compose/deep [[
+	version_string: make-routine pango "pango_version_string" compose/deep [
 		return: [pointer]
-		abi: default
-	] (pango) "pango_version_string"]
+	]
 
-	version_check: make routine! compose/deep [[
+	version_check: make-routine pango "pango_version_check" compose/deep [
 		required_major [int32]
 		required_minor [int32]
 		required_micro [int32]
 		return: [pointer]
-		abi: default
-	] (pango) "pango_version_check"]
+	]
 
 ]
