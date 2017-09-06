@@ -29,7 +29,7 @@ switch first system/platform [
 ]
 
 debug: :comment
-;debug: :print
+debug: :print
 
 strlen: make routine! compose [
 	[
@@ -157,6 +157,9 @@ c-2-reb-type: func [
 		]
 		(clang/enum clang/CXTypeKind 'CXType_Pointer) [
 			"pointer"
+		]
+		(clang/enum clang/CXTypeKind 'CXType_Bool) [
+			"uint8"
 		]
 		(clang/enum clang/CXTypeKind 'CXType_ConstantArray) [
 			"pointer"
@@ -342,7 +345,9 @@ write-a-rebol-func: func [
 		][
 			skip c-func/name (length? ns c-func)
 		]
-		": make routine! compose/deep [[^/"
+		": make-routine/abi "
+        either none? c-func/lib [to string! lib][c-func/lib]
+        " ^"" extern-name "^" [^/"
 	]
 
 	i: 0
@@ -360,12 +365,13 @@ write-a-rebol-func: func [
 	append ret rejoin ["return: [" write-a-c-type reduce [c-func/return-type c-func/return-struct?] "]^/"]
 
 	loop 1 + indent [append ret "^-"]
+	loop indent [append ret "^-"]
+	append ret rejoin ["]"]
 	append ret rejoin [
-		"abi: " write-a-rebol-func-calling-conv c-func/abi "^/"
+		write-a-rebol-func-calling-conv c-func/abi "^/"
 	]
 
-	loop indent [append ret "^-"]
-	append ret rejoin ["] (" either none? c-func/lib [to string! lib][c-func/lib] ") ^"" extern-name "^"]^/"]
+    ret
 ]
 
 write-a-c-type: func [

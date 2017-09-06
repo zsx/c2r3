@@ -59,7 +59,7 @@ do-builder: function [
 		gtk/builder_add_from_resource builder-builder (addr-of s-demo) (addr-of error)
 
 		unless zero? error/data [
-			error-val: make glib/GError compose/deep [
+			error-val: make-similar-struct glib/GError compose/deep [
 				[raw-memory: (error/data)]
 			]
 			s-format: r2utf8-string "%s"
@@ -74,16 +74,16 @@ do-builder: function [
 		s-about-activate: r2utf8-string "about_activate"
 		s-help-activate: r2utf8-string "help_activate"
 		s-quit-activate: r2utf8-string "quit_activate"
-		gtk/builder_add_callback_symbols reduce [
+		gtk/builder_add_callback_symbols
 			builder-builder
 			(addr-of s-about-activate)
-			(addr-of about-activate)
+			(addr-of :about-activate)
 			(addr-of s-help-activate) 	[pointer]
-			(addr-of help-activate)		[pointer]
+			(addr-of :help-activate)		[pointer]
 			(addr-of s-quit-activate) 	[pointer]
-			(addr-of quit-activate)		[pointer]
+			(addr-of :quit-activate)		[pointer]
 			0	[pointer]
-		]
+		|
 
 		gtk/builder_connect_signals builder-builder 0
 
@@ -97,7 +97,7 @@ do-builder: function [
 		;glib/signal_connect builder-window (addr-of s-destroy)
 		;	(addr-of :gtk/widget_destroyed) (addr-of window-addr)
 		glib/signal_connect builder-window (addr-of s-destroy)
-			(addr-of quit-activate) (addr-of window-addr)
+			(addr-of :quit-activate) (addr-of window-addr)
 
 		s-toolbar1: r2utf8-string "toolbar1"
 		toolbar: gtk/builder_get_object builder-builder (addr-of s-toolbar1)

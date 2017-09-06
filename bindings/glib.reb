@@ -25571,7 +25571,7 @@ make object! [
 		type [integer!]
 	][
 		if zero? obj [return false]
-		inst: make GTypeInstance compose/deep [
+		inst: make-similar-struct GTypeInstance compose/deep [
 			[raw-memory: (obj)]
 		]
 
@@ -25579,7 +25579,7 @@ make object! [
 			return not zero? type_check_instance_is_a obj type
 		]
 
-		class: make GTypeClass compose/deep [
+		class: make-similar-struct GTypeClass compose/deep [
 			[raw-memory: (inst/g_class)]
 		]
 		if class/g_type = type [return true]

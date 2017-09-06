@@ -9,7 +9,7 @@ css-accordion-window: make struct! compose [
 
 apply-css-cb: 0
 
-apply-css: function [
+apply-css: procedure [
 	widget [integer!]
 	provider [integer!]
     <with>
@@ -17,9 +17,9 @@ apply-css: function [
 ][
 	maxuint: to integer! #FFFFFFFF
 	gtk/style_context_add_provider (gtk/widget_get_style_context widget) provider maxuint
-	assert [not zero? apply-css-cb]
+	assert [function? :apply-css-cb]
 	if glib/type-check-instance-type widget gtk/container_get_type [
-		gtk/container_forall widget (addr-of apply-css-cb) provider
+		gtk/container_forall widget (addr-of :apply-css-cb) provider
 	]
 ]
 
@@ -37,7 +37,7 @@ do-css-accordion: function [
 		window: css-accordion-window/win: gtk/window_new gtk/GtkWindowType/GTK_WINDOW_TOPLEVEL
 		gtk/window_set_transient_for window do-widget
 		gtk/window_set_default_size window 600 300
-		s-destroy: join to binary! "destroy" #{00}
+		s-destroy: join-of to binary! "destroy" #{00}
 		glib/signal_connect window s-destroy (addr-of :gtk/widget_destroyed) (addr-of css-accordion-window)
 
 		container: gtk/box_new gtk/GtkOrientation/GTK_ORIENTATION_HORIZONTAL 0
@@ -45,33 +45,33 @@ do-css-accordion: function [
 		gtk/widget_set_valign container gtk/GtkAlign/GTK_ALIGN_CENTER
 		gtk/container_add window container
 
-		s-this: join to binary! "This" #{00}
+		s-this: join-of to binary! "This" #{00}
 		child: gtk/button_new_with_label s-this
 		gtk/container_add container child
 
-		s-is: join to binary! "Is" #{00}
+		s-is: join-of to binary! "Is" #{00}
 		child: gtk/button_new_with_label s-is
 		gtk/container_add container child
 
-		s-a: join to binary! "A" #{00}
+		s-a: join-of to binary! "A" #{00}
 		child: gtk/button_new_with_label s-a
 		gtk/container_add container child
 
-		s-CSS: join to binary! "CSS" #{00}
+		s-CSS: join-of to binary! "CSS" #{00}
 		child: gtk/button_new_with_label s-CSS
 		gtk/container_add container child
 
-		s-Accordion: join to binary! "Accordion" #{00}
+		s-Accordion: join-of to binary! "Accordion" #{00}
 		child: gtk/button_new_with_label s-Accordion
 		gtk/container_add container child
 
-		s-smile: join to binary! ":-)" #{00}
+		s-smile: join-of to binary! ":-)" #{00}
 		child: gtk/button_new_with_label s-smile
 		gtk/container_add container child
 
 		provider: gtk/css_provider_new
 
-		s-css-file: join to binary! "/css_accordion/css_accordion.css" #{00}
+		s-css-file: join-of to binary! "/css_accordion/css_accordion.css" #{00}
 		bytes: glib/resources_lookup_data s-css-file 0 0
 		debug ["bytes:" bytes]
 		data-size: make struct! [i [int64]]

@@ -48,7 +48,8 @@ processor-brand: func [
 ][
 	brand: copy ""
 
-	for-each i [#{02000080} #{03000080} #{04000080}] [
+	;for-each i [#{02000080} #{03000080} #{04000080}] [
+	foreach i [#{02000080} #{03000080} #{04000080}] [
 		eax: copy i
 		ebx: copy #{00000000}
 		ecx: copy #{00000000}

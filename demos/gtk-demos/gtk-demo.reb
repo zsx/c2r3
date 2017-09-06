@@ -62,9 +62,7 @@ demos: reduce [
 		name: "builder"
 		title: "Builder"
 		filename: "builder.reb"
-		demo-func: make struct! [
-			f: [rebval] :do-builder
-		]
+		demo-func: alloc-value-pointer :do-builder
 		children: _
 	]
 	context [
@@ -77,9 +75,7 @@ demos: reduce [
 				name: "css_accordion"
 				title: "CSS Accordion"
 				filename: "css-accordion.reb"
-				demo-func: make struct! [
-					f: [rebval] :do-css-accordion
-				]
+				demo-func: alloc-value-pointer :do-css-accordion
 				children: _
 			]
 		]
@@ -205,13 +201,10 @@ run-example-for-now: procedure [
 	|
 	debug ["tree_model_get done"]
 
-	;debug ["func-addr/ptr:" func-addr/ptr]
+	debug ["func-addr/ptr:" func-addr/ptr]
 
 	unless zero? func-addr/ptr [
-		f: make struct! compose/deep [
-			[raw-memory: (func-addr/ptr)]
-			f [rebval]
-		]
+		f: get-at-pointer func-addr/ptr
 
 		gtk/tree_store_set
 			model
@@ -225,14 +218,14 @@ run-example-for-now: procedure [
 			-1 [int32]
 		|
 
-		;debug ["f/f:" mold :f/f]
-		demo: f/f window
+		debug ["f:" mold :f]
+		demo: f window
 		;debug ["demo:" mold demo]
 
 		unless zero? demo [
-			cbdata: make-similar-struct callback-data reduce/no-set [
-				model: model
-				path: gtk/tree_model_get_path model iter
+			cbdata: make-similar-struct callback-data compose [
+				model: (model)
+				path: (gtk/tree_model_get_path model iter)
 			]
 			append global-mem-pool cbdata
 
@@ -383,7 +376,7 @@ populate-model: function [
 			either blank? :demo/demo-func [
 				param-demo-func: 0
 			][
-				param-demo-func: addr-of :demo/demo-func
+				param-demo-func: :demo/demo-func
 			]
 			title: r2utf8-string demo/title
 			iter: make-similar-struct gtk/GtkTreeIter []
@@ -423,7 +416,7 @@ populate-model: function [
 						either blank? :child/demo-func [
 							param-demo-func: 0
 						][
-							param-demo-func: addr-of :child/demo-func
+							param-demo-func: child/demo-func
 						]
 						child-iter: make-similar-struct gtk/GtkTreeIter []
 						gtk/tree_store_append model (addr-of child-iter) (addr-of iter)
